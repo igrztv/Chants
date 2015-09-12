@@ -1,0 +1,7 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <div id="css-back-button-wrapper">
+        <form method="post" action="">
+            <input type="submit" value="Back" id="css-back-button" class="js-main-screen"/>
+        </form>
+    </div>
+</fest:template>

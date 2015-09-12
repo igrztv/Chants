@@ -1,0 +1,12 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <fest:script>json = {title: 'Login' };</fest:script>
+    <fest:include src="./base.xml" context="json"/>
+    <div id="css-login-form-wrapper">
+        <form method="post" action="">
+            <input type="text" value="Email" id="css-email-field"/>
+            <input type="text" value="Password" id="css-password-field"/>
+            <input type="submit" value="Submit" id="css-submit-button" class="js-submit-login"/>
+        </form>
+    </div>
+    <fest:include src="./backbutton.xml"/>
+</fest:template>
