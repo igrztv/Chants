@@ -22,7 +22,7 @@
 }
 
 .css-header {
-    background-color: #1e88e5; 
+    background-color: #1976d2; 
     color: #eceff1;
     height: 55px;
     padding: 30px;

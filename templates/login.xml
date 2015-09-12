@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <fest:script>var json = {title: 'Login' };</fest:script>
     <fest:include src="./base.xml" context="json"/>
-    <div id="css-login-form-wrapper">
+    <div id="css-login-form-wrapper" class="css-base-form-wrapper">
         <form method="post" action="">
             <input type="text" value="Email" id="css-email-field"/>
             <input type="text" value="Password" id="css-password-field"/>
