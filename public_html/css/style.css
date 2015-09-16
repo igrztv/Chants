@@ -6,8 +6,8 @@
 .css-main-content-outer-wrapper {
     display: table;
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 95%;
+    width: 95%;
 }
 
 .css-main-content-middle-wrapper {
@@ -35,16 +35,28 @@
 }
 
 .css-base-form-wrapper input {
-    border-radius: 0;
     border: 4px solid #1565c0;
+	border-radius: 4px;
     display: block;
     margin-bottom: 20px;
     width: 800px;
     height: 80px;
 }
 
+.css-base-form-wrapper input[type="password"] {
+    color: #546e7a;
+	padding: 0px 5px;
+    width: 782px;
+    height: 62px;
+	font-size: 40px;
+}
+
 .css-base-form-wrapper input[type="text"] {
     color: #546e7a;
+	padding: 0px 5px;
+    width: 782px;
+    height: 62px;
+	font-size: 40px;
 }
 
 .css-base-form-wrapper input[type="submit"] {

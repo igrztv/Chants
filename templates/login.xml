@@ -3,9 +3,9 @@
     <fest:include src="./base.xml" context="json"/>
     <div id="css-login-form-wrapper" class="css-base-form-wrapper">
         <form method="post" action="">
-            <input type="text" value="Email" id="css-email-field"/>
-            <input type="text" value="Password" id="css-password-field"/>
-            <input type="submit" value="Submit" id="css-submit-button" class="js-submit-login"/>
+            <input type="text" placeholder="email" value="" id="css-email-field" autofocus="true"/>
+            <input type="password" placeholder="password" value="" id="css-password-field" />
+            <input type="submit" value="Submit" id="css-submit-button" class="js-submit-login" />
         </form>
     </div>
     <fest:include src="./backbutton.xml"/>
