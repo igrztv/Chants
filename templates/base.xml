@@ -1,8 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="css-header">
+    <div class="b-game-title">
         EPIC GAME
     </div>
-    <div class="css-title">
+    <div class="b-page-title">
         <fest:value output="text">json.title</fest:value>
     </div>
 </fest:template>

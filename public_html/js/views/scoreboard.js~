@@ -46,7 +46,7 @@ define([
         },
 
         hide: function () {
-            this.$el.empty();
+            $el.empty();
         }
 
     });

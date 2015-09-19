@@ -28,20 +28,20 @@ define([
 
         defaultActions: function () {
          
-            Views.main.render();
+            MainView.render();
         },
         scoreboardAction: function () {
             
-            Views.scoreboard.render();
+            ScoreboardView.render();
         },
         gameAction: function () {
             
-            Views.game.render();
+            GameView.render();
         },
             
         loginAction: function () {
             
-            Views.login.render();
+            LoginView.render();
         }
     });
 

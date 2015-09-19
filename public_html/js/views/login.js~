@@ -25,7 +25,7 @@ define([
         },
 
         hide: function () {
-            this.$el.empty();
+            $el.empty();
         },
      
         submitLogin: function(event) {
