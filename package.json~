@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "chants",
   "version": "1.0.0",
   "description": "best game ever",
@@ -7,6 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+  "license": "ISC"
+=======
+  "name": "epicgame",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "a.eprev@gmail.com",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -17,4 +25,5 @@
     "grunt-fest": "~0.1.4",
     "grunt-shell": "^1.1.1"
   }
+>>>>>>> a7cc4f8fa2defe00e70bfb885240d2df0efbc49f
 }

@@ -1,7 +1,9 @@
+<!--HEAD
 <!DOCTYPE  html>
 <html><head>
     <meta charset="utf-8" />
     <title>EpikGame</title>
+    <link href='https://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/lib/jquery.js"></script>
     <script src="/js/tmpl/main.js"></script>
@@ -108,8 +110,17 @@
 
 
         showMainScreen();
-    </script>
+    </script>-->
     
     <!-- Livereload -->
-    <script src="//localhost:35729/livereload.js"></script>
+    <!--<script src="//localhost:35729/livereload.js"></script>
+-->
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8" />
+    <title><!-- TODO --></title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head><body>
+    <div id="page"></div>
+    <script data-main="js/main" src="js/lib/require.js"></script>
 </body></html>

@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <fest:script>var json = {title: 'Main menu' };</fest:script>
     <fest:include src="./base.xml" context="json"/>
-        <div id="css-main-menu-wrapper">
+        <div id="css-main-menu-wrapper" class="css-base-form-wrapper">
         <form method="post" action="">
             <input type="submit" value="ScoreBoard" id="css-scoreboard-button" class="js-scoreboard"/>
             <input type="submit" value="Start Game" id="css-startgame-button" class="js-start-game"/>
@@ -9,3 +9,7 @@
         </form>
     </div>
 </fest:template>
+=======
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+</fest:template>
+>>>>>>> a7cc4f8fa2defe00e70bfb885240d2df0efbc49f
