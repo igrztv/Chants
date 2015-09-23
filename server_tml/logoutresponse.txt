@@ -1,0 +1,7 @@
+{
+status: 200,
+body: {
+name: "${name}",
+logout_status: "${logout_status}"
+}
+}
