@@ -3,6 +3,6 @@
         EPIC GAME
     </div>
     <div class="css-title">
-        <fest:value output="text">json['title']</fest:value>
+        <fest:value output="text">json.title</fest:value>
     </div>
 </fest:template>

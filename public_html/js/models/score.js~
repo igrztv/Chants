@@ -1,0 +1,21 @@
+define(['backbone'],
+function(
+    Backbone
+){
+  
+    var PlayerModel = Backbone.Model.extend({
+         defaults: {
+             name: '',
+             score: 0
+         },
+
+         /*origConstructor: Backbone.Model.constructor,*/
+
+         /*constructor: function(args) {
+             $.extend(this, args);
+             Backbone.Model.constructor.apply(this, args);
+         },*/
+    });
+
+    return PlayerModel;
+});

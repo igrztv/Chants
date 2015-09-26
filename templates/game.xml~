@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 <fest:template xmlns:fest="http://fest.mail.ru">
-
+    <fest:include src="./backbutton.xml"/>
 </fest:template>
+=======
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
+</fest:template>
+>>>>>>> a7cc4f8fa2defe00e70bfb885240d2df0efbc49f

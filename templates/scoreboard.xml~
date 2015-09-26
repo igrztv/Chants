@@ -1,5 +1,15 @@
-<fest:template xmlns:fest="http://fest.mail.ru">
-    <fest:script>json = {title: 'Scoreboard' };</fest:script>
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="players_context">
+    <fest:script>var json = {title: 'Scoreboard' };</fest:script>
     <fest:include src="./base.xml" context="json"/>
+    <div class="b-players">
+        <ul class="b-players__inner-list">
+            Im here
+        <!--<fest:each iterate="players_context" index="index" value="player">-->
+        <!--<% _.each(players, function(player){ %>
+            <li class="b-players-list__player-info"><fest:value>player.name</fest:value> <fest:value>player.score</fest:value></li>
+        <% }); %>-->
+        <!--</fest:each>-->
+        </ul>
+    </div>
     <fest:include src="./backbutton.xml"/>
 </fest:template>
