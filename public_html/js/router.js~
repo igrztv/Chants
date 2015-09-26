@@ -9,13 +9,17 @@ define([
     GameView,
     LoginView,
     MainView,
-    ScoreboardView
+    ScoreboardView,
+    AuthView
 ){
     
-    var Views = {main: MainView,
-                 scoreboard: ScoreboardView,
-                 game: GameView,
-                 login: LoginView};
+    var Views = {
+        main: MainView,
+        scoreboard: ScoreboardView,
+        game: GameView,
+        login: LoginView,
+        auth: AuthView
+        };
                  
     
     var Router = Backbone.Router.extend({
@@ -23,25 +27,30 @@ define([
             'scoreboard': 'scoreboardAction',
             'game': 'gameAction',
             'login': 'loginAction',
+            'auth' : 'authAction',
             '*default': 'defaultActions'
         },
 
         defaultActions: function () {
          
-            MainView.render();
+            Views.main.render();
         },
         scoreboardAction: function () {
             
-            ScoreboardView.render();
+            Views.scoreboard.render();
         },
         gameAction: function () {
             
-            GameView.render();
+            Views.game.render();
         },
             
         loginAction: function () {
             
-            LoginView.render();
+            Views.login.render();
+        },
+        
+        authAction: function() {
+            Views.auth.render();
         }
     });
 

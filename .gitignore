@@ -1,2 +1,6 @@
-node_modules
-
+/node_modules
+/.idea
+*.iml
+pom.xml
+target
+src

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Authorization</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <form  id="signin" name="signin" method="POST" action="">
+        <input type="text" placeholder="name" name="name" id="css-email-field"/>
+        <input type="text" placeholder="password" name="password" id="css-password-field"/>
+        <input type="submit" value="Submit" id="css-submit-button" class="js-submit-login"/>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        ButtonClickHandler('.js-submit-login', submitLogin)
+    }
+    )
+    function ButtonClickHandler(buttonClass, onClickFunction) {
+        this.buttonClass = buttonClass;
+        this.onClickFunction = onClickFunction;
+    }
+    function submitLogin(event) {
+            event.preventDefault();
+            var form=$('#signin').serialize();;
+            $.ajax({
+                url: '/api/v1/auth/signin',
+                type: "POST",
+                data: form,
+                success: function(data) {
+                    showGameScreen();
+                },
+                error: function(){
+                    alert('была допущена ошибка')
+                }
+            });
+
+        }
+</script>
+</body>
+</html>

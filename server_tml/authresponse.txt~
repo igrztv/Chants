@@ -1,0 +1,13 @@
+{
+status: 200,
+body: {
+<<<<<<< HEAD
+email: "${email}",
+password: "${password}"
+=======
+name: "${name}",
+password: "${password}"
+login: "${login_status}"
+>>>>>>> 2fbe040b8bdd0b9b36cee8f6a51af38dfcf4a58d
+}
+}

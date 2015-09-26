@@ -5,6 +5,7 @@
         <a href="#scoreboard" class="b-main-form__control b-main-form__link b-main-form__link_type_scoreboard">ScoreBoard</a>
         <a href="#game" class="b-main-form__control b-main-form__link b-main-form__link_type_start-game">Start Game</a>
         <a href="#login" class="b-main-form__control b-main-form__link b-main-form__link_type_login">Login</a>
+        <a href="#auth" class="b-main-form__control b-main-form__link b-main-form__link_type_auth">Sign Up</a>
     </div>
 </fest:template>
 
