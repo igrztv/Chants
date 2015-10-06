@@ -5,12 +5,12 @@ define([
     'utils/validation'
 ], function(
     Backbone,
-    tmpl,
+    login,
     User,
     Validator
 ){
     var errorMessageElement = '.b-main-login-form__error-message';
-    var inputClassPrefix = '.b-main-login-form__input_type_';
+    var inputClassPrefix = 'b-main-login-form__input_type_';
   
 
     var validator = new Validator(['email', 'password'],
@@ -18,7 +18,7 @@ define([
 
     var LoginView = Backbone.View.extend({
 
-        template: loginTmpl(),
+        template: login(),
 
         render: function () {
             this.$el.html(this.template);
@@ -44,21 +44,15 @@ define([
             if (validatedData.isValid) {
                 $(errorMessageElement).empty();
                 var newUser = new User(validatedData);
+                var that = this;
                 newUser.logIn({
                     error: function(response) {
-                        if (response) {
-                            try {
-                                responseObj = $.parseJSON(response.responseText);
-                                validator.showErrorMessage(responseObj.errorMessage, responseObj.firstIncorrectInput); 
-                            } catch (err) {
-                                validator.showErrorMessage(response.responseText);  
-                            }
-                        }
+                        validator.parseServerResponse(response); 
                     },
-
                     success: function(response) {
-                        this.hide();
-                        Backbone.history.navigate('main', true);
+                        validator.parseServerResponse(response);  
+                        //that.hide();            
+                        //Backbone.history.navigate('main', true);
                     } 
                 });
             }

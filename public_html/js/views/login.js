@@ -44,21 +44,15 @@ define([
             if (validatedData.isValid) {
                 $(errorMessageElement).empty();
                 var newUser = new User(validatedData);
+                var that = this;
                 newUser.logIn({
                     error: function(response) {
-                        if (response) {
-                            try {
-                                responseObj = $.parseJSON(response.responseText);
-                                validator.showErrorMessage(responseObj.errorMessage, responseObj.firstIncorrectInput); 
-                            } catch (err) {
-                                validator.showErrorMessage(response.responseText);  
-                            }
-                        }
+                        validator.parseServerResponse(response); 
                     },
-
                     success: function(response) {
-                        this.hide();
-                        Backbone.history.navigate('main', true);
+                        validator.parseServerResponse(response);  
+                        //that.hide();            
+                        //Backbone.history.navigate('main', true);
                     } 
                 });
             }
