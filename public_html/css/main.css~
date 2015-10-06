@@ -34,7 +34,7 @@
     padding: 30px;
 }
 
-.b-main-form__control  {
+.b-main-form__control, {
     border-radius: 0;
     border: 4px solid #1565c0;
     display: block;
