@@ -51,40 +51,26 @@ define([
      
         submitAuth: function(event) {
             event.preventDefault();
+            var that = this;
             var validatedData = validator.validateAuthForm();
             if (validatedData.isValid) {
                 $(errorMessageElement).empty();
                 var newUser = new User(validatedData);
                 newUser.save({}, {
                     error: function(model, response) {
-                        if (response) {
-                            try {
-                                responseObj = $.parseJSON(response.responseText);
-                                validator.showErrorMessage(responseObj.errorMessage, responseObj.firstIncorrectInput); 
-                            } catch (err) {
-                                validator.showErrorMessage(response.responseText);  
-                            }
-                        }
+                        validator.parseServerResponse(response); 
                     },
-
                     success: function(model, response) {
-                        this.hide();
-                        Backbone.history.navigate('main', true);
+                        validator.parseServerResponse(response); 
+                        //that.hide();
+                        //Backbone.history.navigate('main', true);
                     } 
                 });
-                /*$.ajax({
-                    url: '/api/v1/auth/signin',
-                    success: function(data) {
-                        this.hide();
-                        Backbone.history.navigate('main', true);
-                    }
-                });*/
             }
             else {
                 validator.showErrorMessage(validatedData.errorMessage, validatedData.firstIncorrectInput);
             }
         }
-
     });
 
     return new AuthView({el: $('.b-inner-main-window')});

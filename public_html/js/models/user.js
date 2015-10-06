@@ -10,11 +10,12 @@ function(
              password: ''
          },
 
-         url: 'api/v2/user/',
+         url: 'api/v1/auth/signup',
+         loginUrl: 'api/v1/auth/signin',
      
          logIn: function(callbackDict) {
              var that = this;
-             $.ajax(that.url, {
+             $.ajax(that.loginUrl, {
                  type: "POST",
                  data: that.toJSON(),
                  success: function(response) {

@@ -8,7 +8,7 @@
             <input type="email" value="Email" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_email"/>
             <input type="password" placeholder="Password" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_password"/>
             <input type="password" placeholder="Repeat password" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_repeated-password"/>
-            <input type="submit" value="Submit" class="b-main-form__control b-main-signup-form__button b-main-signup-form__submit-login-button"/>
+            <input type="submit" value="Submit" class="b-main-form__control b-main-form__button b-main-signup-form__submit-login-button"/>
         </form>
     </div>
     <fest:include src="./backbutton.xml"/>

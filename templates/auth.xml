@@ -4,8 +4,8 @@
     <div class="b-main-signup-form">
         <p class="b-main-signup-form__error-message"></p>
         <form method="post" action="">
-            <input type="text" value="Name" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_name"/>
-            <input type="email" value="Email" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_email"/>
+            <input type="text" placeholder="Name" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_name"/>
+            <input type="email" placeholder="Email" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_email"/>
             <input type="password" placeholder="Password" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_password"/>
             <input type="password" placeholder="Repeat password" class="b-main-form__control b-main-form__input b-main-signup-form__input_type_repeated-password"/>
             <input type="submit" value="Submit" class="b-main-form__control b-main-form__button b-main-signup-form__submit-login-button"/>

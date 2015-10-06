@@ -15,10 +15,19 @@ function(
             };
         for (var controlIndex in this.controls) {
             var control = this.controls[controlIndex];
-            var controlValue = $(this.inputClassPrefix + control).val();
+            var inputElement = $(this.inputClassPrefix + control);
+            var controlValue = inputElement.val();
             if (!(controlValue)) {
                 return {
-                    errorMessage: 'Заполните все поля формы',
+                    isValid: false,
+                    errorMessage: 'All fields are required',
+                    firstIncorrectInput: this.inputClassPrefix + control
+                    };
+            }
+            else if (inputElement.get()[0].validity && !(inputElement.get()[0].validity.valid)) {
+                return {
+                    isValid: false,
+                    errorMessage: 'Please enter valid ' + control,
                     firstIncorrectInput: this.inputClassPrefix + control
                     };
             }
@@ -43,6 +52,19 @@ function(
         }
     }
 
-    return Validator;     
-   
+    Validator.prototype.parseServerResponse = function(result) {
+        if (result) {
+            try {
+                responseObj = $.parseJSON(result);
+                this.showErrorMessage(responseObj.login); 
+            } catch (err) {
+                if (result.responseText) {
+                    result = result.responseText;
+                }
+                this.showErrorMessage(result);  
+            }
+        }
+    }
+
+    return Validator;       
 });
