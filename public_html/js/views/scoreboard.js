@@ -6,12 +6,12 @@ define([
 ], function(
     _,
     Backbone,
-    tmpl,
+    scoreboard,
     playerCollection
 ){
 
     var ScoreBoardView = Backbone.View.extend({
-        mainTemplate: scoreboardTmpl(),
+        mainTemplate: scoreboard(),
 
         initialize: function () {
             //this.collection.bind("change reset add remove", this.render, this);
@@ -33,7 +33,7 @@ define([
 
         renderPlayerTemplate: function() {
             var players  = this.collection.toJSON();
-            var playersHtml = _.template( this.playerTemplate, {players: players});
+            var playersHtml = _.template(this.playerTemplate, {players: players});
             $('.b-players__inner-list').html(playersHtml); 
         },
 

@@ -23,7 +23,7 @@ define([
         },
 
         hide: function () {
-            $el.empty();
+            this.$el.empty();
         }
 
 

@@ -5,7 +5,7 @@ define([
     'utils/validation'
 ], function(
     Backbone,
-    tmpl,
+    auth,
     User,
     Validator
 ){
@@ -29,7 +29,7 @@ define([
 
     var AuthView = Backbone.View.extend({
 
-        template: authTmpl(),
+        template: auth(),
 
         render: function () {
             this.$el.html(this.template);

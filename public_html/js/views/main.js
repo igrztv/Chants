@@ -3,12 +3,12 @@ define([
     'tmpl/main'
 ], function(
     Backbone,
-    tmpl
+    main
 ){
  
     var MainView = Backbone.View.extend({
       
-        template: mainTmpl(),
+        template: main(),
         initialize: function () {},
         render: function () {
             this.$el.html(this.template);

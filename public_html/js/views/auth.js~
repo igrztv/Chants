@@ -57,9 +57,13 @@ define([
                 var newUser = new User(validatedData);
                 newUser.save({}, {
                     error: function(model, response) {
-                        if (response && response.responseText) {
-                            responseObj = $.parseJSON(response.responseText);
-                            validator.showErrorMessage(responseObj.errorMessage, responseObj.firstIncorrectInput); 
+                        if (response) {
+                            try {
+                                responseObj = $.parseJSON(response.responseText);
+                                validator.showErrorMessage(responseObj.errorMessage, responseObj.firstIncorrectInput); 
+                            } catch (err) {
+                                validator.showErrorMessage(response.responseText);  
+                            }
                         }
                     },
 

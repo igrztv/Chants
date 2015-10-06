@@ -9,7 +9,7 @@ define([
     User,
     Validator
 ){
-    var errorMessageElement = '.b-main-login_form__error-message';
+    var errorMessageElement = '.b-main-login-form__error-message';
     var inputClassPrefix = '.b-main-login-form__input_type_';
   
 

@@ -8,7 +8,7 @@ define([
     var GameView = Backbone.View.extend({
 
 
-        template: gameTmpl(),
+        template: game(),
 
         render: function () {
             this.$el.html(this.template);
