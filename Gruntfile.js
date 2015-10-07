@@ -7,7 +7,7 @@ module.exports = function (grunt) {
                 stderr: true
             },
             server: {
-                command: 'java -cp uMove-1.0-jar-with-dependencies.jar main.Main 8080'
+                command: 'java -cp uMove-1.0-jar-with-dependencies.jar main.Main 8081'
             }
         },
         fest: {
