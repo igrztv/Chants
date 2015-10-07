@@ -13,7 +13,7 @@ define([
     var inputClassPrefix = '.b-main-login-form__input_type_';
   
 
-    var validator = new Validator(['email', 'password'],
+    var validator = new Validator(['name', 'password'],
                                   inputClassPrefix, errorMessageElement);
 
     var LoginView = Backbone.View.extend({
