@@ -52,11 +52,12 @@ define([
         submitAuth: function(event) {
             event.preventDefault();
             var that = this;
+            console.log(that);
             var validatedData = validator.validateAuthForm();
             if (validatedData.isValid) {
                 $(errorMessageElement).empty();
                 var newUser = new User(validatedData);
-                newUser.save({}, {
+                newUser.signUp({
                     error: function(model, response) {
                         validator.parseServerResponse(response); 
                     },
