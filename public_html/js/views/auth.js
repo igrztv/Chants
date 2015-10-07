@@ -64,7 +64,7 @@ define([
                     success: function(model, response) {
                         validator.parseServerResponse(response); 
                         //that.hide();
-                        //Backbone.history.navigate('main', true);
+                        Backbone.history.navigate('main', true);
                     } 
                 });
             }
