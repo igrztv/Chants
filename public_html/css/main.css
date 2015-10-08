@@ -30,7 +30,7 @@
 .b-page-title {
     color: #1565c0;
     height: 55px;
-    padding: 30px;
+    padding: 20px;
 }
 
 .b-main-form__control {
@@ -66,4 +66,12 @@
     display: block;
     text-decoration: none;
     padding: 5px;
+}
+
+.b-players{
+
+}
+
+.b-players__inner-list{
+    margin: 0px 0px 10px 0px;
 }

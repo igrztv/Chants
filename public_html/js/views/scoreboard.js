@@ -11,34 +11,22 @@ define([
 ){
 
     var ScoreBoardView = Backbone.View.extend({
-        mainTemplate: scoreboard(),
 
-        initialize: function () {
-            //this.collection.bind("change reset add remove", this.render, this);
-            $.ajax({url: "utils/players-score.html",
-                    context: this,
-                    success: function(response) {
-                        this.playerTemplate = response;
-                        this.renderPlayerTemplate();
-                        }
-                    });
-        },
+        mainTemplate: scoreboard,
+
+        initialize: function () {},
 
         render: function () {
-            this.$el.html(this.mainTemplate);
-            if (this.playerTemplate) {
-                this.renderPlayerTemplate(); 
-            }
-        },
-
-        renderPlayerTemplate: function() {
-            var players  = this.collection.toJSON();
-            var playersHtml = _.template(this.playerTemplate, {players: players});
-            $('.b-players__inner-list').html(playersHtml); 
+            var players = this.collection.toJSON();
+            this.collection.add({
+                name: 'Новый игрок',
+                score : Math.floor(Math.random() * (5000))
+            });
+            this.$el.html(this.mainTemplate(players));
         },
 
         events: {
-            "click a": "hide"
+            'click a': 'hide'
         },
 
         show: function () {
@@ -54,7 +42,6 @@ define([
     var scoreBoardView = new ScoreBoardView({
         collection: playerCollection,
         el: $('.b-inner-main-window'),
-        //playerListClass: '.b-players__inner-list',
     });
 
     return scoreBoardView;
