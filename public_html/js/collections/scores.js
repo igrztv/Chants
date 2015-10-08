@@ -22,8 +22,9 @@ define([
     var PlayerCollection = Backbone.Collection.extend({
         model: PlayerModel,
 
-        comparator : function(player) {
-			return player.get('score');
+        comparator : function(playerA, playerB) {
+			if (playerA.get('score') > playerB.get('score')) return -1; // before
+			return 1;
 		}
 
     });
