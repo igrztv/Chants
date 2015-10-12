@@ -34,7 +34,7 @@ define([
 
         defaultActions: function () {
          
-            Views.main.render();
+            Views.main.render({title : 'harry'});
         },
         scoreboardAction: function () {
             

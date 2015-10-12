@@ -14,12 +14,16 @@ define([
         template: scoreboard,
 
         render: function () {
+            this.collection.add({
+                name: 'Новый игрок',
+                score : Math.floor(Math.random() * (5000))
+            });
             var players  = this.collection.toJSON();
             this.$el.html(this.template(players));
         },
-
+        
         events: {
-            "click a": "hide"
+            'click a': 'hide'
         },
 
         show: function () {

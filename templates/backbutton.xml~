@@ -1,7 +1,0 @@
-<fest:template xmlns:fest="http://fest.mail.ru">
-    <div id="b-return-back">
-        <form method="post" action="">
-            <input type="submit" value="Back" class="b-return-back__button"/>
-        </form>
-    </div>
-</fest:template>

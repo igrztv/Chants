@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-    <div id="b-return-back">
+    <div class="b-return-back">
         <a href="#main" class="b-return-back__button">Back</a>
     </div>
 </fest:template>
