@@ -43,7 +43,7 @@ module.exports = function (grunt) {
                     'public_html/css/**/*.css'
                 ],
                 options: {
-                    livereload: true
+                    livereload: false
                 }
             }
         },
@@ -61,5 +61,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-fest');
 
     grunt.registerTask('default', ['concurrent']);
+    grunt.registerTask('prodution', ['shell']);
 
 };

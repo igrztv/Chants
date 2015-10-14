@@ -31,7 +31,7 @@ define([
 
 
         show: function () {
-            this.render();            
+            this.render();
         },
 
         hide: function () {
@@ -51,8 +51,8 @@ define([
                     },
                     success: function(response) {
                         validator.parseServerResponse(response);  
-                        //that.hide();            
-                        //Backbone.history.navigate('main', true);
+                        that.hide();
+                        Backbone.history.navigate('main', true);
                     } 
                 });
             }

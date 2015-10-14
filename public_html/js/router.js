@@ -20,7 +20,7 @@ define([
         game: GameView,
         login: LoginView,
         auth: AuthView
-        };
+    };
                  
     
     var Router = Backbone.Router.extend({
@@ -29,28 +29,31 @@ define([
             'game': 'gameAction',
             'login': 'loginAction',
             'auth' : 'authAction',
+            'signout' : 'signoutAction',
             '*default': 'defaultActions'
         },
 
-        defaultActions: function () {
-         
-            Views.main.render({title : 'harry'});
+        defaultActions: function () {         
+            Views.main.render();
         },
+
         scoreboardAction: function () {
-            
             Views.scoreboard.render();
         },
-        gameAction: function () {
-            
+
+        gameAction: function () {            
             Views.game.render();
         },
             
-        loginAction: function () {
-            
+        loginAction: function () {            
             Views.login.render();
         },
         
         authAction: function() {
+            Views.auth.render();
+        },
+
+        signoutAction: function() {
             Views.auth.render();
         }
     });

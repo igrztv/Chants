@@ -1,13 +1,23 @@
 * {
     font-family: 'Lekton', sans-serif;
     font-size: 35px;
+    color: #eceff1;
+}
+
+body {
+    width: 100%;
+    margin: 0 0;
+    background-image: url('/img/background.jpg');
+    #background-size: 100%;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .b-outer-main-window {
     display: table;
     position: absolute;
-    height: 95%;
-    width: 95%;
+    height: 100%;
+    width: 100%;
 }
 
 .b-middle-main-window {
@@ -17,20 +27,48 @@
 
 .b-inner-main-window {
     margin: 0 auto;
-    width: 800px;
+    max-width: 700px;
+    padding: 20px;
+    background-color: rgba(200, 200, 250, 0.7);
 }
 
-.b-game-title {
-    background-color: #1e88e5; 
+.title {
+    height: 60px;
+    width: 100%;
+    margin: 0;
+    background-color: #0555b0;
+}
+
+.title__game-title {
+    font-size: 45px;
+    font-weight: bold;
+    height: 100%;
+    width: 400px;
+    padding: 0px 0 0px 50px;
+}
+
+.title__backbutton {
+    width: 200px;
+    text-align: right;
+    float: right;
+    position: relative;
+    padding: 10px 0 10px 0;
+}
+
+.b-return-back__button {
     color: #eceff1;
-    height: 50px;
-    padding: 10px;
+    text-decoration: none;
+    #font-size: 50px;
+    #border: 2px solid #eceff1;
+    padding: 5px;
+    margin: 10px 10px 0px 0px;
 }
 
 .b-page-title {
-    color: #1565c0;
-    height: 55px;
-    padding: 20px;
+    height: 50px;
+    background-color: #0555b0;
+    padding: 0px 0 10px 50px;
+    margin: 0px 0 20px 0px;
 }
 
 .b-main-form__control {
@@ -38,17 +76,23 @@
     border: 4px solid #1565c0;
     display: block;
     margin-bottom: 20px;
-    width: 800px;
     height: 50px;
+}
+
+a.b-main-form__control:hover {
+    background-color: #2575d0;
 }
 
 .b-main-form__input {
     color: #546e7a;
+    width: 100%;
 }
 
 .b-main-form__button {
     background-color: #1565c0;
     color: #eceff1;
+    width: 100%;
+    line-height: 0.9;
 }
 
 .b-main-form__link {
@@ -59,19 +103,25 @@
     text-decoration: none;
 }
 
-.b-return-back__button {
-    border: 4px solid #0d47a1;
-    background-color: #0d47a1;
-    color: #eceff1;
-    display: block;
-    text-decoration: none;
-    padding: 5px;
-}
-
 .b-players{
 
 }
 
 .b-players__inner-list{
     margin: 0px 0px 10px 0px;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+.b-players__inner-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.b-main-signup-form__error-message {
+    display: none;
+    margin: 10px;
+}
+
+.b-main-login-form__error-message {
+    display: none;
+    margin: 10px;
 }

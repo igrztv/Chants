@@ -8,10 +8,13 @@ define([
  
     var MainView = Backbone.View.extend({
       
-        template: main(),
+        template: main,
+
         initialize: function () {},
+
         render: function () {
-            this.$el.html(this.template);
+            var user = {user : false};
+            this.$el.html(this.template(user));
         },
 
         events: {

@@ -20,7 +20,7 @@ define([
         return {
             errorMessage: 'Пароли не совпадают',
             firstIncorrectInput: this.inputClassPrefix + 'password'
-            };
+        };
     }
 
 
@@ -63,7 +63,7 @@ define([
                     },
                     success: function(model, response) {
                         validator.parseServerResponse(response); 
-                        //that.hide();
+                        that.hide();
                         Backbone.history.navigate('main', true);
                     } 
                 });

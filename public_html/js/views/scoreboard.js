@@ -17,11 +17,12 @@ define([
         initialize: function () {},
 
         render: function () {
-            var players = this.collection.toJSON();
+            //tmp checking add() function with comparator
             this.collection.add({
                 name: 'Новый игрок',
                 score : Math.floor(Math.random() * (5000))
             });
+            var players = this.collection.toJSON();
             this.$el.html(this.mainTemplate(players));
         },
 

@@ -46,7 +46,7 @@ function(
     }
 
     Validator.prototype.showErrorMessage = function(errorMessage, errorInput) {
-        $(this.errorMessageElement).html(errorMessage);
+        $(this.errorMessageElement).css({'display': 'block'}).html(errorMessage);
         if (errorInput) {
             $(errorInput).focus();
         }

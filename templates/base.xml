@@ -1,7 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-    <div class="b-game-title">
-        EPIC GAME
-    </div>
+	<div class="title">
+	    <fest:if test="json.backbutton">
+		    <div class="title__backbutton">
+		        <a href="#main" class="b-return-back__button">&#65513;Back</a>
+		    </div>
+		</fest:if>
+		<div class="title__game-title">
+	        Cha-a-ants!
+	    </div>
+	</div>
     <div class="b-page-title">
         <fest:value output="text">json.title</fest:value>
     </div>
