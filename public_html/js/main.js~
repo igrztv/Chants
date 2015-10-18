@@ -5,7 +5,7 @@ require.config({
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
-        game: "tmpl/game",
+        jqueryValidation: "lib/jquery.validate"
     },
     shim: {
         'backbone': {
@@ -14,11 +14,8 @@ require.config({
         },
         'underscore': {
             exports: '_'
-        }
-        "game" : {
-            exports: 'game';
-        }
-        
+        },
+        'jqueryValidation'  : ['jquery']
     }
 });
 

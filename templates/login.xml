@@ -3,9 +3,9 @@
     <fest:include src="./base.xml" context="json"/>
     <div class="b-main-login-form">
         <p class="b-main-login-form__error-message"></p>
-        <form method="post" action="">
-            <input type="text" placeholder="Name" class="b-main-form__control b-main-form__input b-main-login-form__input_type_name"/>
-            <input type="text" placeholder="Password" class="b-main-form__control b-main-form__input b-main-login-form__input_type_password"/>
+        <form class="b-form__type_login" method="post" action="">
+            <input type="text" placeholder="Name" name="name" class="b-main-form__control b-main-form__input b-main-login-form__input_type_name"/>
+            <input type="text" placeholder="Password" name="pswd" class="b-main-form__control b-main-form__input b-main-login-form__input_type_password"/>
             <input type="submit" value="Submit" class="b-main-form__control b-main-form__button b-main-login-form__submit-login-button"/>
         </form>
     </div>

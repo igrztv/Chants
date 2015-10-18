@@ -2,26 +2,28 @@ define([
     'backbone',
     'tmpl/login',
     'models/user',
-    'utils/validation'
+    'validation_dicts/signin',
+    'utils/custom_ajax_parser',
+    'utils/create_user',
+    'jqueryValidation'
 ], function(
     Backbone,
     login,
     User,
-    Validator
+    validationInfo,
+    Parser,
+    getUserInfo
 ){
     var errorMessageElement = '.b-main-login-form__error-message';
     var inputClassPrefix = '.b-main-login-form__input_type_';
-  
-
-    var validator = new Validator(['name', 'password'],
-                                  inputClassPrefix, errorMessageElement);
+    var formClass = '.b-form__type_login';  
 
     var LoginView = Backbone.View.extend({
 
-        template: login(),
+        template: login,
 
         render: function () {
-            this.$el.html(this.template);
+            this.$el.html(this.template());
         },
 
         events: {
@@ -40,24 +42,23 @@ define([
      
         submitLogin: function(event) {
             event.preventDefault();
-            var validatedData = validator.validateAuthForm();
-            if (validatedData.isValid) {
+            $(formClass).validate(validationInfo);
+            if ($(formClass).valid()) {
                 $(errorMessageElement).empty();
-                var newUser = new User(validatedData);
+                var newUser = new User(getUserInfo());
+                var parser = new Parser(errorMessageElement);
                 var that = this;
                 newUser.logIn({
                     error: function(response) {
-                        validator.parseServerResponse(response); 
+                        parser.parseServerResponse(response); 
                     },
                     success: function(response) {
-                        validator.parseServerResponse(response);  
-                        //that.hide();            
-                        //Backbone.history.navigate('main', true);
+                        if (parser.parseServerResponse(response)) { 
+                            that.hide();
+                            Backbone.history.navigate('main', true);
+                        }
                     } 
                 });
-            }
-            else {
-                validator.showErrorMessage(validatedData.errorMessage, validatedData.firstIncorrectInput);
             }
         }
 

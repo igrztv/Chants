@@ -2,37 +2,28 @@ define([
     'backbone',
     'tmpl/auth',
     'models/user',
-    'utils/validation'
+    'validation_dicts/auth',
+    'utils/custom_ajax_parser',
+    'utils/create_user',
+    'jqueryValidation'
 ], function(
     Backbone,
     auth,
     User,
-    Validator
+    validationInfo,
+    Parser,
+    getUserInfo
 ){
     var errorMessageElement = '.b-main-signup-form__error-message';
     var inputClassPrefix = '.b-main-signup-form__input_type_';
-  
-    var checkPasswordsEquality = function(objForValidation) {
-        if (objForValidation.password == objForValidation['repeated-password']) {
-            delete objForValidation['repeated-password'];
-            return objForValidation;
-        }
-        return {
-            errorMessage: 'Пароли не совпадают',
-            firstIncorrectInput: this.inputClassPrefix + 'password'
-            };
-    }
-
-
-    var validator = new Validator(['name', 'email', 'password', 'repeated-password'],
-                                  inputClassPrefix, errorMessageElement, checkPasswordsEquality);
-
+    var formClass = '.b-form__type_signup';
+    
     var AuthView = Backbone.View.extend({
 
-        template: auth(),
+        template: auth,
 
         render: function () {
-            this.$el.html(this.template);
+            this.$el.html(this.template());
         },
 
         events: {
@@ -52,24 +43,22 @@ define([
         submitAuth: function(event) {
             event.preventDefault();
             var that = this;
-            console.log(that);
-            var validatedData = validator.validateAuthForm();
-            if (validatedData.isValid) {
+            $(formClass).validate(validationInfo);
+            if ($(formClass).valid()) {               
                 $(errorMessageElement).empty();
-                var newUser = new User(validatedData);
+                var newUser = new User(getUserInfo(inputClassPrefix));
+                var parser = new Parser(errorMessageElement);
                 newUser.signUp({
                     error: function(model, response) {
-                        validator.parseServerResponse(response); 
+                        parser.parseServerResponse(response); 
                     },
                     success: function(model, response) {
-                        validator.parseServerResponse(response); 
-                        //that.hide();
-                        Backbone.history.navigate('main', true);
+                        if (parser.parseServerResponse(response)) { 
+                            that.hide();
+                            Backbone.history.navigate('main', true);
+                        }
                     } 
                 });
-            }
-            else {
-                validator.showErrorMessage(validatedData.errorMessage, validatedData.firstIncorrectInput);
             }
         }
     });

@@ -10,7 +10,6 @@ function(
              password: ''
          },
 
-         url: 'api/v1/auth/signup',
          loginUrl: 'api/v1/auth/signin',
          signupUrl: 'api/v1/auth/signup',
      

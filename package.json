@@ -16,5 +16,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-fest": "~0.1.4",
     "grunt-shell": "^1.1.1"
+  },
+  "dependencies": {
+    "jquery-validation": "^1.14.0"
   }
 }

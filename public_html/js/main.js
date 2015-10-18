@@ -5,6 +5,7 @@ require.config({
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
+        jqueryValidation: "lib/jquery.validate"
     },
     shim: {
         'backbone': {
