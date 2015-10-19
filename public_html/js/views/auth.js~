@@ -27,17 +27,17 @@ define([
         },
 
         events: {
-            "click .b-main-signup-form__submit-login-button": "submitAuth",
-            "click a": "hide"
+            "click .b-main-signup-form__submit-login-button": "submitAuth"
+            //"click a": "hide"
         },
 
-
         show: function () {
-            this.render();            
+            this.trigger('show', this);
+            this.$el.show();           
         },
 
         hide: function () {
-            this.$el.empty();
+            this.$el.hide();
         },
      
         submitAuth: function(event) {
@@ -53,14 +53,15 @@ define([
                         parser.parseServerResponse(response); 
                     },
                     success: function(model, response) {
-                        parser.parseServerResponse(response); 
-                        //that.hide();
-                        //Backbone.history.navigate('main', true);
+                        if (parser.parseServerResponse(response)) { 
+                            that.hide();
+                            Backbone.history.navigate('main', true);
+                        }
                     } 
                 });
             }
         }
     });
 
-    return new AuthView({el: $('.b-inner-main-window')});
+    return new AuthView({el: $('.b-auth')});
 });

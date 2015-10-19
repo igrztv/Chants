@@ -1,15 +1,10 @@
 define([
     'backbone',
-    'tmpl/main'
 ], function(
-    Backbone,
-    main
+    Backbone
 ){
- 
-    var MainView = Backbone.View.extend({
-      
-        template: main,
 
+    var Base = Backbone.View.extend({
         initialize: function() {
             this.render();
             this.hide();
@@ -27,9 +22,8 @@ define([
         hide: function () {
             this.$el.hide();
         },
+        
+    });    
 
-
-    });
-
-    return new MainView({el: $('.b-main')});
+    return Base;
 });

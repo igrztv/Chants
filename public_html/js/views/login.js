@@ -1,5 +1,6 @@
 define([
     'backbone',
+    'views/base',
     'tmpl/login',
     'models/user',
     'validation_dicts/signin',
@@ -8,6 +9,7 @@ define([
     'jqueryValidation'
 ], function(
     Backbone,
+    Base,
     login,
     User,
     validationInfo,
@@ -18,28 +20,15 @@ define([
     var inputClassPrefix = '.b-main-login-form__input_type_';
     var formClass = '.b-form__type_login';  
 
-    var LoginView = Backbone.View.extend({
+    var LoginView = Base.extend({
 
         template: login,
-
-        render: function () {
-            this.$el.html(this.template());
-        },
-
+        
         events: {
-            "click .b-main-login-form__submit-login-button": "submitLogin",
-            "click a": "hide"
+            "click .b-main-login-form__submit-login-button": "submitLogin"
+            //"click a": "hide"
         },
-
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
-        },
-     
+        
         submitLogin: function(event) {
             event.preventDefault();
             $(formClass).validate(validationInfo);
@@ -64,5 +53,5 @@ define([
 
     });
 
-    return new LoginView({el: $('.b-inner-main-window')});
+    return new LoginView({el: $('.b-login')});
 });

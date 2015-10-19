@@ -21,25 +21,12 @@ define([
             var players  = this.collection.toJSON();
             this.$el.html(this.template(players));
         },
-        
-        events: {
-            'click a': 'hide'
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            alert(this.$el.attr('class'));
-            this.$el.empty();
-        }
 
     });
      
     var scoreBoardView = new ScoreBoardView({
         collection: playerCollection,
-        el: $('.b-inner-main-window'),
+        el: $('.b-scoreboard'),
     });
 
     return scoreBoardView;

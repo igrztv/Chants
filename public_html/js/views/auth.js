@@ -1,5 +1,6 @@
 define([
     'backbone',
+    'views/base',
     'tmpl/auth',
     'models/user',
     'validation_dicts/auth',
@@ -8,6 +9,7 @@ define([
     'jqueryValidation'
 ], function(
     Backbone,
+    Base,
     auth,
     User,
     validationInfo,
@@ -18,26 +20,12 @@ define([
     var inputClassPrefix = '.b-main-signup-form__input_type_';
     var formClass = '.b-form__type_signup';
     
-    var AuthView = Backbone.View.extend({
+    var AuthView = Base.extend({
 
         template: auth,
 
-        render: function () {
-            this.$el.html(this.template());
-        },
-
         events: {
-            "click .b-main-signup-form__submit-login-button": "submitAuth",
-            "click a": "hide"
-        },
-
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
+            "click .b-main-signup-form__submit-login-button": "submitAuth"
         },
      
         submitAuth: function(event) {
@@ -63,5 +51,5 @@ define([
         }
     });
 
-    return new AuthView({el: $('.b-inner-main-window')});
+    return new AuthView({el: $('.b-auth')});
 });

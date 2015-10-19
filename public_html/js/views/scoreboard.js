@@ -1,16 +1,16 @@
 define([
-    'underscore',
     'backbone',
+    'views/base',
     'tmpl/scoreboard',
     'collections/scores'
 ], function(
-    _,
     Backbone,
+    Base,
     scoreboard,
     playerCollection
 ){
 
-    var ScoreBoardView = Backbone.View.extend({
+    var ScoreBoardView = Base.extend({
         template: scoreboard,
 
         render: function () {
@@ -21,24 +21,12 @@ define([
             var players  = this.collection.toJSON();
             this.$el.html(this.template(players));
         },
-        
-        events: {
-            'click a': 'hide'
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
-        }
 
     });
      
     var scoreBoardView = new ScoreBoardView({
         collection: playerCollection,
-        el: $('.b-inner-main-window'),
+        el: $('.b-scoreboard'),
     });
 
     return scoreBoardView;

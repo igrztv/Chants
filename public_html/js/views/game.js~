@@ -6,27 +6,8 @@ define([
     game
 ){
     var GameView = Backbone.View.extend({
-
-
-        template: gameTmpl(),
-
-        render: function () {
-            this.$el.html(this.template);
-        },
-         
-        events: {
-            "click a": "hide"
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
-        }
-
+        template: game
     });
 
-    return new GameView({el: $('.b-inner-main-window')});
+    return new GameView({el: $('.b-game')});
 });

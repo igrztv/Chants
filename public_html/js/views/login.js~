@@ -2,7 +2,7 @@ define([
     'backbone',
     'tmpl/login',
     'models/user',
-    'validation_dicts/login',
+    'validation_dicts/signin',
     'utils/custom_ajax_parser',
     'utils/create_user',
     'jqueryValidation'
@@ -27,17 +27,17 @@ define([
         },
 
         events: {
-            "click .b-main-login-form__submit-login-button": "submitLogin",
-            "click a": "hide"
+            "click .b-main-login-form__submit-login-button": "submitLogin"
+            //"click a": "hide"
         },
 
-
         show: function () {
-            this.render();            
+            this.trigger('show', this);
+            this.$el.show();           
         },
 
         hide: function () {
-            this.$el.empty();
+            this.$el.hide();
         },
      
         submitLogin: function(event) {
@@ -64,5 +64,5 @@ define([
 
     });
 
-    return new LoginView({el: $('.b-inner-main-window')});
+    return new LoginView({el: $('.b-login')});
 });

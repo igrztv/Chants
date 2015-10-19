@@ -4,7 +4,9 @@
     <div class="b-players">
         <ul class="b-players__inner-list">
         <fest:each iterate="players_context" index="i" value="player">
-            <li class="b-players-list__player-info"><fest:value>player.name</fest:value><fest:space/><fest:value>player.score</fest:value></li>
+            <li class="b-players-list__player-info">
+                <fest:value>player.name</fest:value><fest:space/><fest:value>player.score</fest:value>
+            </li>
         </fest:each>
         </ul>
     </div>

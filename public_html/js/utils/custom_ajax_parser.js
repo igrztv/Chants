@@ -18,7 +18,7 @@ function() {
                 responseObj = $.parseJSON(result);
                 if (responseObj.login_status === false) {
                     this.showErrorMessage("error occured");
-                    return false
+                    return false;
                 }
                 return true;
             } catch (err) {

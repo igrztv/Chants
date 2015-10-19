@@ -1,32 +1,15 @@
 define([
     'backbone',
+    'views/base',
     'tmpl/game'
 ], function(
     Backbone,
+    Base,
     game
 ){
-    var GameView = Backbone.View.extend({
-
-
-        template: game(),
-
-        render: function () {
-            this.$el.html(this.template);
-        },
-         
-        events: {
-            "click a": "hide"
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
-        }
-
+    var GameView = Base.extend({
+        template: game
     });
 
-    return new GameView({el: $('.b-inner-main-window')});
+    return new GameView({el: $('.b-game')});
 });
