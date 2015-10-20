@@ -1,13 +1,11 @@
 define([
-    'underscore',
     'backbone',
     'tmpl/scoreboard',
     'collections/scores'
 ], function(
-    _,
     Backbone,
     scoreboard,
-    playerCollection
+    ScoresCollection
 ){
 
     var ScoreBoardView = Backbone.View.extend({
@@ -41,7 +39,7 @@ define([
     });
      
     var scoreBoardView = new ScoreBoardView({
-        collection: playerCollection,
+        collection: ScoresCollection,
         el: $('.b-inner-main-window'),
     });
 

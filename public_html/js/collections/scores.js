@@ -3,7 +3,7 @@ define([
     'models/score'
 ], function(
     Backbone,
-    PlayerModel
+    ScoreModel
 ){
 
 	var players = [
@@ -19,8 +19,8 @@ define([
 		{name:'Albert', score: 1010}
 	];
 
-    var PlayerCollection = Backbone.Collection.extend({
-        model: PlayerModel,
+    var ScoresCollection = Backbone.Collection.extend({
+        model: ScoreModel,
 
         comparator : function(playerA, playerB) {
 			if (playerA.get('score') > playerB.get('score')) return -1; // before
@@ -29,5 +29,5 @@ define([
 
     });
     
-    return new PlayerCollection(players);
+    return new ScoresCollection(players);
 });

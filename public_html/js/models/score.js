@@ -3,12 +3,12 @@ function(
     Backbone
 ){
   
-    var PlayerModel = Backbone.Model.extend({
+    var ScoreModel = Backbone.Model.extend({
 		defaults: {
 			name: '',
 			score: 0
 		},
     });
 
-    return PlayerModel;
+    return ScoreModel;
 });

@@ -1,19 +1,20 @@
 define([
     'backbone',
-    'tmpl/main'
+    'models/microphone'
 ], function(
     Backbone,
-    main
+    MicrophoneModel
 ){
  
-    var MainView = Backbone.View.extend({
+    var MicrophoneView = Backbone.View.extend({
       
-        template: main,
+        //template: main,
+        model: MicrophoneModel,
 
         initialize: function () {},
 
         render: function () {
-            var user = {user : true};
+            var user = {user : false};
             this.$el.html(this.template(user));
         },
 

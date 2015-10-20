@@ -43,7 +43,7 @@ module.exports = function (grunt) {
                     'public_html/css/**/*.css'
                 ],
                 options: {
-                    livereload: false
+                    livereload: true
                 }
             }
         },
