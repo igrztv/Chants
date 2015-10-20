@@ -1,13 +1,10 @@
-* {
-    font-family: 'Lekton', sans-serif;
-    font-size: 50px;
-}
-
 .b-outer-main-window {
     display: table;
+    font-family: 'Lekton', sans-serif;
+    font-size: 35px;
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 95%;
+    width: 95%;
 }
 
 .b-middle-main-window {
@@ -16,31 +13,30 @@
 }
 
 .b-inner-main-window {
-    margin-left: auto;
-    margin-right: auto; 
+    margin: 0 auto;
     width: 800px;
 }
 
 .b-game-title {
     background-color: #1e88e5; 
     color: #eceff1;
-    height: 55px;
-    padding: 30px;
+    height: 50px;
+    padding: 10px;
 }
 
 .b-page-title {
     color: #1565c0;
     height: 55px;
-    padding: 30px;
+    padding: 20px;
 }
 
-.b-main-form__control, {
+.b-main-form__control {
     border-radius: 0;
     border: 4px solid #1565c0;
     display: block;
     margin-bottom: 20px;
     width: 800px;
-    height: 80px;
+    height: 50px;
 }
 
 .b-main-form__input {
@@ -69,3 +65,7 @@
     padding: 5px;
 }
 
+
+.b-players__inner-list{
+    margin: 0px 0px 10px 0px;
+}

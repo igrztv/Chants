@@ -9,10 +9,7 @@ define([
 ){
 
     var ScoreBoardView = Backbone.View.extend({
-
-        mainTemplate: scoreboard,
-
-        initialize: function () {},
+        template: scoreboard,
 
         render: function () {
             //tmp checking add() function with comparator
@@ -20,10 +17,10 @@ define([
                 name: 'Новый игрок',
                 score : Math.floor(Math.random() * (5000))
             });
-            var players = this.collection.toJSON();
-            this.$el.html(this.mainTemplate(players));
+            var players  = this.collection.toJSON();
+            this.$el.html(this.template(players));
         },
-
+        
         events: {
             'click a': 'hide'
         },
