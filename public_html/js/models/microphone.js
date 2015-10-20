@@ -3,7 +3,7 @@ define([
 ],
 function(
     Backbone
-){
+){ 
   
 	var MicrophoneModel = Backbone.Model.extend({
 		defaults: {
