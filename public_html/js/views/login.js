@@ -1,67 +1,57 @@
 define([
     'backbone',
+    'views/base',
     'tmpl/login',
     'models/user',
-    'utils/validation'
+    'validation_dicts/signin',
+    'utils/custom_ajax_parser',
+    'utils/create_user',
+    'jqueryValidation'
 ], function(
     Backbone,
+    Base,
     login,
     User,
-    Validator
+    validationInfo,
+    Parser,
+    getUserInfo
 ){
     var errorMessageElement = '.b-main-login-form__error-message';
     var inputClassPrefix = '.b-main-login-form__input_type_';
-  
+    var formClass = '.b-form__type_login';  
 
-    var validator = new Validator(['name', 'password'],
-                                  inputClassPrefix, errorMessageElement);
+    var LoginView = Base.extend({
 
-    var LoginView = Backbone.View.extend({
-
-        template: login(),
-
-        render: function () {
-            this.$el.html(this.template);
-        },
-
+        template: login,
+        
         events: {
-            "click .b-main-login-form__submit-login-button": "submitLogin",
-            "click a": "hide"
+            "click .b-main-login-form__submit-login-button": "submitLogin"
         },
-
-
-        show: function () {
-            this.render();
-        },
-
-        hide: function () {
-            this.$el.empty();
-        },
-     
+        
         submitLogin: function(event) {
             event.preventDefault();
-            var validatedData = validator.validateAuthForm();
-            if (validatedData.isValid) {
+            $(formClass).validate(validationInfo);
+            if ($(formClass).valid()) {
                 $(errorMessageElement).empty();
-                var newUser = new User(validatedData);
+                var newUser = new User(getUserInfo());
+                var parser = new Parser(errorMessageElement);
                 var that = this;
                 newUser.logIn({
                     error: function(response) {
-                        validator.parseServerResponse(response); 
+                        parser.parseServerResponse(response); 
                     },
                     success: function(response) {
-                        validator.parseServerResponse(response);  
-                        that.hide();
-                        Backbone.history.navigate('main', true);
+                        if (parser.parseServerResponse(response)) { 
+                            that.hide();
+                            Backbone.history.navigate('main', true);
+                        }
                     } 
                 });
             }
-            else {
-                validator.showErrorMessage(validatedData.errorMessage, validatedData.firstIncorrectInput);
-            }
         }
-
     });
 
-    return new LoginView({el: $('.b-inner-main-window')});
+    return new LoginView({
+        mainElement: '.b-login-page'
+        });
 });

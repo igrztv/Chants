@@ -105,8 +105,8 @@ a.b-main-form__control:hover {
     text-decoration: none;
 }
 
-.b-players{
-
+.b-default-hidden-page {
+    display: none;
 }
 
 .b-players__inner-list{

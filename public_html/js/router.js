@@ -5,7 +5,7 @@ define([
     'views/main',
     'views/scoreboard',
     'views/auth',
-    'views/conductor'
+    'views/viewmanager'
 ], function(
     Backbone,
     gameView,
@@ -32,27 +32,27 @@ define([
         },
 
         defaultActions: function () {
-            mainView.render();
+            mainView.show();
         },
 
         scoreboardAction: function () {
-            scoreboardView.render();
+            scoreboardView.show();
         },
 
         gameAction: function () {
-            gameView.render();
+            gameView.show();
         },
             
         loginAction: function () {
-            loginView.render();
+            loginView.show();
         },
         
         authAction: function() {
-            authView.render();
+            authView.show();
         },
 
         signoutAction: function() {
-            authView.render();
+            authView.show();
         }
     });
 

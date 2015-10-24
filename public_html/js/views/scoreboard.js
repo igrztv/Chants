@@ -1,44 +1,32 @@
 define([
     'backbone',
     'tmpl/scoreboard',
-    'collections/scores'
+    'collections/scores',
+    'views/base'
 ], function(
     Backbone,
     scoreboard,
-    ScoresCollection
+    ScoresCollection,
+    BaseView
 ){
 
-    var ScoreBoardView = Backbone.View.extend({
+    var ScoreBoardView = BaseView.extend({
         template: scoreboard,
 
         render: function () {
-            //tmp checking add() function with comparator
             this.collection.add({
                 name: 'Новый игрок',
                 score : Math.floor(Math.random() * (5000))
             });
             var players  = this.collection.toJSON();
-            this.$el.html(this.template(players));
-        },
-        
-        events: {
-            'click a': 'hide'
-        },
-
-        show: function () {
-            this.trigger('show', this);
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
+            this.$el.append(this.template(players));
         }
 
     });
      
     var scoreBoardView = new ScoreBoardView({
         collection: ScoresCollection,
-        el: $('.b-inner-main-window'),
+        mainElement: '.b-scoreboard-page'
     });
 
     return scoreBoardView;

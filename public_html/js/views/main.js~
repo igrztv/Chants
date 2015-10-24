@@ -1,33 +1,25 @@
 define([
     'backbone',
-    'tmpl/main'
+    'tmpl/main',
+    'views/base'
 ], function(
     Backbone,
-    tmpl
+    main,
+    BaseView
 ){
  
-    var MainView = Backbone.View.extend({
+    var MainView = BaseView.extend({
       
-        template: mainTmpl(),
-        initialize: function () {},
+        template: main,
+
         render: function () {
-            this.$el.html(this.template);
-        },
-
-        events: {
-            "click a": "hide"
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            this.$el.empty();
+            var user = {user : true};
+            this.$el.append(this.template(user));
         }
-
-
+        
     });
 
-    return new MainView({el: $('.b-inner-main-window')});
+    return new MainView({
+        mainElement: '.b-main-page'
+        });
 });

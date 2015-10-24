@@ -1,3 +1,0 @@
-<% _.each(players, function(player, index, players){ %>
-    <li class="b-players__inner-list__player-info"><%- player.name %> <%- player.score %></li>
-<% }); %>

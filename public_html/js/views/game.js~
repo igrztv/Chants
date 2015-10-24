@@ -1,32 +1,41 @@
 define([
     'backbone',
-    'tmpl/game'
+    'tmpl/game',
+    'utils/microphone',
+    'views/base'
 ], function(
     Backbone,
-    game
+    game,
+    mic,
+    BaseView
 ){
-    var GameView = Backbone.View.extend({
+    var GameView = BaseView.extend({
 
+        template: game,
 
-        template: gameTmpl(),
-
-        render: function () {
-            this.$el.html(this.template);
-        },
-         
-        events: {
-            "click a": "hide"
-        },
-
-        show: function () {
-            this.render();            
+        start: function(){
+            mic.requireMicrophone().done(function(){
+                console.log('.done()');
+                this.update();
+                
+            }.bind(this)).fail(function(){
+                console.log('.fail()');
+            }); 
         },
 
-        hide: function () {
-            this.$el.empty();
+        update: function() {
+            rafID = requestAnimationFrame( this.update.bind(this) );
+            mic.updatePitch();
+        },
+
+        rec: function() {
+        },
+
+        pause: function() {
         }
-
     });
 
-    return new GameView({el: $('.b-inner-main-window')});
+    return new GameView({
+        mainElement: $('.b-game-page')
+    });
 });

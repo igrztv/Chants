@@ -3,54 +3,56 @@ define([
     'views/game',
     'views/login',
     'views/main',
-    'views/scoreboard'
+    'views/scoreboard',
+    'views/auth',
+    'views/conductor'
 ], function(
     Backbone,
-    GameView,
-    LoginView,
-    MainView,
-    ScoreboardView,
-    AuthView
+    gameView,
+    loginView,
+    mainView,
+    scoreboardView,
+    authView,
+    ViewManager
 ){
-    
-    var Views = {
-        main: MainView,
-        scoreboard: ScoreboardView,
-        game: GameView,
-        login: LoginView,
-        auth: AuthView
-        };
+
+    var views = [mainView, scoreboardView, gameView, loginView, authView];
                  
+    var viewManager = new ViewManager(views);
     
     var Router = Backbone.Router.extend({
+
         routes: {
             'scoreboard': 'scoreboardAction',
             'game': 'gameAction',
             'login': 'loginAction',
             'auth' : 'authAction',
+            'signout' : 'signoutAction',
             '*default': 'defaultActions'
         },
 
         defaultActions: function () {
-         
-            Views.main.render();
+            mainView.show();
         },
+
         scoreboardAction: function () {
-            
-            Views.scoreboard.render();
+            scoreboardView.show();
         },
+
         gameAction: function () {
-            
-            Views.game.render();
+            gameView.show();
         },
             
         loginAction: function () {
-            
-            Views.login.render();
+            loginView.show();
         },
         
         authAction: function() {
-            Views.auth.render();
+            authView.show();
+        },
+
+        signoutAction: function() {
+            authView.show();
         }
     });
 

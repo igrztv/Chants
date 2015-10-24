@@ -5,22 +5,27 @@ define([
 ){
 
     var Base = Backbone.View.extend({
-        initialize: function() {
+        el: '.b-inner-main-window',
+        
+        initialize: function(options) {
+            if  (options.mainElement) {
+                this.mainElement = options.mainElement;
+            }
             this.render();
-            this.hide();
+            //this.hide();
         },
         
         render: function () {
-            this.$el.html(this.template());
+            this.$el.append(this.template());
         },
 
         show: function () {
             this.trigger('show', this);
-            this.$el.show();           
+            $(this.mainElement).show();           
         },
 
         hide: function () {
-            this.$el.hide();
+            $(this.mainElement).hide();
         },
         
     });    

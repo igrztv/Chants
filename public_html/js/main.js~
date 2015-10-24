@@ -2,10 +2,9 @@ require.config({
     urlArgs: "_=" + (new Date()).getTime(),
     baseUrl: "js",
     paths: {
-        jquery: "lib/jquery",
-        underscore: "lib/underscore",
         backbone: "lib/backbone",
-        game: "tmpl/game",
+        jquery: "lib/jquery",
+        underscore: "lib/underscore",        
     },
     shim: {
         'backbone': {
@@ -15,10 +14,6 @@ require.config({
         'underscore': {
             exports: '_'
         }
-        "game" : {
-            exports: 'game';
-        }
-        
     }
 });
 

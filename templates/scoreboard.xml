@@ -1,11 +1,14 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="players_context">
     <fest:script>var json = {title: 'Scoreboard', 'backbutton': true };</fest:script>
-    <fest:include src="./base.xml" context="json"/>
-    <div class="b-players">
-        <ul class="b-players__inner-list">
-        <fest:each iterate="players_context" index="i" value="player">
-            <li class="b-players-list__player-info"><fest:value>player.name</fest:value><fest:space/><fest:value>player.score</fest:value></li>
-        </fest:each>
-        </ul>
+    <div class="b-scoreboard-page b-default-hidden-page">
+        <fest:include src="./base.xml" context="json"/>
+        <div class="b-players">
+            <ul class="b-players__inner-list">
+            <fest:each iterate="players_context" index="i" value="player">
+                <li class="b-players-list__player-info"><fest:value>player.name</fest:value><fest:space/><fest:value>player.score</fest:value>
+                </li>
+            </fest:each>
+            </ul>
+        </div>
     </div>
 </fest:template>

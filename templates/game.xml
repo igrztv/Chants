@@ -1,7 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
 	<fest:script>var json = {title: 'Game', 'backbutton': true };</fest:script>
-	<fest:include src="./base.xml" context="json"/>
-	<style>
+	<div class="b-game-page b-default-hidden-page">
+	    <fest:include src="./base.xml" context="json"/>
+	    <style>
 		body { font: 14pt 'Alike', sans-serif;}
 		#note { font-size: 164px; }
 		.droptarget { background-color: #348781}
@@ -15,15 +16,16 @@
 		#sharp { display: none; }
 		.flat #flat { display: inline; }
 		.sharp #sharp { display: inline; }
-	</style>
-	<button class="start">start</button>
-	<div id="detector" class="vague">
-		<div class="pitch"><span id="pitch">--</span>Hz</div>
-		<div class="note"><span id="note">--</span></div>   
-		<div id="detune">
-			<span id="detune_amt">--</span>
-			<span id="flat">cents &#9837;</span>
-			<span id="sharp">cents &#9839;</span>
-		</div>
-	</div>
+	    </style>
+	    <button class="start">start</button>
+	    <div id="detector" class="vague">
+	    	<div class="pitch"><span id="pitch">--</span>Hz</div>
+		    <div class="note"><span id="note">--</span></div>   
+		    <div id="detune">
+		    	<span id="detune_amt">--</span>
+		    	<span id="flat">cents &#9837;</span>
+			    <span id="sharp">cents &#9839;</span>
+		   </div>
+	   </div>
+    </div>
 </fest:template>

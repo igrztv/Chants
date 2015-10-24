@@ -1,16 +1,16 @@
 define([
-    'underscore',
     'backbone',
     'tmpl/scoreboard',
-    'collections/scores'
+    'collections/scores',
+    'views/base'
 ], function(
-    _,
     Backbone,
     scoreboard,
-    playerCollection
+    ScoresCollection,
+    BaseView
 ){
 
-    var ScoreBoardView = Backbone.View.extend({
+    var ScoreBoardView = BaseView.extend({
         template: scoreboard,
 
         render: function () {
@@ -19,27 +19,14 @@ define([
                 score : Math.floor(Math.random() * (5000))
             });
             var players  = this.collection.toJSON();
-            this.$el.html(this.template(players));
-        },
-        
-        events: {
-            'click a': 'hide'
-        },
-
-        show: function () {
-            this.render();            
-        },
-
-        hide: function () {
-            alert(this.$el.attr('class'));
-            this.$el.empty();
+            this.$el.append(this.template(players));
         }
 
     });
      
     var scoreBoardView = new ScoreBoardView({
-        collection: playerCollection,
-        el: $('.b-inner-main-window'),
+        collection: ScoresCollection,
+        mainElement: $('.b-scoreboard-page')
     });
 
     return scoreBoardView;
