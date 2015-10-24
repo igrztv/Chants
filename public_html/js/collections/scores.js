@@ -16,7 +16,8 @@ define([
 		{name:'Immanuel', score: 2050},
 		{name:'Friedrich', score: 2000},
 		{name:'Jean-Paul', score: 4060},
-		{name:'Albert', score: 1010}
+		{name:'Albert', score: 1010},
+		{}
 	];
 
     var ScoresCollection = Backbone.Collection.extend({

@@ -1,16 +1,16 @@
 define([
     'backbone',
     'tmpl/game',
-    'models/microphone'
+    'utils/microphone'
 ], function(
     Backbone,
     game,
-    MicrophoneModel
+    mic
 ){
     var GameView = Backbone.View.extend({
 
         template: game(),
-        model: MicrophoneModel,
+        //model: user,
 
         render: function () {
             this.$el.html(this.template);
@@ -22,20 +22,49 @@ define([
         },
 
         start: function(){
-            this.model.openMic();
+            mic.requireMicrophone().done(function(){
+                
+                console.log('.done()');
+                this.update();
+                
+            }.bind(this)).fail(function(){
+                console.log('.fail()');
+            });
+            //mic.updatePitch();
+            //let call frames for updating microphone    
+
+        },
+
+        update: function(){
+            if (true) {
+                rafID = requestAnimationFrame( this.update.bind(this) );
+                mic.updatePitch();
+            }
+        },
+
+        rec: function()
+        {
+
+        },
+
+        pause: function(){
+
         },
 
         show: function () {
-            this.render();            
+            this.trigger('show', this);
+            this.$el.css({'display': 'block'});
+            //this.render();
         },
 
         hide: function () {
-            this.$el.empty();
+            //this.$el.empty();
+            this.$el.css({'display': 'none'});
         }
 
     });
 
     return new GameView({
-        el: $('.b-inner-main-window'),
+        el: $('.game-block'),
     });;
 });

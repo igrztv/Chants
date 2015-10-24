@@ -26,6 +26,7 @@ define([
         },
 
         show: function () {
+            this.trigger('show', this);
             this.render();            
         },
 
