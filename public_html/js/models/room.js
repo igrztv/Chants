@@ -9,9 +9,10 @@ function(
     
     var RoomModel = Backbone.Model.extend({
         initialize: function() {
+            var that = this;p
             currUser.fetch({
                 success: function(currUserResponse) {
-                    this.set({currentUser: currUser.id});
+                    that.set({currentUser: currUser.id});
                 },
             });
         },
