@@ -32,12 +32,15 @@ define([
 
         show: function() {
             var room = new Room();
-            if (room.fetch()) {
-                BaseView.prototype.show.call(this);    
-            }
-            else {
-                Backbone.history.navigate('game', true);    
-            }   
+            var res = room.fetch({
+                success: function() {
+                    BaseView.prototype.show.call(this);
+                },
+                error: function() {
+                    Backbone.history.navigate('main', true);
+                }
+            });
+
         },
         
         rec: function() {
