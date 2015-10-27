@@ -1,10 +1,8 @@
 define([
 	'backbone',
-	'models/score'
 ],
 function(
-    Backbone,
-    Score
+    Backbone
 ){
   
 	var UserModel = Backbone.Model.extend({
@@ -16,7 +14,7 @@ function(
 			score: 0
 		},
 
-		url: 'api/v1/auth/signup',
+		url: 'api/v1/auth/curruser',
 		loginUrl: 'api/v1/auth/signin',
 		signupUrl: 'api/v1/auth/signup',
      

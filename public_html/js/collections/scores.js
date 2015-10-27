@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'models/score'
+    'models/rival'
 ], function(
     Backbone,
     ScoreModel

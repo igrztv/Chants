@@ -2,12 +2,14 @@ define([
     'backbone',
     'tmpl/game',
     'utils/microphone',
-    'views/base'
+    'views/base',
+    'models/room'
 ], function(
     Backbone,
     game,
     mic,
-    BaseView
+    BaseView,
+    Room
 ){
     var GameView = BaseView.extend({
 
@@ -24,10 +26,20 @@ define([
         },
 
         update: function() {
-            rafID = requestAnimationFrame( this.update.bind(this) );
+            rafID = requestAnimationFrame(this.update.bind(this));
             mic.updatePitch();
         },
 
+        show: function() {
+            var room = new Room();
+            if (room.fetch()) {
+                BaseView.prototype.show.call(this);    
+            }
+            else {
+                Backbone.history.navigate('game', true);    
+            }   
+        },
+        
         rec: function() {
         },
 

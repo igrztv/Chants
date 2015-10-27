@@ -5,6 +5,7 @@ define([
     'views/main',
     'views/scoreboard',
     'views/auth',
+    'views/selectroom',
     'views/viewmanager'
 ], function(
     Backbone,
@@ -13,10 +14,11 @@ define([
     mainView,
     scoreboardView,
     authView,
+    selectroomView,
     ViewManager
 ){
-
-    var views = [mainView, scoreboardView, gameView, loginView, authView];
+    console.log(selectroomView);
+    var views = [mainView, scoreboardView, gameView, loginView, authView, selectroomView];
                  
     var viewManager = new ViewManager(views);
     
@@ -28,6 +30,7 @@ define([
             'login': 'loginAction',
             'auth' : 'authAction',
             'signout' : 'signoutAction',
+            'gameRoom' : 'gameRoomAction',
             '*default': 'defaultActions'
         },
 
@@ -42,7 +45,11 @@ define([
         gameAction: function () {
             gameView.show();
         },
-            
+        
+        gameRoomAction: function () {
+            selectroomView.show();
+        },  
+                  
         loginAction: function () {
             loginView.show();
         },
