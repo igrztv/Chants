@@ -12,7 +12,7 @@ define([
         initialize: function() {
             setInterval(function(){
                  this.fetch();
-            }, 10000);
+            }.bind(this), 10000);
         }
     });
     

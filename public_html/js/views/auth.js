@@ -52,5 +52,5 @@ define([
 
     return new AuthView({
         mainElement: '.b-signup-page'
-        });
+    });
 });
