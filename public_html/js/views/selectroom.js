@@ -4,12 +4,14 @@ define([
     'collections/rivals',
     'models/room',
     'views/base',
+    'utils/custom_ajax_parser'
 ], function(
     Backbone,
     selectroom, 
     rivals,
     Room,
-    BaseView
+    BaseView,
+    Parser
 ){
     var errorMessageElement = '.b-rivals-list__error-message';
     
@@ -24,7 +26,8 @@ define([
         },
         
         template: selectroom,
-
+        mainElement: '.b-selectroom-page',
+        
         render: function () {
             $(this.mainElement).remove();
             var rivals  = this.collection.toJSON();
@@ -36,6 +39,7 @@ define([
         },
          
         show: function() {
+            BaseView.prototype.show.call(this);
             this.model.registerOnGame();
             var that = this;
             this.model.startRivalWaiting(this.model.getGameStatus(
@@ -52,7 +56,6 @@ define([
                 }
             ),
             10);
-            BaseView.prototype.show.call(this);
         },
         
         hide: function() {
@@ -62,7 +65,7 @@ define([
         
         selectRival: function(event) {
             event.preventDefault();
-            var rivalUserName = $(e.currentTarget).data("id");
+            var rivalUserName = $(event.currentTarget).data("id");
             var parser = new Parser(errorMessageElement);
             this.model.inviteUser(rivalUserName,
                             function(response) {
@@ -82,7 +85,6 @@ define([
     var selectRoomView = new SelectRoomView({
         collection: rivals,
         model: new Room(),
-        mainElement: '.b-selectroom-page'
     });
     //console.log(selectRoomView);
     return selectRoomView;
