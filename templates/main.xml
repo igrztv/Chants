@@ -3,17 +3,16 @@
     <div class="b-main-page">
         <fest:include src="./base.xml" context="json"/>
         <div class="b-main-form">
-    	    <fest:if test="user_data.user">
+    	    <fest:if test="user_data.id">
     		    <a href="#game" class="b-b-main-form__control b-main-form__link b-main-form__link_type_start-game">Start Game</a>
+    		    <a href="#signout" class="b-main-form__control b-main-form__link b-main-form__link_type_signout">Sign Out</a>
     	    </fest:if>
-    	    <fest:if test="user_data.user == false">
+    	    <fest:if test="user_data.id == undefined">
     		    <a href="#login" class="b-main-form__control b-main-form__link b-main-form__link_type_login">Sign In</a>
         	    <a href="#auth" class="b-main-form__control b-main-form__link b-main-form__link_type_auth">Sign Up</a>
     	    </fest:if>
             <a href="#scoreboard" class="b-main-form__control b-main-form__link b-main-form__link_type_scoreboard">ScoreBoard</a>
-    	    <fest:if test="user_data.user">
-    		    <a href="#signout" class="b-main-form__control b-main-form__link b-main-form__link_type_signout">Sign Out</a>
-    	    </fest:if>
+
         </div>
     </div>
     

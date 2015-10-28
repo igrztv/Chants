@@ -6,7 +6,8 @@ function() {
     }
  
     Parser.prototype.showErrorMessage = function(errorMessage, errorInput) {
-        $(this.errorMessageElement).html(errorMessage);
+        $(this.errorMessageElement).text(errorMessage);
+        $(this.errorMessageElement).show();
         if (errorInput) {
             $(errorInput).focus();
         }
@@ -16,7 +17,7 @@ function() {
         if (result) {
             try {
                 responseObj = $.parseJSON(result);
-                if (responseObj.login_status === false) {
+                if (responseObj.login_status == "false") {
                     this.showErrorMessage("error occured");
                     return false;
                 }

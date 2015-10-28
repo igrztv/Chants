@@ -1,20 +1,28 @@
 define([
     'backbone',
     'tmpl/main',
-    'views/base'
+    'views/base',
+    'models/user'
 ], function(
     Backbone,
     main,
-    BaseView
+    BaseView,
+    User
 ){
  
     var MainView = BaseView.extend({
-      
+        
         template: main,
 
         render: function () {
-            var user = {user : false};
-            this.$el.append(this.template(user));
+            $(this.mainElement).remove();
+            var user = new User();
+            var jqXHRUser = user.fetch();
+            var that = this;
+            jqXHRUser.always(function(data) {
+                that.$el.append(that.template(user));
+            });
+            
         }
         
     });

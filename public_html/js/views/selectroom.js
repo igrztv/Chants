@@ -11,34 +11,72 @@ define([
     Room,
     BaseView
 ){
+    var errorMessageElement = '.b-rivals-list__error-message';
+    
     var SelectRoomView = BaseView.extend({
-
+        //ask if we were selected
+        // game_status: 0 - not selected
+        // game_status: 1 - selected
+        // find_rival 
+        //when show -> registr on post
+        
         template: selectroom,
 
         render: function () {
             var rivals  = this.collection.toJSON();
-            console.log(rivals);
             this.$el.append(this.template(rivals));
         },
         
         events: {
             'click .b-rivals-list__select-rival-btn': 'selectRival'
         },
+         
+        show: function() {
+            this.model.registerOnGame();
+            var that = this;
+            this.model.startRivalWaiting(this.model.getGameStatus(
+                function(successResponse) {
+                    responseObj = $.parseJSON(successResponse);
+                    if (responseObj.game_status == 1) {
+                         that.model.stopRivalWaiting();
+                         Backbone.history.navigate('gameRoom', true);        
+                    }       
+                },
+                function(errorResponse) { //for debug;
+                    console.log('error'); 
+                }
+            ),
+            10);
+            BaseView.prototype.show.call(this);
+        },
+        
+        hide: function() {
+            this.model.stopRivalWaiting();
+            BaseView.prototype.hide.call(this);
+        },
         
         selectRival: function(event) {
             event.preventDefault();
-            var rivalUserId = $(e.currentTarget).data("id");
-            var rivalUser = this.collection.get(id);
-            var rivalUserDBId = item.get("id");
-            var room = new Room({rivalUser: rivalUserDBId});
-            room.save();
-            Backbone.history.navigate('gameRoom', true);
+            var rivalUserName = $(e.currentTarget).data("id");
+            var parser = new Parser(errorMessageElement);
+            this.model.inviteUser(rivalUserName,
+                            function(response) {
+                                if (parser.parseServerResponse(response)) { 
+                                    that.model.stopRivalWaiting();
+                                    Backbone.history.navigate('gameRoom', true);
+                                }
+                            },
+                            function(response) { 
+                                parser.parseServerResponse(response); 
+                            }
+            );
         }
         
     });
      
     var selectRoomView = new SelectRoomView({
         collection: Rivals,
+        model: new Room(),
         mainElement: '.b-selectroom-page'
     });
     //console.log(selectRoomView);

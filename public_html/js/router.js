@@ -18,7 +18,12 @@ define([
     ViewManager
 ){
     console.log(selectroomView);
-    var views = [mainView, scoreboardView, gameView, loginView, authView, selectroomView];
+    var views = {'main': mainView, 
+                 'scoreboard': scoreboardView, 
+                 'game': gameView, 
+                 'login': loginView, 
+                 'auth': authView, 
+                 'selectroom': selectroomView};
                  
     var viewManager = new ViewManager(views);
     

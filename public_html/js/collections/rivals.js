@@ -8,7 +8,7 @@ define([
 
     var PossibleRivalsCollection = Backbone.Collection.extend({
         model: RivalModel,
-        url: 'test/url'
+        url: '/api/v1/auth/get_users'
     });
     
     return new PossibleRivalsCollection();

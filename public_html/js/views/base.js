@@ -16,6 +16,7 @@ define([
         },
         
         render: function () {
+            $(this.mainElement).remove();
             this.$el.append(this.template());
         },
 

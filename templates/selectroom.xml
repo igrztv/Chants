@@ -3,10 +3,11 @@
     <div class="b-selectroom-page b-default-hidden-page">
         <fest:include src="./base.xml" context="json"/>
         <div class="b-rivals-list">
+            <p class="b-rivals-list__error-message"></p>
             <ul class="b-rivals-list__rival">
             <fest:each iterate="rivals" index="i" value="rival">
                 <li class="b-rivals-list__select-rival-btn">
-                    <a href="#" class="b-rivals-list__rival" data-id="{rival.id}"><fest:value>rival.name</fest:value></a><fest:space/>
+                    <a href="#" class="b-rivals-list__rival" data-id="{rival.name}"><fest:value>rival.name</fest:value></a><fest:space/>
                 </li>
             </fest:each>
             </ul>

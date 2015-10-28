@@ -33,16 +33,16 @@ define([
             $(formClass).validate(validationInfo);
             if ($(formClass).valid()) {
                 $(errorMessageElement).empty();
-                var newUser = new User(getUserInfo());
+                var newUser = new User(getUserInfo(inputClassPrefix));
                 var parser = new Parser(errorMessageElement);
                 var that = this;
                 newUser.logIn({
-                    error: function(response) {
+                    error: function(response) { 
                         parser.parseServerResponse(response); 
                     },
                     success: function(response) {
                         if (parser.parseServerResponse(response)) { 
-                            that.hide();
+                            that.trigger('render', 'main');
                             Backbone.history.navigate('main', true);
                         }
                     } 

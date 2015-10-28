@@ -37,12 +37,11 @@ define([
                 var newUser = new User(getUserInfo(inputClassPrefix));
                 var parser = new Parser(errorMessageElement);
                 newUser.signUp({
-                    error: function(model, response) {
+                    error: function(response) {
                         parser.parseServerResponse(response); 
                     },
-                    success: function(model, response) {
-                        if (parser.parseServerResponse(response)) { 
-                            that.hide();
+                    success: function(response) {
+                        if (parser.parseServerResponse(response)) {
                             Backbone.history.navigate('main', true);
                         }
                     } 

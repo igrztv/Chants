@@ -48,6 +48,8 @@ define([
 
         pause: function() {
         }
+        //game_status {name}
+        // 
     });
 
     return new GameView({
