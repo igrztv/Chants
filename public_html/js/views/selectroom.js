@@ -79,7 +79,7 @@ define([
     });
      
     var selectRoomView = new SelectRoomView({
-        collection: new Rivals(),
+        collection: Rivals,
         model: new Room(),
         mainElement: '.b-selectroom-page'
     });
