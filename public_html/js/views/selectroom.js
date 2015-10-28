@@ -7,7 +7,7 @@ define([
 ], function(
     Backbone,
     selectroom, 
-    Rivals,
+    rivals,
     Room,
     BaseView
 ){
@@ -79,8 +79,8 @@ define([
     });
      
     var selectRoomView = new SelectRoomView({
-        collection: new Rivals(),
-        model: new Room(),
+        collection: rivals,
+        model: new Room,
         mainElement: '.b-selectroom-page'
     });
     //console.log(selectRoomView);
