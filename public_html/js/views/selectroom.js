@@ -39,8 +39,9 @@ define([
             this.model.registerOnGame();
             var that = this;
             this.model.startRivalWaiting(this.model.getGameStatus(
-                function(successResponse) {
-                    responseObj = $.parseJSON(successResponse);
+                function(responseObj) {
+                    console.log('status');
+                    //responseObj = $.parseJSON(successResponse);
                     if (responseObj.game_status == 1) {
                          that.model.stopRivalWaiting();
                          Backbone.history.navigate('gameRoom', true);        
@@ -80,7 +81,7 @@ define([
      
     var selectRoomView = new SelectRoomView({
         collection: rivals,
-        model: new Room,
+        model: new Room(),
         mainElement: '.b-selectroom-page'
     });
     //console.log(selectRoomView);

@@ -13,10 +13,10 @@ function() {
         }
     }
 
-    Parser.prototype.parseServerResponse = function(result) {
-        if (result) {
+    Parser.prototype.parseServerResponse = function(responseObj) {
+        if (responseObj) {
             try {
-                responseObj = $.parseJSON(result);
+                console.log(responseObj);
                 if (responseObj.login_status == "false") {
                     this.showErrorMessage("error occured");
                     return false;

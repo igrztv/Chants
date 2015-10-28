@@ -45,6 +45,9 @@ define([
                             that.trigger('render', 'main');
                             Backbone.history.navigate('main', true);
                         }
+                        else {
+                            console.log("false");
+                        }
                     } 
                 });
             }

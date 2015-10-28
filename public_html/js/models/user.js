@@ -17,7 +17,8 @@ function(
 		url: 'api/v1/auth/curruser',
 		loginUrl: 'api/v1/auth/signin',
 		signupUrl: 'api/v1/auth/signup',
-     
+        logoutUrl: 'api/v1/auth/logout',
+        
 		logIn: function(callbackDict) {
 			var that = this;
 			$.ajax(that.loginUrl, {
@@ -45,6 +46,16 @@ function(
 				}
 			});
 		},
+		
+		logOut: function(callback) {
+			var that = this;
+			$.ajax(that.logoutUrl, {
+				type: "GET",
+				complete: function() {
+				    callback();
+				}
+			});		    
+		}
 	});
 
     return UserModel;

@@ -8,11 +8,11 @@ define([
 
     var PossibleRivalsCollection = Backbone.Collection.extend({
         model: RivalModel,
-        url: '/api/v1/auth/get_users',
+        url: 'api/v1/auth/get_users',
         initialize: function() {
             setInterval(function(){
                  this.fetch();
-            }, 10000);
+            }.bind(this), 10000);
         }
     });
     

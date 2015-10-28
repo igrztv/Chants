@@ -22,9 +22,10 @@ function(
 		//	rivalUser: undefined
 		//},
 		
-		inviteUrl: '/api/v1/auth/invite/',
-		gameStatusUrl: '/api/v1/auth/game_status/',
-		findRivalUrl: '/api/v1/auth/find_rival/',
+		inviteUrl: 'api/v1/auth/invite/',
+		gameStatusUrl: 'api/v1/auth/game_status/',
+		findRivalUrl: 'api/v1/auth/find_rival',
+		url: 'api/v1/auth/game_status',
 		
 		inviteUser: function(name, successFunction, errorFunction) {
 			var that = this;
@@ -48,7 +49,7 @@ function(
 		getGameStatus: function(successFunction, errorFunction) {
 		    var that = this;
 		    return function() {
-			    $.ajax(that.gameStatusUrl, {
+			    $.ajax(that.findRivalUrl, {
 				    type: "GET",
 				    success: function(response) {
                         return successFunction(response)
@@ -61,7 +62,7 @@ function(
 		},
 		
 		startRivalWaiting: function(callback, timeInterval) {
-		    this.timer = setInterval(callback.bind(this), timeInerval);
+		    //this.timer = setInterval(callback.bind(this), timeInterval);
 		},
 		
 		stopRivalWaiting: function() {
