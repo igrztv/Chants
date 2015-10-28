@@ -19,10 +19,14 @@ define([
         // game_status: 1 - selected
         // find_rival 
         //when show -> registr on post
+        initialize: function() {
+            this.collection.on('reset', this.render, this);
+        },
         
         template: selectroom,
 
         render: function () {
+            $(this.mainElement).remove();
             var rivals  = this.collection.toJSON();
             this.$el.append(this.template(rivals));
         },
@@ -75,7 +79,7 @@ define([
     });
      
     var selectRoomView = new SelectRoomView({
-        collection: Rivals,
+        collection: new Rivals(),
         model: new Room(),
         mainElement: '.b-selectroom-page'
     });
