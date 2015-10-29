@@ -58,12 +58,14 @@ function(
 		},
 		
 		startRivalWaiting: function(callback, timeInterval) {
-		    this.timer = setInterval(callback.bind(this), timeInterval);
+		    if (!(this.timer)) {
+		        this.timer = setInterval(callback.bind(this), timeInterval);
+		    }		    	    
 		},
 		
 		stopRivalWaiting: function() {
 		    if (this.timer) {
-		        clearTimeout(this.timer);
+		        clearInterval(this.timer);
 		    }
 		}
     });
