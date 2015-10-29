@@ -20,9 +20,7 @@ define([
                      url: that.url,
                      method: 'GET',
                      success: function(data) {
-                         console.log(data);
                          var rivals = JSON.parse(data);
-                         console.log(rivals.users);
                          that.reset(rivals.users);
                      }
                  });

@@ -64,6 +64,7 @@ function(
 		    return function() {
 			    $.ajax(that.findRivalUrl, {
 				    type: "GET",
+				    data: {is_game: 1},
 				    success: function(response) {
                         return successFunction(response)
 				    },
