@@ -66,9 +66,9 @@ function(
 		stopRivalWaiting: function() {
 		    if (this.timer) {
 		        clearInterval(this.timer);
+		        this.timer = undefined;
 		    }
 		}
     });
-
     return RoomModel;
 });
