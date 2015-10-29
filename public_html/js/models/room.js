@@ -7,25 +7,11 @@ function(
 ){
     var currUser = new User();
     
-    var RoomModel = Backbone.Model.extend({
-        /*initialize: function() {
-            var that = this;
-            currUser.fetch({
-                success: function(currUserResponse) {
-                    that.set({currentUser: currUser.id});
-                },
-            });
-        },*/
-        
-		//defaults: {
-		//	currentUser: undefined,
-		//	rivalUser: undefined
-		//},
-		
+    var RoomModel = Backbone.Model.extend({		
 		inviteUrl: 'api/v1/auth/invite',
 		gameStatusUrl: 'api/v1/auth/game_status',
 		findRivalUrl: 'api/v1/auth/find_rival',
-		//url: 'api/v1/auth/game_status',
+		
 		getCurrRoom: function(callbackDict) {
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
@@ -41,7 +27,6 @@ function(
 		inviteUser: function(name, successFunction, errorFunction) {
 			var that = this;
 			var data = {user: name};
-			console.log(data);
 			$.ajax(that.inviteUrl, {
 				type: "GET",
 				data: data,
@@ -59,7 +44,7 @@ function(
 		           {type: "POST"});    
 		},
 		
-		getGameStatus: function(successFunction, errorFunction) {
+		getGameStatus: function(successFunction) {
 		    var that = this;
 		    return function() {
 			    $.ajax(that.findRivalUrl, {
@@ -67,9 +52,6 @@ function(
 				    data: {is_game: 1},
 				    success: function(response) {
                         return successFunction(response)
-				    },
-				    error: function(xhr, status, error) {
-					    return errorFunction(xhr);
 				    }
 			    });
 			};		    
@@ -84,10 +66,6 @@ function(
 		        clearTimeout(this.timer);
 		    }
 		}
-		
-		
-		//post user name. if ok true, if false show info
-		//test if / 
     });
 
     return RoomModel;

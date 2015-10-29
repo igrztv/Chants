@@ -24,7 +24,7 @@ define([
                          that.reset(rivals.users);
                      }
                  });
-            }.bind(this), 10000);
+            }.bind(this), 500);
         }
     });
     

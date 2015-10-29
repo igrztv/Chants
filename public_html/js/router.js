@@ -17,7 +17,6 @@ define([
     selectroomView,
     ViewManager
 ){
-    console.log(selectroomView);
     var views = {'main': mainView, 
                  'scoreboard': scoreboardView, 
                  'game': gameView, 

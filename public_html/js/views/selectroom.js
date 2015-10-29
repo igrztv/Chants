@@ -19,11 +19,6 @@ define([
          Backbone.history.navigate('game', true); 
     }
     var SelectRoomView = BaseView.extend({
-        //ask if we were selected
-        // game_status: 0 - not selected
-        // game_status: 1 - selected
-        // find_rival 
-        //when show -> registr on post
         initialize: function(options) {
             BaseView.prototype.initialize.call(this, options);
             this.collection.on('reset', this.onCollectionReset, this);
@@ -56,16 +51,12 @@ define([
             this.model.startRivalWaiting(this.model.getGameStatus(
                 function(response) {
                     var responseObj = JSON.parse(response);
-                    console.log(responseObj.game_status);
                     if (responseObj.game_status == 1) {
                         enterGame(that.model);
                     }          
-                },
-                function(errorResponse) { //for debug;
-                    console.log('game status error'); 
                 }
             ),
-            1000);
+            500);
         },
         
         hide: function() {
@@ -97,6 +88,6 @@ define([
         model: new Room(),
         mainElement: '.b-selectroom-page'
     });
-    //console.log(selectRoomView);
+
     return selectRoomView;
 });

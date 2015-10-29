@@ -12,7 +12,6 @@ define([
     Room
 ){
     var GameView = BaseView.extend({
-
         template: game,
 
         start: function(){
@@ -35,22 +34,11 @@ define([
             var that = this;
             var res = room.getCurrRoom({
                 success: function(success) {
-                    console.log(success);
                     BaseView.prototype.show.call(that);
                 },
                 error: function(error) {
-                    console.log(error);
                     Backbone.history.navigate('main', true);
                 }
-                /*complete: function(result) {
-                    console.log(result);
-                    if (result.game_status) {
-                        BaseView.prototype.show.call(this);  
-                    }
-                    else {
-                        Backbone.history.navigate('main', true);
-                    }
-                }*/
             });
 
         },
@@ -60,8 +48,6 @@ define([
 
         pause: function() {
         }
-        //game_status {name}
-        // 
     });
 
     return new GameView({
