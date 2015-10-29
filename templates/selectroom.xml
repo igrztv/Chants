@@ -1,13 +1,13 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="rivals">
     <fest:script>var json = {title: 'Select Rival', 'backbutton': true };</fest:script>
-    <div class="b-selectroom-page">
+    <div class="b-selectroom-page b-default-hidden-page">
         <fest:include src="./base.xml" context="json"/>
         <div class="b-rivals-list">
             <p class="b-rivals-list__error-message"></p>
             <ul class="b-rivals-list__rival">
             <fest:each iterate="rivals" index="i" value="rival">
-                <li class="b-rivals-list__select-rival-btn">
-                    <a href="#" class="b-rivals-list__rival" data-id="{rival.name}"><fest:value>rival.name</fest:value></a>
+                <li>
+                    <a href="#" class="b-rivals-list__select-rival-btn" data-id="{rival.name}"><fest:value>rival.name</fest:value></a>
                 </li>
             </fest:each>
             </ul>

@@ -21,12 +21,20 @@ define([
         // game_status: 1 - selected
         // find_rival 
         //when show -> registr on post
-        initialize: function() {
-            this.collection.on('reset', this.render, this);
+        initialize: function(options) {
+            BaseView.prototype.initialize.call(this, options);
+            this.collection.on('reset', this.onCollectionReset, this);
+        },
+        
+        onCollectionReset: function() {
+             var isVisible = $(this.mainElement).is(':visible');
+             this.render();  
+             if (isVisible) {
+                 this.show();
+             } 
         },
         
         template: selectroom,
-        mainElement: '.b-selectroom-page',
         
         render: function () {
             $(this.mainElement).remove();
@@ -44,7 +52,6 @@ define([
             var that = this;
             this.model.startRivalWaiting(this.model.getGameStatus(
                 function(responseObj) {
-                    console.log('status');
                     //responseObj = $.parseJSON(successResponse);
                     if (responseObj.game_status == 1) {
                          that.model.stopRivalWaiting();
@@ -66,12 +73,13 @@ define([
         selectRival: function(event) {
             event.preventDefault();
             var rivalUserName = $(event.currentTarget).data("id");
+            var that = this;
             var parser = new Parser(errorMessageElement);
             this.model.inviteUser(rivalUserName,
                             function(response) {
                                 if (parser.parseServerResponse(response)) { 
                                     that.model.stopRivalWaiting();
-                                    Backbone.history.navigate('gameRoom', true);
+                                    Backbone.history.navigate('game', true);
                                 }
                             },
                             function(response) { 
@@ -85,6 +93,7 @@ define([
     var selectRoomView = new SelectRoomView({
         collection: rivals,
         model: new Room(),
+        mainElement: '.b-selectroom-page'
     });
     //console.log(selectRoomView);
     return selectRoomView;

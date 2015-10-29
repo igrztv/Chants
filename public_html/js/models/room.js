@@ -25,13 +25,26 @@ function(
 		inviteUrl: 'api/v1/auth/invite',
 		gameStatusUrl: 'api/v1/auth/game_status',
 		findRivalUrl: 'api/v1/auth/find_rival',
-		url: 'api/v1/auth/game_status',
-		
+		//url: 'api/v1/auth/game_status',
+		getCurrRoom: function(callbackDict) {
+			$.ajax(this.gameStatusUrl, {
+				type: "GET",
+				success: function(response) {
+                    return callbackDict.success(response);
+				},
+				error: function(xhr, status, error) {
+					return callbackDict.error(xhr); 
+				}
+			});
+		},
+				
 		inviteUser: function(name, successFunction, errorFunction) {
 			var that = this;
+			var data = {user: name};
+			console.log(data);
 			$.ajax(that.inviteUrl, {
 				type: "GET",
-				data: {name: name},
+				data: data,
 				success: function(response) {
                     return successFunction(response)
 				},
@@ -67,7 +80,7 @@ function(
 		
 		stopRivalWaiting: function() {
 		    if (this.timer) {
-		        clearTimer(this.timer);
+		        clearTimeout(this.timer);
 		    }
 		}
 		
