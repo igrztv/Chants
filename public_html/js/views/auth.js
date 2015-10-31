@@ -4,7 +4,7 @@ define([
     'tmpl/auth',
     'models/user',
     'validation_dicts/auth',
-    'utils/custom_ajax_parser',
+    'utils/show_ajax_response',
     'utils/create_user',
     'jqueryValidation'
 ], function(
@@ -13,7 +13,7 @@ define([
     auth,
     User,
     validationInfo,
-    Parser,
+    ShowResponse,
     getUserInfo
 ){
     var errorMessageElement = '.b-main-signup-form__error-message';
@@ -35,13 +35,13 @@ define([
             if ($(formClass).valid()) {               
                 $(errorMessageElement).empty();
                 var newUser = new User(getUserInfo(inputClassPrefix));
-                var parser = new Parser(errorMessageElement);
+                var showResponse = new ShowResponse(errorMessageElement);
                 newUser.signUp({
                     error: function(response) {
-                        parser.parseServerResponse(response); 
+                        showResponse.parseServerResponse(response); 
                     },
                     success: function(response) {
-                        if (parser.parseServerResponse(response)) {
+                        if (showResponse.parseServerResponse(response)) {
                             Backbone.history.navigate('main', true);
                         }
                     } 
