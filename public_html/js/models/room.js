@@ -14,9 +14,12 @@ function(
 		findRivalUrl: 'api/v1/auth/find_rival',
 		
 		getCurrRoom: function(callbackDict) {
+		    var that = this;
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
 				success: function(response) {
+				    var responseObj = JSON.parse(response);
+				    that.set({id: responseObj.room_id});
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {
@@ -80,7 +83,7 @@ function(
 		        clearTimeout(timer);
 		        timer = undefined;
 		    }
-		},
+		}
     });
     return RoomModel;
 });
