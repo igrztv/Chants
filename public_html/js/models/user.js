@@ -5,6 +5,22 @@ function(
     Backbone
 ){
 
+    var signUser = function(url) {
+        var signFunction = function(callbackDict) {
+            $.ajax(url, {
+		        type: "POST",
+			    data: this.toJSON(),
+			    success: function(response) {
+				    return callbackDict.success(response); 
+			    },
+			    error: function(xhr, status, error) {
+				    return callbackDict.error(xhr); 
+			    }
+	         });                
+         }
+         return signFunction.bind(this);
+    };
+    
 	var UserModel = Backbone.Model.extend({
 		defaults: {
 			name: '',
@@ -18,35 +34,7 @@ function(
 		loginUrl: 'api/v1/auth/signin',
 		signupUrl: 'api/v1/auth/signup',
         logoutUrl: 'api/v1/auth/logout',
-        
-		logIn: function(callbackDict) {
-			var that = this;
-			$.ajax(that.loginUrl, {
-				type: "POST",
-				data: that.toJSON(),
-				success: function(response) {
-					return callbackDict.success(response); 
-				},
-				error: function(xhr, status, error) {
-					return callbackDict.error(xhr); 
-				}
-			});
-		},
-
-		signUp: function(callbackDict) {
-			var that = this;
-			$.ajax(that.signupUrl, {
-				type: "POST",
-				data: that.toJSON(),
-				success: function(response) {
-					return callbackDict.success(response); 
-				},
-				error: function(xhr, status, error) {
-					return callbackDict.error(xhr); 
-				}
-			});
-		},
-		
+        		
 		logOut: function(callback) {
 			var that = this;
 			$.ajax(that.logoutUrl, {
@@ -55,6 +43,11 @@ function(
 				    callback();
 				}
 			});		    
+		},
+		
+		initialize: function() {
+		    this.logIn = signUser.call(this, this.loginUrl);
+		    this.signUp = signUser.call(this, this.signupUrl);
 		}
 	});
 

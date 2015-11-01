@@ -18,21 +18,7 @@ define([
         url: 'api/v1/auth/get_users',
         
         setRivalsTimer: function() {
-            timer = setTimeout(this.getRivals.bind(this), 1000);
-        },
-        
-        getRivals: function() {
-            $.ajax({
-                 url: this.url,
-                 method: 'GET',
-                 success: this.onSuccessfullyGetRivals.bind(this)
-            });            
-        },
-        
-        onSuccessfullyGetRivals: function(data) {
-            var rivals = JSON.parse(data);
-            this.reset(rivals.users);
-            this.setRivalsTimer(); 
+            timer = setTimeout(this.fetch.bind(this), 1000);
         },
         
         stopRivalsTimer: function() {
@@ -44,7 +30,30 @@ define([
             if (!(timer)) {
                 this.setRivalsTimer();
             }
-        }
+        },
+        
+        sync: function(method, model, options) {
+              options || (options = {});
+              switch (method) {
+                  case 'read':
+                  $.ajax({
+                     url: this.url,
+                     method: 'GET',
+                     success: this.onSuccessfullyGetRivals.bind(this)
+                  }); 
+                  break;
+                  
+                  default:
+                  Backbone.sync.call(this, method, model, options);
+                  break;
+             }
+        },
+        
+        onSuccessfullyGetRivals: function(data) {
+            var rivals = JSON.parse(data);
+            this.reset(rivals.users);
+            this.setRivalsTimer(); 
+        },
     });
     
     return new PossibleRivalsCollection();

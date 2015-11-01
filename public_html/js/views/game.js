@@ -49,7 +49,7 @@ define([
             this.room.getCurrRoom({
                 success: function(success) {
                     BaseView.prototype.show.call(that);
-                    that.model.set({room_id: that.room.id});    
+                    that.model.set({room_id: that.room.get('id')});    
                 },
                 error: function(error) {
                     Backbone.history.navigate('main', true);

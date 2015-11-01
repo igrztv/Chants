@@ -18,8 +18,8 @@ function(
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
 				success: function(response) {
-				    var responseObj = JSON.parse(response);
-				    that.set({id: responseObj.room_id});
+				    //var responseObj = JSON.parse(response);
+				    //that.set({id: responseObj.room_id});
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {
@@ -49,8 +49,7 @@ function(
 		},
 		
 		getGameStatus: function() {
-		    var that = this;
-		    $.ajax(that.findRivalUrl, {
+		    $.ajax(this.findRivalUrl, {
 		        type: "GET",
 				data: {is_game: 1},
 				success: this.parseGameStart.bind(this)
@@ -83,7 +82,7 @@ function(
 		        clearTimeout(timer);
 		        timer = undefined;
 		    }
-		}
+		} 
     });
     return RoomModel;
 });

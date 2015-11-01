@@ -13,7 +13,7 @@ function(
 		    $.ajax(that.url, {
 		        type: "GET",
 				data: {push: true,
-				       room_id: this.room_id}
+				       room_id: this.get("room_id")}
 			});			    
 		},
 		
@@ -37,7 +37,7 @@ function(
 		    $.ajax(that.url, {
 		        type: "GET",
 				data: {is_game_progress: true,
-				       room_id: this.room_id},
+				       room_id: this.get("room_id")},
 				success: this.parseGameStatus.bind(this)
 			});			    
         },
