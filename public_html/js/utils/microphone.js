@@ -57,15 +57,16 @@ define(function() {
 			var foundGoodCorrelation = false;
 			var correlations = new Array(MAX_SAMPLES);
 
-			for (var i=0;i<SIZE;i++) {
-				var val = buf[i];
-				rms += val*val;
+			for (var i = 0; i < SIZE; i++){
+				rms += buf[i]*buf[i];
 			}
 			rms = Math.sqrt(rms/SIZE);
-			if (rms<0.01){
-				// not enough signal
-				return -1;
-			} 
+			if (rms < 0.01){				
+				return -1; // not enough signal
+			}
+			if(rms > 0.25){
+				return -2; //looking like noise
+			}
 
 			var lastCorrelation=1;
 			for (var offset = MIN_SAMPLES; offset < MAX_SAMPLES; offset++) {
@@ -104,14 +105,11 @@ define(function() {
 
 		function updatePitch( time ) {
 
-			//console.log('updatePitch:');
-			if(recording == false){
-				//console.log('recording stopped');
-				return 2;
+			if(recording === false){
+				return -4;
 			}
 			if(analyser === undefined){
-				//console.log('analyser not working');
-				return 3;
+				return -3;
 			}
 
 			var result = {
@@ -120,17 +118,16 @@ define(function() {
 				detune: 0
 			};
 			var cycles = [];
-			//debugger;
-			//return;
 			analyser.getFloatTimeDomainData( buf );
-			var ac = autoCorrelate( buf, audioContext.sampleRate );
-			// TODO: Paint confidence meter on canvasElem here.
+			var pitch = autoCorrelate( buf, audioContext.sampleRate );
 
-		 	if (ac === -1) {
+			if (pitch === -1) {
+				return -2;
+			}
+
+		 	if (pitch === -1) {
 		 		//default drawings
 		 	} else {
-			 	//detectorElem.className = 'confident';
-			 	pitch = ac;
 			 	result.pitch = Math.round( pitch ) ;
 				var noteNum = 12 * (Math.log( pitch / 440 )/Math.log(2) );
 				var note = Math.round( noteNum ) + 69;
@@ -149,8 +146,7 @@ define(function() {
 					result.detune = Math.abs( detune );
 				}
 			}
-			//console.log('updatePitch end');
-			return 10;
+			return result;
 		};
 
 	return {
