@@ -16,37 +16,38 @@ define([
     var GameView = BaseView.extend({
         template: game,
         model: user,
+        recording : false,
+        printing : 0,
 
         events: {
             "click .start": "start"
         }, 
 
-        start: function(){
-            mic.record(true);
-        },
-
-        requestAnimFrame: function(callback) {
-            console.log('requestAnimFrame:');
-            console.log(callback);
-            var ret =  window.requestAnimationFrame
-                || window.webkitRequestAnimationFrame
-                || window.mozRequestAnimationFrame
-                || window.oRequestAnimationFrame
-                || window.msRequestAnimationFrame
-                || function(callback) {
-                    window.setTimeout(callback, 1000 / 60)
-                };
-            console.log(ret);
-            return ret;
-        },
-
         update: function() {
-            console.log('updatePitch()');
-            mic.updatePitch();
+            var res = mic.updatePitch(Math.random() * 100);
+            if(this.printing++ > 100){
+                this.printing = 0;
+                console.log(res);
+            }
+            this.updateFrame(this.update);
+        },
+
+        start: function(){
+            mic.record(!this.recording);
+            this.update();
+            console.log('start_done');
+        },
+
+        updateFrame: function(callback) {
             var that = this;
-            this.requestAnimFrame(function(){
-                that.update().bind(that);
-            });
+            console.log();
+            setTimeout(alert('timer'), 1000);
+            //return window.requestAnimationFrame || window.webkitRequestAnimationFrame(that.update);
+            /*return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function(callback){
+                setTimeout(callback, 1000/60);
+                console.log('requestAnimFrame');
+            };*/
         },
 
         show: function() {
@@ -57,7 +58,7 @@ define([
                     BaseView.prototype.show.call(that);
                     console.log('mic.requireMicrophone()');
                     mic.requireMicrophone();
-                    that.update();
+                    //that.update();
                 },
                 error: function(error) {
                     Backbone.history.navigate('main', true);
@@ -66,9 +67,9 @@ define([
 
         },
         
-        rec: function() {
+        /*rec: function() {
             this.update();
-        },
+        },*/
 
         pause: function() {
 

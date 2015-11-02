@@ -39,7 +39,7 @@ define(function() {
 					analyser = audioContext.createAnalyser();
 					analyser.fftSize = 2048;
 					mediaStreamSource.connect( analyser );
-					updatePitch();
+					//updatePitch();
 				},
 				function(){
 					alert('Stream generation failed.');
@@ -97,21 +97,21 @@ define(function() {
 		};
 
 		function record(state){
-
 			recording = state;
+			console.log('recording = ' + recording);
 			return recording;
 		};
 
 		function updatePitch( time ) {
 
-			console.log('updatePitch:');
+			//console.log('updatePitch:');
 			if(recording == false){
-				console.log('recording stopped');
-				return;
+				//console.log('recording stopped');
+				return 2;
 			}
 			if(analyser === undefined){
-				console.log('analyser not working');
-				return;
+				//console.log('analyser not working');
+				return 3;
 			}
 
 			var result = {
@@ -149,8 +149,8 @@ define(function() {
 					result.detune = Math.abs( detune );
 				}
 			}
-			console.log('updatePitch end');
-			return true;
+			//console.log('updatePitch end');
+			return 10;
 		};
 
 	return {
