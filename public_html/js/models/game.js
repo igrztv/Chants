@@ -12,13 +12,14 @@ function(
 		    var that = this;
 		    $.ajax(that.url, {
 		        type: "GET",
-				data: {push: true}
+				data: {push: true,
+				       room_id: this.get("room_id")}
 			});			   
 		},
 		
         parseGameStatus: function(result) {
 		    var responseObj = result;//JSON.parse(result);
-            if (responseObj.is_game_progress == "false") {
+            if (responseObj.is_game_progress == false) {
                 if (responseObj.winers) {
                     this.trigger('gamefinished', responseObj.winers[0]);
                 }

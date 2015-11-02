@@ -65,7 +65,9 @@ define([
                 success: function(success) {
                     console.log('this.room.getCurrRoom success');
                     BaseView.prototype.show.call(that);
-                    that.model.set({room_id: that.room.get('id')});  
+                    console.log(that.room.get('id'));
+                    console.log("room_id");
+                    that.model.set({room_id: that.room.get('room_id')});
                     that.model.startGameResWaiting();  
                 },
                 error: function(error) {
