@@ -49,9 +49,9 @@ define([
              }
         },
         
-        onSuccessfullyGetRivals: function(data) {
-            var rivals = JSON.parse(data);
-            this.reset(rivals.users);
+        onSuccessfullyGetRivals: function(rivals) {
+            //var rivals = JSON.parse(data);
+            this.reset(rivals);
             this.setRivalsTimer(); 
         },
     });
