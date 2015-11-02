@@ -37,7 +37,8 @@ function(
 		    console.log(this.get("room_id"));
 		    $.ajax(this.url, {
 		        type: "GET",
-				data: {is_game_progress: true},
+				data: {is_game_progress: true,
+				       room_id: this.get("room_id")},
 				success: this.parseGameStatus.bind(this)
 			});			    
         },
