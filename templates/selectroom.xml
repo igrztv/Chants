@@ -6,8 +6,8 @@
             <p class="b-rivals-list__error-message"></p>
             <ul class="b-rivals-list__rival">
             <fest:each iterate="rivals" index="i" value="rival">
-                <li class="b-rivals-list__select-rival-btn">
-                    <a href="#" class="b-rivals-list__rival" data-id="{rival.name}"><fest:value>rival.name</fest:value></a><fest:space/>
+                <li>
+                    <a href="#" class="b-rivals-list__select-rival-btn" data-id="{rival.name}"><fest:value>rival.name</fest:value></a>
                 </li>
             </fest:each>
             </ul>

@@ -17,15 +17,20 @@
 		.flat #flat { display: inline; }
 		.sharp #sharp { display: inline; }
 	    </style>
-	    <button class="start">start</button>
-	    <div id="detector" class="vague">
-	    	<div class="pitch"><span id="pitch">--</span>Hz</div>
-		    <div class="note"><span id="note">--</span></div>   
-		    <div id="detune">
-		    	<span id="detune_amt">--</span>
-		    	<span id="flat">cents &#9837;</span>
-			    <span id="sharp">cents &#9839;</span>
-		   </div>
+	    <div class="b-game-page__winner">
+	        <span>Winner: </span><span class="b-game-page__winner__winner-name"></span>
+	    </div>
+	    <div class="b-game-page__gameplay">
+	        <button class="b-game-page__start-button">start</button>
+	        <div id="detector" class="vague">
+	    	    <div class="pitch"><span id="pitch">--</span>Hz</div>
+		        <div class="note"><span id="note">--</span></div>   
+		        <div id="detune">
+		    	    <span id="detune_amt">--</span>
+		    	    <span id="flat">cents &#9837;</span>
+			        <span id="sharp">cents &#9839;</span>
+		       </div>
+	       </div>
 	   </div>
     </div>
 </fest:template>
