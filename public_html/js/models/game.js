@@ -13,26 +13,21 @@ function(
 		    $.ajax(that.url, {
 		        type: "GET",
 				data: {push: true}
-			});			    
+			});			   
 		},
 		
         parseGameStatus: function(result) {
 		    var responseObj = result;//JSON.parse(result);
-            if (responseObj.is_game_progress == false) {
-                if (reponseObj.winner) {
-                    this.trigger('gamefinished', reponseObj.winner);
-                    console.log("win");
-                    concole.log(responseObj);
+            if (responseObj.is_game_progress == "false") {
+                if (responseObj.winers) {
+                    this.trigger('gamefinished', responseObj.winers[0]);
                 }
                 else {
                     this.trigger('gamesuspended');
-                    console.log("suspend");
-                    concole.log(responseObj);
                 }
                 timer = undefined;
             }
             else {
-                console.log("continue");
                 this.initTimer();
             }        
         },
