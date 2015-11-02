@@ -65,8 +65,8 @@ define([
                 success: function(success) {
                     console.log('this.room.getCurrRoom success');
                     BaseView.prototype.show.call(that);
-                    debugger;
-                    that.model.set({room_id: that.room.get('id')});    
+                    that.model.set({room_id: that.room.get('id')});  
+                    that.model.startGameResWaiting();  
                 },
                 error: function(error) {
                     Backbone.history.navigate('main', true);
@@ -83,6 +83,7 @@ define([
         hide: function() {
             $(gameplayBlock).show();
             $(winnerBlock).hide();
+            this.model.stopGameResWaiting();
             BaseView.prototype.hide.call(this);
         },
                 

@@ -19,7 +19,7 @@ function(
 				type: "GET",
 				success: function(response) {
 				    //var responseObj = JSON.parse(response);
-				    //that.set({id: responseObj.room_id});
+				    that.set({id: response.room_id});
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {

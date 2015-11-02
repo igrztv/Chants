@@ -12,42 +12,46 @@ function(
 		    var that = this;
 		    $.ajax(that.url, {
 		        type: "GET",
-				data: {push: true,
-				       room_id: this.get("room_id")}
+				data: {push: true}
 			});			    
 		},
 		
         parseGameStatus: function(result) {
-		    var responseObj = JSON.parse(response);
+		    var responseObj = result;//JSON.parse(result);
             if (responseObj.is_game_progress == false) {
                 if (reponseObj.winner) {
                     this.trigger('gamefinished', reponseObj.winner);
+                    console.log("win");
+                    concole.log(responseObj);
                 }
                 else {
                     this.trigger('gamesuspended');
+                    console.log("suspend");
+                    concole.log(responseObj);
                 }
                 timer = undefined;
             }
             else {
+                console.log("continue");
                 this.initTimer();
             }        
         },
         		
 		getGameStatus: function() {
-		    $.ajax(that.url, {
+		    console.log("game status");
+		    console.log(this.get("room_id"));
+		    $.ajax(this.url, {
 		        type: "GET",
-				data: {is_game_progress: true,
-						room_id: this.get("room_id")},
+				data: {is_game_progress: true},
 				success: this.parseGameStatus.bind(this)
 			});			    
         },
         
 		initTimer: function() {
-			console.log('initTimer');
 		    timer = setTimeout(this.getGameStatus.bind(this), 1000);
 		},
 		
-		startGameResWaiting: function(successFunction) {
+		startGameResWaiting: function() {
 		    if (!(timer)) {
 		        this.initTimer();   
 		    }		    	    
@@ -58,7 +62,7 @@ function(
 		        clearTimeout(timer);
 		        timer = undefined;
 		    }
-		}		
+		}	
 
     });
     return GameModel;
