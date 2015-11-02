@@ -12,45 +12,39 @@ define(function() {
 		var buf = new Float32Array( buflen );
 		var noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 		var MIN_SAMPLES = 0;
+		var recording = false;
+
 		function requireMicrophone(){
-			var deff = new $.Deferred();
-			//try {
-			    navigator.getUserMedia = 
-			    	navigator.getUserMedia ||
-			    	navigator.webkitGetUserMedia ||
-			    	navigator.mozGetUserMedia;
-			    navigator.getUserMedia(
-					{
-						'audio': {
-							'mandatory': {
-								'googEchoCancellation': 'false',
-								'googAutoGainControl': 'false',
-								'googNoiseSuppression': 'false',
-								'googHighpassFilter': 'false'
-							},
-							'optional': []
+		    navigator.getUserMedia = 
+		    	navigator.getUserMedia ||
+		    	navigator.webkitGetUserMedia ||
+		    	navigator.mozGetUserMedia;
+		    navigator.getUserMedia(
+				{
+					'audio': {
+						'mandatory': {
+							'googEchoCancellation': 'false',
+							'googAutoGainControl': 'false',
+							'googNoiseSuppression': 'false',
+							'googHighpassFilter': 'false'
 						},
+						'optional': []
 					},
-					function(stream){
-						console.log(stream);
-						mediaStreamSource = audioContext.createMediaStreamSource(stream);
-						//debugger;
-						// Connect it to the destination.
-						analyser = audioContext.createAnalyser();
-						analyser.fftSize = 2048;
-						mediaStreamSource.connect( analyser );
-						//updatePitch();
-						deff.resolve();
-					},
-					function(){
-						deff.reject();
-						//alert('Stream generation failed.');
-					}
-				);
-			//} catch (e) {
-			//    alert('getUserMedia threw exception :' + e);
-			//}
-			return deff;
+				},
+				function(stream){
+					console.log('stream');
+					console.log(stream);
+					mediaStreamSource = audioContext.createMediaStreamSource(stream);
+					//debugger;
+					analyser = audioContext.createAnalyser();
+					analyser.fftSize = 2048;
+					mediaStreamSource.connect( analyser );
+					//updatePitch();
+				},
+				function(){
+					alert('Stream generation failed.');
+				}
+			);			
 		};
 
 		function autoCorrelate( buf, sampleRate ) {
@@ -63,15 +57,16 @@ define(function() {
 			var foundGoodCorrelation = false;
 			var correlations = new Array(MAX_SAMPLES);
 
-			for (var i=0;i<SIZE;i++) {
-				var val = buf[i];
-				rms += val*val;
+			for (var i = 0; i < SIZE; i++){
+				rms += buf[i]*buf[i];
 			}
 			rms = Math.sqrt(rms/SIZE);
-			if (rms<0.01){
-				// not enough signal
-				return -1;
-			} 
+			if (rms < 0.01){				
+				return -1; // not enough signal
+			}
+			if(rms > 0.25){
+				return -2; //looking like noise
+			}
 
 			var lastCorrelation=1;
 			for (var offset = MIN_SAMPLES; offset < MAX_SAMPLES; offset++) {
@@ -102,25 +97,37 @@ define(function() {
 			//	var best_frequency = sampleRate/best_offset;
 		};
 
+		function record(state){
+			recording = state;
+			console.log('recording = ' + recording);
+			return recording;
+		};
+
 		function updatePitch( time ) {
-			//console.log('updatePitch');
+
+			if(recording === false){
+				return -4;
+			}
+			if(analyser === undefined){
+				return -3;
+			}
+
 			var result = {
 				pitch: -1,
 				noteStrings: -1,
 				detune: 0
 			};
 			var cycles = [];
-			//debugger;
-			//return;
 			analyser.getFloatTimeDomainData( buf );
-			var ac = autoCorrelate( buf, audioContext.sampleRate );
-			// TODO: Paint confidence meter on canvasElem here.
+			var pitch = autoCorrelate( buf, audioContext.sampleRate );
 
-		 	if (ac === -1) {
+			if (pitch === -1) {
+				return -2;
+			}
+
+		 	if (pitch === -1) {
 		 		//default drawings
 		 	} else {
-			 	//detectorElem.className = 'confident';
-			 	pitch = ac;
 			 	result.pitch = Math.round( pitch ) ;
 				var noteNum = 12 * (Math.log( pitch / 440 )/Math.log(2) );
 				var note = Math.round( noteNum ) + 69;
@@ -139,11 +146,12 @@ define(function() {
 					result.detune = Math.abs( detune );
 				}
 			}
-			//console.log('updatePitch end');
+			return result;
 		};
 
 	return {
 		updatePitch: updatePitch,
-		requireMicrophone: requireMicrophone
+		requireMicrophone: requireMicrophone,
+		record: record,
 	};
 });

@@ -1,36 +1,16 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-	<fest:script>var json = {title: 'Game', 'backbutton': true };</fest:script>
 	<div class="b-game-page b-default-hidden-page">
-	    <fest:include src="./base.xml" context="json"/>
-	    <style>
-		body { font: 14pt 'Alike', sans-serif;}
-		#note { font-size: 164px; }
-		.droptarget { background-color: #348781}
-		div.confident { color: black; }
-		div.vague { color: lightgrey; width: 500px}
-		#note { display: inline-block; height:180px; text-align: left;}
-		
-		#detector { width: 300px; height: 300px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px;}
-		#output { width: 300px; height: 42px; }
-		#flat { display: none; }
-		#sharp { display: none; }
-		.flat #flat { display: inline; }
-		.sharp #sharp { display: inline; }
-	    </style>
+		<fest:include src="./base.xml" context="json"/>
 	    <div class="b-game-page__winner">
 	        <span>Winner: </span><span class="b-game-page__winner__winner-name"></span>
 	    </div>
 	    <div class="b-game-page__gameplay">
-	        <button class="b-game-page__start-button">start</button>
-	        <div id="detector" class="vague">
-	    	    <div class="pitch"><span id="pitch">--</span>Hz</div>
-		        <div class="note"><span id="note">--</span></div>   
-		        <div id="detune">
-		    	    <span id="detune_amt">--</span>
-		    	    <span id="flat">cents &#9837;</span>
-			        <span id="sharp">cents &#9839;</span>
-		       </div>
-	       </div>
-	   </div>
+	    	<button class="b-game-page__start-button">start</button>
+	    </div>
+	    <div class="audio">
+			<button class="audio__toggle-recording">Start!</button>
+			<span id="note">--</span> 
+			<canvas></canvas>
+		</div>
     </div>
 </fest:template>
