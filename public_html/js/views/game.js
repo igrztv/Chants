@@ -4,22 +4,14 @@ define([
     'utils/microphone',
     'views/base',
     'models/room',
-<<<<<<< HEAD
-    'models/user'
-=======
     'models/game'
->>>>>>> 25c6ec7d7efa8ec6552815acf434c851a4c9fbc4
 ], function(
     Backbone,
     game,
     mic,
     BaseView,
     Room,
-<<<<<<< HEAD
-    user
-=======
     Game
->>>>>>> 25c6ec7d7efa8ec6552815acf434c851a4c9fbc4
 ){
     var winnerNameEl = '.b-game-page__winner__winner-name';
     var winnerBlock = '.b-game-page__winner';
@@ -27,7 +19,7 @@ define([
     
     var GameView = BaseView.extend({
         template: game,
-        model: user,
+        //model: user,
 
         start: function(){
             mic.requireMicrophone();
@@ -71,25 +63,29 @@ define([
             var that = this;
             this.room.getCurrRoom({
                 success: function(success) {
+                    console.log('this.room.getCurrRoom success');
                     BaseView.prototype.show.call(that);
+                    debugger;
                     that.model.set({room_id: that.room.get('id')});    
                 },
                 error: function(error) {
+                    console.log('this.room.getCurrRoom failed');
+                    debugger;
                     Backbone.history.navigate('main', true);
                 }
             });
         },
         
         showWinner: function(winner) {
-             $(winnerNameEl).text(winner);
-             $(gameplayBlock).hide();
-             $(winnerBlock).show(); 
+            $(winnerNameEl).text(winner);
+            $(gameplayBlock).hide();
+            $(winnerBlock).show(); 
         },        
 
         hide: function() {
-             $(gameplayBlock).show();
-             $(winnerBlock).hide();
-             BaseView.prototype.hide.call(this);
+            $(gameplayBlock).show();
+            $(winnerBlock).hide();
+            BaseView.prototype.hide.call(this);
         },
                 
         leaveGame: function() {
@@ -101,16 +97,13 @@ define([
         },
 
         pause: function() {
-<<<<<<< HEAD
 
-=======
         },
         
         initialize: function(options) {
             BaseView.prototype.initialize.call(this, options);
             this.model.on('gamefinished', this.showWinner);
             this.model.on('gamesuspended', this.leaveGame);
->>>>>>> 25c6ec7d7efa8ec6552815acf434c851a4c9fbc4
         }
     });
 

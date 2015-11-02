@@ -18,7 +18,7 @@ define([
         url: 'api/v1/auth/get_users',
         
         setRivalsTimer: function() {
-            timer = setTimeout(this.fetch.bind(this), 1000);
+            timer = setTimeout(this.fetch.bind(this), 2000);
         },
         
         stopRivalsTimer: function() {
@@ -27,6 +27,8 @@ define([
         },
        
         initialize: function() {
+            console.log('PossibleRivalsCollection:');
+            console.log(this.length);
             if (!(timer)) {
                 this.setRivalsTimer();
             }
@@ -50,8 +52,14 @@ define([
         },
         
         onSuccessfullyGetRivals: function(data) {
-            var rivals = JSON.parse(data);
-            this.reset(rivals.users);
+            console.log('onSuccessfullyGetRivals');
+            console.log(data);
+            var rivals = data;
+            console.log(rivals[0]);
+            //this.reset(rivals.users);
+            this.reset(rivals);
+            this.length;
+            //debugger;
             this.setRivalsTimer(); 
         },
     });
