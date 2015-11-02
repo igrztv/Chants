@@ -12,45 +12,39 @@ define(function() {
 		var buf = new Float32Array( buflen );
 		var noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 		var MIN_SAMPLES = 0;
+		var recording = false;
+
 		function requireMicrophone(){
-			var deff = new $.Deferred();
-			//try {
-			    navigator.getUserMedia = 
-			    	navigator.getUserMedia ||
-			    	navigator.webkitGetUserMedia ||
-			    	navigator.mozGetUserMedia;
-			    navigator.getUserMedia(
-					{
-						'audio': {
-							'mandatory': {
-								'googEchoCancellation': 'false',
-								'googAutoGainControl': 'false',
-								'googNoiseSuppression': 'false',
-								'googHighpassFilter': 'false'
-							},
-							'optional': []
+		    navigator.getUserMedia = 
+		    	navigator.getUserMedia ||
+		    	navigator.webkitGetUserMedia ||
+		    	navigator.mozGetUserMedia;
+		    navigator.getUserMedia(
+				{
+					'audio': {
+						'mandatory': {
+							'googEchoCancellation': 'false',
+							'googAutoGainControl': 'false',
+							'googNoiseSuppression': 'false',
+							'googHighpassFilter': 'false'
 						},
+						'optional': []
 					},
-					function(stream){
-						console.log(stream);
-						mediaStreamSource = audioContext.createMediaStreamSource(stream);
-						//debugger;
-						// Connect it to the destination.
-						analyser = audioContext.createAnalyser();
-						analyser.fftSize = 2048;
-						mediaStreamSource.connect( analyser );
-						//updatePitch();
-						deff.resolve();
-					},
-					function(){
-						deff.reject();
-						//alert('Stream generation failed.');
-					}
-				);
-			//} catch (e) {
-			//    alert('getUserMedia threw exception :' + e);
-			//}
-			return deff;
+				},
+				function(stream){
+					console.log('stream');
+					console.log(stream);
+					mediaStreamSource = audioContext.createMediaStreamSource(stream);
+					//debugger;
+					analyser = audioContext.createAnalyser();
+					analyser.fftSize = 2048;
+					mediaStreamSource.connect( analyser );
+					updatePitch();
+				},
+				function(){
+					alert('Stream generation failed.');
+				}
+			);			
 		};
 
 		function autoCorrelate( buf, sampleRate ) {
@@ -102,8 +96,24 @@ define(function() {
 			//	var best_frequency = sampleRate/best_offset;
 		};
 
+		function record(state){
+
+			recording = state;
+			return recording;
+		};
+
 		function updatePitch( time ) {
-			//console.log('updatePitch');
+
+			console.log('updatePitch:');
+			if(recording == false){
+				console.log('recording stopped');
+				return;
+			}
+			if(analyser === undefined){
+				console.log('analyser not working');
+				return;
+			}
+
 			var result = {
 				pitch: -1,
 				noteStrings: -1,
@@ -139,11 +149,13 @@ define(function() {
 					result.detune = Math.abs( detune );
 				}
 			}
-			//console.log('updatePitch end');
+			console.log('updatePitch end');
+			return true;
 		};
 
 	return {
 		updatePitch: updatePitch,
-		requireMicrophone: requireMicrophone
+		requireMicrophone: requireMicrophone,
+		record: record,
 	};
 });

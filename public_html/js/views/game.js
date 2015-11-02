@@ -17,12 +17,18 @@ define([
         template: game,
         model: user,
 
+        events: {
+            "click .start": "start"
+        }, 
+
         start: function(){
-            mic.requireMicrophone();
+            mic.record(true);
         },
 
         requestAnimFrame: function(callback) {
-            return window.requestAnimationFrame
+            console.log('requestAnimFrame:');
+            console.log(callback);
+            var ret =  window.requestAnimationFrame
                 || window.webkitRequestAnimationFrame
                 || window.mozRequestAnimationFrame
                 || window.oRequestAnimationFrame
@@ -30,19 +36,16 @@ define([
                 || function(callback) {
                     window.setTimeout(callback, 1000 / 60)
                 };
+            console.log(ret);
+            return ret;
         },
 
         update: function() {
-            //rafID = requestAnimationFrame(this.update.bind(this));
-            if(mic.updatePitch() != false){
-                console.log('listening');
-            }
-            //animate(bubbles, forces, bubblesCanvas);
-
-            //do something
+            console.log('updatePitch()');
+            mic.updatePitch();
             var that = this;
-            this.requestAnimFrame(function() {
-                that.update();
+            this.requestAnimFrame(function(){
+                that.update().bind(that);
             });
         },
 
@@ -52,6 +55,9 @@ define([
             var res = room.getCurrRoom({
                 success: function(success) {
                     BaseView.prototype.show.call(that);
+                    console.log('mic.requireMicrophone()');
+                    mic.requireMicrophone();
+                    that.update();
                 },
                 error: function(error) {
                     Backbone.history.navigate('main', true);
@@ -61,7 +67,7 @@ define([
         },
         
         rec: function() {
-            
+            this.update();
         },
 
         pause: function() {
