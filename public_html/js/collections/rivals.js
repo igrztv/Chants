@@ -6,26 +6,54 @@ define([
     RivalModel
 ){
 
+    var timer;
     var PossibleRivalsCollection = Backbone.Collection.extend({
         model: RivalModel,
+        
         defaults: {
             id: -1,
             name: 'Anon'
         },
+        
         url: 'api/v1/auth/get_users',
+        
+        setRivalsTimer: function() {
+            timer = setTimeout(this.fetch.bind(this), 1000);
+        },
+        
+        stopRivalsTimer: function() {
+            clearTimeout(timer);
+            timer = undefined;
+        },
+       
         initialize: function() {
-            setInterval(function(){
-                 var that = this;
-                 $.ajax({
-                     url: that.url,
+            if (!(timer)) {
+                this.setRivalsTimer();
+            }
+        },
+        
+        sync: function(method, model, options) {
+              options || (options = {});
+              switch (method) {
+                  case 'read':
+                  $.ajax({
+                     url: this.url,
                      method: 'GET',
-                     success: function(data) {
-                         var rivals = JSON.parse(data);
-                         that.reset(rivals.users);
-                     }
-                 });
-            }.bind(this), 500);
-        }
+                     success: this.onSuccessfullyGetRivals.bind(this)
+                  }); 
+                  break;
+                  
+                  default:
+                  Backbone.sync.call(this, method, model, options);
+                  break;
+             }
+        },
+        
+        onSuccessfullyGetRivals: function(data) {
+            var rivals = JSON.parse(data);
+            this.reset(rivals.users);
+            this.setRivalsTimer(); 
+        },
     });
     
     return new PossibleRivalsCollection();

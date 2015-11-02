@@ -4,24 +4,22 @@ define([
     'collections/rivals',
     'models/room',
     'views/base',
-    'utils/custom_ajax_parser'
+    'utils/show_ajax_response'
 ], function(
     Backbone,
     selectroom, 
     rivals,
     Room,
     BaseView,
-    Parser
+    ShowResponse
 ){
     var errorMessageElement = '.b-rivals-list__error-message';
-    var enterGame = function(room) {
-         room.stopRivalWaiting();
-         Backbone.history.navigate('game', true); 
-    }
+
     var SelectRoomView = BaseView.extend({
         initialize: function(options) {
             BaseView.prototype.initialize.call(this, options);
             this.collection.on('reset', this.onCollectionReset, this);
+            this.model.on('gamestarted', this.enterGame);
         },
         
         onCollectionReset: function() {
@@ -48,19 +46,11 @@ define([
             BaseView.prototype.show.call(this);
             this.model.registerOnGame();
             var that = this;
-            this.model.startRivalWaiting(this.model.getGameStatus(
-                function(response) {
-                    var responseObj = JSON.parse(response);
-                    if (responseObj.game_status == 1) {
-                        enterGame(that.model);
-                    }          
-                }
-            ),
-            500);
+            this.model.startRoomWaiting();
         },
         
         hide: function() {
-            this.model.stopRivalWaiting();
+            this.model.stopRoomWaiting();
             BaseView.prototype.hide.call(this);
         },
         
@@ -68,18 +58,23 @@ define([
             event.preventDefault();
             var rivalUserName = $(event.currentTarget).data("id");
             var that = this;
-            var parser = new Parser(errorMessageElement);
+            var showResponse = new ShowResponse(errorMessageElement);
             this.model.inviteUser(rivalUserName,
                             function(response) {
-                                if (parser.parseServerResponse(response)) { 
-                                    enterGame(that.model);  
+                                if (showResponse.parseServerResponse(response)) { 
+                                    that.enterGame();  
                                 }
                             },
                             function(response) { 
-                                parser.parseServerResponse(response); 
+                                showResponse.parseServerResponse(response); 
                             }
             );
-        }
+        },
+        
+        enterGame: function() {
+             //this.model.stopRoomWaiting();
+             Backbone.history.navigate('game', true);
+         } 
         
     });
      

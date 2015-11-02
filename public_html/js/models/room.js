@@ -6,6 +6,7 @@ function(
     User
 ){
     var currUser = new User();
+    var timer;
     
     var RoomModel = Backbone.Model.extend({		
 		inviteUrl: 'api/v1/auth/invite',
@@ -13,9 +14,12 @@ function(
 		findRivalUrl: 'api/v1/auth/find_rival',
 		
 		getCurrRoom: function(callbackDict) {
+		    var that = this;
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
 				success: function(response) {
+				    //var responseObj = JSON.parse(response);
+				    //that.set({id: responseObj.room_id});
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {
@@ -44,31 +48,41 @@ function(
 		           {type: "POST"});    
 		},
 		
-		getGameStatus: function(successFunction) {
-		    var that = this;
-		    return function() {
-			    $.ajax(that.findRivalUrl, {
-				    type: "GET",
-				    data: {is_game: 1},
-				    success: function(response) {
-                        return successFunction(response)
-				    }
-			    });
-			};		    
+		getGameStatus: function() {
+		    $.ajax(this.findRivalUrl, {
+		        type: "GET",
+				data: {is_game: 1},
+				success: this.parseGameStart.bind(this)
+			});		    
 		},
 		
-		startRivalWaiting: function(callback, timeInterval) {
-		    if (!(this.timer)) {
-		        this.timer = setInterval(callback.bind(this), timeInterval);
+		parseGameStart: function(response) {                        
+		    var responseObj = JSON.parse(response);
+            if (responseObj.game_status == 1) {
+                this.trigger('gamestarted');
+                timer = undefined;
+            }
+            else {
+                this.initTimer();
+            }
+		},
+		
+		initTimer: function() {
+		    timer = setTimeout(this.getGameStatus.bind(this), 1000);
+		},
+		
+		startRoomWaiting: function(successFunction) {
+		    if (!(timer)) {
+		        this.initTimer();   
 		    }		    	    
 		},
 		
-		stopRivalWaiting: function() {
-		    if (this.timer) {
-		        clearInterval(this.timer);
-		        this.timer = undefined;
+		stopRoomWaiting: function() {
+		    if (timer) {
+		        clearTimeout(timer);
+		        timer = undefined;
 		    }
-		}
+		} 
     });
     return RoomModel;
 });
