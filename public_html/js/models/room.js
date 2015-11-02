@@ -59,6 +59,7 @@ function(
 		
 		parseGameStart: function(response) {                        
 		    var responseObj = JSON.parse(response);
+		    console.log(responseObj);
             if (responseObj.game_status == 1) {
                 this.trigger('gamestarted');
                 timer = undefined;
@@ -69,7 +70,8 @@ function(
 		},
 		
 		initTimer: function() {
-		    timer = setTimeout(this.getGameStatus.bind(this), 1000);
+			console.log('initTimer for getGameStatus');
+		    timer = setTimeout(this.getGameStatus.bind(this), 2000);
 		},
 		
 		startRoomWaiting: function(successFunction) {

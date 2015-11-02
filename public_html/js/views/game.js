@@ -19,15 +19,21 @@ define([
     
     var GameView = BaseView.extend({
         template: game,
+        //model: user,
 
         start: function(){
-            mic.requireMicrophone().done(function(){
-                console.log('.done()');
-                this.update();
-                
-            }.bind(this)).fail(function(){
-                console.log('.fail()');
-            }); 
+            mic.requireMicrophone();
+        },
+
+        requestAnimFrame: function(callback) {
+            return window.requestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || window.oRequestAnimationFrame
+                || window.msRequestAnimationFrame
+                || function(callback) {
+                    window.setTimeout(callback, 1000 / 60)
+                };
         },
 
         events: {
@@ -39,8 +45,17 @@ define([
         },
         
         update: function() {
-            rafID = requestAnimationFrame(this.update.bind(this));
-            mic.updatePitch();
+            //rafID = requestAnimationFrame(this.update.bind(this));
+            if(mic.updatePitch() != false){
+                console.log('listening');
+            }
+            //animate(bubbles, forces, bubblesCanvas);
+
+            //do something
+            var that = this;
+            this.requestAnimFrame(function() {
+                that.update();
+            });
         },
 
         show: function() {
@@ -48,26 +63,27 @@ define([
             var that = this;
             this.room.getCurrRoom({
                 success: function(success) {
+                    console.log('this.room.getCurrRoom success');
                     BaseView.prototype.show.call(that);
+                    debugger;
                     that.model.set({room_id: that.room.get('id')});    
                 },
                 error: function(error) {
-                    BaseView.prototype.show.call(that);
-                    //Backbone.history.navigate('main', true);
+                    Backbone.history.navigate('main', true);
                 }
             });
         },
         
         showWinner: function(winner) {
-             $(winnerNameEl).text(winner);
-             $(gameplayBlock).hide();
-             $(winnerBlock).show(); 
+            $(winnerNameEl).text(winner);
+            $(gameplayBlock).hide();
+            $(winnerBlock).show(); 
         },        
 
         hide: function() {
-             $(gameplayBlock).show();
-             $(winnerBlock).hide();
-             BaseView.prototype.hide.call(this);
+            $(gameplayBlock).show();
+            $(winnerBlock).hide();
+            BaseView.prototype.hide.call(this);
         },
                 
         leaveGame: function() {
@@ -75,9 +91,11 @@ define([
         },
         
         rec: function() {
+            
         },
 
         pause: function() {
+
         },
         
         initialize: function(options) {

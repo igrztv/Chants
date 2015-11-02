@@ -37,12 +37,13 @@ function(
 		    $.ajax(that.url, {
 		        type: "GET",
 				data: {is_game_progress: true,
-				       room_id: this.get("room_id")},
+						room_id: this.get("room_id")},
 				success: this.parseGameStatus.bind(this)
 			});			    
         },
         
 		initTimer: function() {
+			console.log('initTimer');
 		    timer = setTimeout(this.getGameStatus.bind(this), 1000);
 		},
 		

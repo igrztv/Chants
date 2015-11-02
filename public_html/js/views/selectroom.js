@@ -34,8 +34,9 @@ define([
         
         render: function () {
             $(this.mainElement).remove();
-            var rivals  = this.collection.toJSON();
-            this.$el.append(this.template(rivals));
+            var rivalList  = this.collection.toJSON();
+            console.log(this.collection.length);
+            this.$el.append(this.template(rivalList));
         },
         
         events: {
@@ -73,6 +74,7 @@ define([
         
         enterGame: function() {
              //this.model.stopRoomWaiting();
+             console.log('navigate to game');
              Backbone.history.navigate('game', true);
          } 
         
