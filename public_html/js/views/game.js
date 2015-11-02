@@ -52,7 +52,8 @@ define([
                     that.model.set({room_id: that.room.get('id')});    
                 },
                 error: function(error) {
-                    Backbone.history.navigate('main', true);
+                    BaseView.prototype.show.call(that);
+                    //Backbone.history.navigate('main', true);
                 }
             });
         },

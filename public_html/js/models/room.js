@@ -18,13 +18,12 @@ function(
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
 				success: function(response) {
-				    console.log(response);
 				    //var responseObj = JSON.parse(response);
 				    //that.set({id: responseObj.room_id});
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {
-				    console.log(err);
+				    console.log(error);
 					return callbackDict.error(xhr); 
 				}
 			});
