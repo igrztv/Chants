@@ -9,7 +9,7 @@
 	    </div>
 	    <div class="audio">
 			<button class="audio__toggle-recording">Start!</button>
-			<span id="note">--</span> 
+			<span class="audio__herz-indicator">--</span> 
 			<canvas></canvas>
 		</div>
     </div>

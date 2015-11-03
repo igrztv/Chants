@@ -1,7 +1,11 @@
-.b-game-page .audio__toggle-recording{
+.b-game-page .audio__toggle-recording {
 	color: #000;
 }
 
 .b-game-page .audio {
 	background-color: #EEE;
+}
+
+.b-game-page .audio__herz-indicator {
+	color: #000;	
 }

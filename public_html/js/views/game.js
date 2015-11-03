@@ -25,6 +25,7 @@ define([
         template: game,
         recording : false,
         toggleButton : false,
+        herzIndicator : false,
 
         events: {
             "click .audio__toggle-recording": "toggleRecording",
@@ -33,6 +34,9 @@ define([
 
         update: function() {
             var res = mic.updatePitch();
+            if(res.noteStrings){
+                this.herzIndicator.text(res.noteStrings);
+            }
             this.setTimer();
         },
         
@@ -55,16 +59,18 @@ define([
         },
 
         show: function() {
+            console.log('game show()');
             this.toggleButton = $('.audio__toggle-recording');
+            this.herzIndicator = $('.audio__herz-indicator');
             var room = new Room();
             var that = this;
-            this.room.getCurrRoom({
+            room.getCurrRoom({
                 success: function(success) {
                     console.log('this.room.getCurrRoom success');
                     BaseView.prototype.show.call(that);
-                    console.log(that.room.get('id'));
+                    console.log(room.get('id'));
                     console.log("room_id");
-                    that.model.set({room_id: that.room.get('room_id')});
+                    that.model.set({room_id: room.get('room_id')});
                     that.model.startGameResWaiting();  
                     mic.requireMicrophone();
                 },
