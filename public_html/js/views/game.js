@@ -13,53 +13,50 @@ define([
     Room,
     Game
 ){
+
+    var timer;
+
     var winnerNameEl = '.b-game-page__winner__winner-name';
     var winnerBlock = '.b-game-page__winner';
     var gameplayBlock = '.b-game-page__gameplay';
+    var toggleButtonClass = '.audio__toggle-recording';
     
     var GameView = BaseView.extend({
         template: game,
-        //model: user,
-
-        start: function(){
-            mic.requireMicrophone();
-        },
-
-        requestAnimFrame: function(callback) {
-            return window.requestAnimationFrame
-                || window.webkitRequestAnimationFrame
-                || window.mozRequestAnimationFrame
-                || window.oRequestAnimationFrame
-                || window.msRequestAnimationFrame
-                || function(callback) {
-                    window.setTimeout(callback, 1000 / 60)
-                };
-        },
+        recording : false,
+        toggleButton : false,
 
         events: {
+            "click .audio__toggle-recording": "toggleRecording",
             'click .b-game-page__start-button': 'pushButton'
+        }, 
+
+        update: function() {
+            var res = mic.updatePitch();
+            this.setTimer();
         },
         
         pushButton: function() {
             this.model.pushButton();
         },
         
-        update: function() {
-            //rafID = requestAnimationFrame(this.update.bind(this));
-            if(mic.updatePitch() != false){
-                console.log('listening');
+        toggleRecording: function(){
+            this.recording = mic.record(!this.recording);
+            if(this.recording){
+                this.toggleButton.text("Stop");
+                this.setTimer();
+            }else{
+                this.toggleButton.text("Rec");
             }
-            //animate(bubbles, forces, bubblesCanvas);
-
-            //do something
-            var that = this;
-            this.requestAnimFrame(function() {
-                that.update();
-            });
+        },
+        
+        setTimer: function() {
+            setTimeout(this.update.bind(this), 1000 / 60);          
         },
 
         show: function() {
-            this.room = new Room();
+            this.toggleButton = $('.audio__toggle-recording');
+            var room = new Room();
             var that = this;
             this.room.getCurrRoom({
                 success: function(success) {
@@ -69,6 +66,7 @@ define([
                     console.log("room_id");
                     that.model.set({room_id: that.room.get('room_id')});
                     that.model.startGameResWaiting();  
+                    mic.requireMicrophone();
                 },
                 error: function(error) {
                     Backbone.history.navigate('main', true);
@@ -91,14 +89,6 @@ define([
                 
         leaveGame: function() {
             Backbone.history.navigate('main', true);
-        },
-        
-        rec: function() {
-            
-        },
-
-        pause: function() {
-
         },
         
         initialize: function(options) {

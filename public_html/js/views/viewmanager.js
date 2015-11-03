@@ -28,7 +28,7 @@ define([
                  that.listenTo(val, 'render', that.render);
             });
         }
-    });    
+    });
 
     return ViewManager;
 });
