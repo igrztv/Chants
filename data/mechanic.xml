@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<data>
-    <name>param1</name>
-    <age>param2</age>
-    <param3>param3</param3>
-    <param4>param4</param4>
-</data>
+<users>
+    <class type = "main.UserProfile">
+        <login>Admin</login>
+        <email>admin@mail.ru</email>
+        <password>12345</password>
+        <id>12</id>
+    </class>
+    <class type = "main.UserProfile">
+        <login>Admin1</login>
+        <email>admin1@mail.ru</email>
+        <password>12345</password>
+        <id>13</id>
+    </class>
+</users>

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-  <user>User 1</user>
-  <userParam>Param 1</userParam>
-  <user>User 2</user>
-  <userParam>Param 2</userParam>
-  <user>User 3</user>
-  <userParam>Param 3</userParam>
-</root>
+    <class type = "main.UserProfile">
+        <login>Admin</login>
+        <email>admin@mail.ru</email>
+        <password>12345</password>
+        <id>12</id>
+    </class>
