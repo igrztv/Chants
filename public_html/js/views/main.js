@@ -33,7 +33,7 @@ define([
             "click .b-main-form__link_type_signout": "submitLogOUT"
         },
 
-        headerText: 'Main header without backBtn',
+        headerText: 'Main menu',
         hideBackBtn: true,
 
         submitLogOUT: function() {

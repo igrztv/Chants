@@ -1,13 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="json">
-	<div class="b-header">
-		<div class="title">
-		    <div class="title__backbutton">
-		        <a href="#main" class="b-return-back__button">&#65513;Back</a>
-		    </div>
-			<div class="title__game-title">
-		        Cha-a-ants!
-		    </div>
-		</div>
-	    <div class="b-page-title"></div>
+	<div class="title">
+		<div class="title__game-title">
+	        Cha-a-ants!
+	    </div>
+		<div class="title__page-title">1</div>
+	    <div class="title__backbutton">
+	        <a href="#main" class="b-return-back__button">&#65513;Back</a>
+	    </div>
 	</div>
 </fest:template>

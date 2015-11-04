@@ -12,8 +12,7 @@ define([
         template: header,
         el: '.header',
         backButton: '.title__backbutton',
-        mainElement: '.b-header',
-        pageTitle: '.b-page-title',
+        pageTitle: '.title__page-title',
 
         initialize: function () {
             console.log('initialize HeaderView');

@@ -27,6 +27,8 @@ define([
         events: {
             "click .b-main-signup-form__submit-login-button": "submitAuth"
         },
+
+        headerText: 'Sign Up',
      
         submitAuth: function(event) {
             event.preventDefault();

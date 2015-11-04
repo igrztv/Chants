@@ -28,7 +28,7 @@ define([
             "click .b-main-login-form__submit-login-button": "submitLogin"
         },
 
-        headerText: 'Login header',
+        headerText: 'Login',
 
         submitLogin: function(event) {
             event.preventDefault();

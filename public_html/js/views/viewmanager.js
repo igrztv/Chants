@@ -11,8 +11,13 @@ define([
             this.header = views.header;
 
             _.each(this.pages, function (page) {
-                 this.listenTo(page, 'show', this.hidePage);
-             }.bind(this));
+                this.listenTo(page, 'show', this.hidePage);
+                this.listenTo(page, 'render', this.render);
+            }.bind(this));
+        },
+
+        render: function () {
+
         },
 
         hidePage: function(currentPage) {

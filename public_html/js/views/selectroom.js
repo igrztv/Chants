@@ -16,6 +16,9 @@ define([
     var errorMessageElement = '.b-rivals-list__error-message';
 
     var SelectRoomView = BaseView.extend({
+
+        headerText: 'Choose opponent',
+
         initialize: function(options) {
             BaseView.prototype.initialize.call(this, options);
             this.collection.on('reset', this.onCollectionReset, this);

@@ -1,0 +1,37 @@
+.title {
+    height: 50px;
+    width: 90%;
+    margin: 0;
+    background-color: #0555b0;
+    font-size: 40px;
+    padding: 0px 5% 0px 5%;
+}
+
+.header .title .title__game-title {
+    font-size: 45px;
+    font-weight: bold;
+    height: 100%;
+    width: 20%;
+    min-width: 250px;
+    #padding: 0px 0 0px 5%;
+    float: left;
+    position: relative;
+}
+
+.title__page-title {
+    height: 20%;
+    width: 50%;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+}
+
+.header .title .title__backbutton {
+    width: 100%;
+    text-align: right;
+}
+
+.header .title .b-return-back__button {
+    color: #eceff1;
+    text-decoration: none;
+}
