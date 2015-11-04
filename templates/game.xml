@@ -1,6 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
 	<div class="b-game-page b-default-hidden-page">
-		<fest:include src="./base.xml" context="json"/>
 	    <div class="b-game-page__winner">
 	        <span>Winner: </span><span class="b-game-page__winner__winner-name"></span>
 	    </div>

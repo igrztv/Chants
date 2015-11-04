@@ -12,7 +12,6 @@ define([
                 this.mainElement = options.mainElement;
             }
             this.render();
-            //this.hide();
         },
         
         render: function () {

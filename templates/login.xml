@@ -1,7 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <fest:script>var json = {title: 'Login', 'backbutton': true };</fest:script>
     <div class="b-login-page b-default-hidden-page">
-        <fest:include src="./base.xml" context="json"/>
         <div class="b-main-login-form">
             <p class="b-main-login-form__error-message"></p>
             <form method="post" action="" class="b-form__type_login">

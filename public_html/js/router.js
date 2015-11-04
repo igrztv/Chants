@@ -17,14 +17,6 @@ define([
     selectroomView,
     ViewManager
 ){
-    var views = {'main': mainView, 
-                 'scoreboard': scoreboardView, 
-                 'game': gameView, 
-                 'login': loginView, 
-                 'auth': authView, 
-                 'selectroom': selectroomView};
-                 
-    var viewManager = new ViewManager(views);
     
     var Router = Backbone.Router.extend({
 
