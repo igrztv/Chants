@@ -18,16 +18,18 @@ define([
 ){
     var errorMessageElement = '.b-main-login-form__error-message';
     var inputClassPrefix = '.b-main-login-form__input_type_';
-    var formClass = '.b-form__type_login';  
+    var formClass = '.b-form__type_login';
 
     var LoginView = Base.extend({
 
         template: login,
-        
+
         events: {
             "click .b-main-login-form__submit-login-button": "submitLogin"
         },
-        
+
+        headerText: 'Login header',
+
         submitLogin: function(event) {
             event.preventDefault();
             $(formClass).validate(validationInfo);
