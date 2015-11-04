@@ -16,8 +16,13 @@ define([
             }.bind(this));
         },
 
-        render: function () {
-
+        render: function (currentPage) {
+            //this.views[viewName].render();
+            _.each(this.pages, function (page) {
+                if (page === currentPage) {
+                    page.render();
+                }
+            });
         },
 
         hidePage: function(currentPage) {

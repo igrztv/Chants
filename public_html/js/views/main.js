@@ -20,6 +20,8 @@ define([
 
             var jqXHRUser = this.model.fetch({
                 success: function() {
+                    console.log('usr == true');
+                    that.trigger('render', 'main');
                     that.$el.append(that.template({user: true}));
                 },
 
