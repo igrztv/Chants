@@ -10,5 +10,5 @@ function() {
         });
         return result;
     }
-    return getUserInfo;       
+    return getUserInfo;
 });

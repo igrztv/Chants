@@ -1,23 +1,15 @@
-define([
-    'backbone',
-    'views/game',
-    'views/login',
-    'views/main',
-    'views/scoreboard',
-    'views/auth',
-    'views/selectroom',
-    'views/viewmanager'
-], function(
-    Backbone,
-    gameView,
-    loginView,
-    mainView,
-    scoreboardView,
-    authView,
-    selectroomView,
-    ViewManager
-){
-    
+define(function (require) {
+
+    var Backbone = require('backbone'),
+        gameView = require('views/game'),
+        loginView = require('views/login'),
+        mainView = require('views/main'),
+        scoreboardView = require('views/scoreboard'),
+        authView = require('views/auth'),
+        selectroomView = require('views/selectroom'),
+        headerView = require('views/header'),
+        ViewManager =require('views/viewmanager');
+
     var Router = Backbone.Router.extend({
 
         routes: {
@@ -28,6 +20,13 @@ define([
             'signout' : 'signoutAction',
             'gameRoom' : 'gameRoomAction',
             '*default': 'defaultActions'
+        },
+
+        initialize: function () {
+            new ViewManager({
+                pages: [gameView, loginView, mainView, scoreboardView, authView, selectroomView],
+                header: headerView
+            });
         },
 
         defaultActions: function () {
@@ -41,15 +40,15 @@ define([
         gameAction: function () {
             gameView.show();
         },
-        
+
         gameRoomAction: function () {
             selectroomView.show();
-        },  
-                  
+        },
+
         loginAction: function () {
             loginView.show();
         },
-        
+
         authAction: function() {
             authView.show();
         },

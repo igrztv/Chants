@@ -10,39 +10,43 @@ define([
         template: header,
         el: '.header',
         backButton: '.title__backbutton',
+        mainElement: '.b-header',
         pageTitle: '.b-page-title',
 
         initialize: function () {
             console.log('initialize HeaderView');
             this.$el.append(this.template());
+
+            this.$backBtn = this.$(this.backButton);
+
+            // TODO: eventBase implement
+            // eventBase.on('header:update', this.update, this);
         },
 
         showBackButton: function () {
-            $(this.backButton).show();
+            this.$backBtn.show();
         },
 
         hideBackButton: function () {
-            $(this.backButton).hide();
+            this.$backBtn.hide();
         },
 
         changePageTitle: function (title) {
-            $(this.pageTitle).text(title);
+            this.$(this.pageTitle).text(title);
         },
 
         show: function () {
-            $(this.mainElement).show();
+            this.$(this.mainElement).show();
         },
 
         hide: function () {
             console.log('HIDE');
-            $(this.mainElement).hide();
+            this.$(this.mainElement).hide();
         },
 
     });
-     
-    var headerView = new HeaderView({
-        mainElement: '.b-header'
-    });
+
+    var headerView = new HeaderView({});
 
     return headerView;
 });
