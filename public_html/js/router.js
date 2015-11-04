@@ -13,13 +13,13 @@ define(function (require) {
     var Router = Backbone.Router.extend({
 
         routes: {
-            'scoreboard': 'scoreboardAction',
-            'game': 'gameAction',
-            'login': 'loginAction',
-            'auth' : 'authAction',
-            'signout' : 'signoutAction',
-            'gameRoom' : 'gameRoomAction',
-            '*default': 'defaultActions'
+            'scoreboard': scoreboardView.show,
+            'game': gameView.show,
+            'login': loginView.show,
+            'auth' : authView.show,
+            'signout' : authView.show,
+            'gameRoom' : selectroomView.show,
+            '*default': mainView.show
         },
 
         initialize: function () {
@@ -27,34 +27,6 @@ define(function (require) {
                 pages: [gameView, loginView, mainView, scoreboardView, authView, selectroomView],
                 header: headerView
             });
-        },
-
-        defaultActions: function () {
-            mainView.show();
-        },
-
-        scoreboardAction: function () {
-            scoreboardView.show();
-        },
-
-        gameAction: function () {
-            gameView.show();
-        },
-
-        gameRoomAction: function () {
-            selectroomView.show();
-        },
-
-        loginAction: function () {
-            loginView.show();
-        },
-
-        authAction: function() {
-            authView.show();
-        },
-
-        signoutAction: function() {
-            authView.show();
         }
     });
 

@@ -1,7 +1,9 @@
 define([
     'backbone',
+    'modules/eventBase'
 ], function(
-    Backbone
+    Backbone,
+    eventBase
 ){
 
     var Base = Backbone.View.extend({
@@ -11,6 +13,8 @@ define([
             if  (options.mainElement) {
                 this.mainElement = options.mainElement;
             }
+            //For pretty router
+            this.show = this.show.bind(this);
             this.render();
         },
 
@@ -26,7 +30,13 @@ define([
             $(this.mainElement).show();
         },
 
-        _updateHeader: function () {},
+        _updateHeader: function () {
+            eventBase.trigger('header:update', {
+                state: !!this.headerText,
+                title: this.headerText,
+                back: !this.hideBackBtn
+            })
+        },
 
         hide: function () {
             $(this.mainElement).hide();

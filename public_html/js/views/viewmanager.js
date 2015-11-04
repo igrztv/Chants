@@ -1,46 +1,10 @@
 define([
-    'backbone',
-    'views/game',
-    'views/login',
-    'views/main',
-    'views/scoreboard',
-    'views/auth',
-    'views/selectroom',
-    'views/header'
+    'backbone'
 ], function(
-    Backbone,
-    gameView,
-    loginView,
-    mainView,
-    scoreboardView,
-    authView,
-    selectroomView,
-    headerView
+    Backbone
 ){
 
-    var pages = {
-    	names : {
-    		'main': 'Main menu',
-    		'scoreboard': 'Leader board',
-			'game': 'CHANT!',
-			'login': 'Login',
-			'auth': 'Sign up',
-			'selectroom': 'Choose the opponent',
-    	},
-    	views:{
-			'main': mainView,
-			'scoreboard': scoreboardView,
-			'game': gameView,
-			'login': loginView,
-			'auth': authView,
-			'selectroom': selectroomView
-		}
-    };
-
-    var ViewManager = Backbone.View.extend({
-
-    	viewsArr: false,
-    	namesArr: false,
+    return Backbone.View.extend({
 
         initialize: function(views) {
             this.pages = views.pages;
@@ -52,7 +16,9 @@ define([
         },
 
         hidePage: function(currentPage) {
-
+            /**
+             * Закрываем все view, кроме текущей
+             */
             _.each(this.pages, function (page) {
                 if (page !== currentPage) {
                     page.hide();
@@ -61,6 +27,4 @@ define([
 
         }
     });
-
-    return ViewManager;
 });

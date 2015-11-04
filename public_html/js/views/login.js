@@ -28,6 +28,8 @@ define([
             "click .b-main-login-form__submit-login-button": "submitLogin"
         },
 
+        headerText: 'Login header',
+
         submitLogin: function(event) {
             event.preventDefault();
             $(formClass).validate(validationInfo);
