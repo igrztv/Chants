@@ -36,9 +36,11 @@ define([
             $(formClass).validate(validationInfo);
             if ($(formClass).valid()) {               
                 $(errorMessageElement).empty();
-                var newUser = new User(getUserInfo(inputClassPrefix));
+                //var newUser = new User(getUserInfo(inputClassPrefix));
+                this.model.set(getUserInfo(inputClassPrefix));
                 var showResponse = new ShowResponse(errorMessageElement);
-                newUser.signUp({
+                //newUser.signUp({
+                this.model.signUp({
                     error: function(response) {
                         showResponse.parseServerResponse(response); 
                     },
@@ -53,6 +55,7 @@ define([
     });
 
     return new AuthView({
-        mainElement: '.b-signup-page'
+        mainElement: '.b-signup-page',
+        model: User
     });
 });

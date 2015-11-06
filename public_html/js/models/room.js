@@ -5,7 +5,7 @@ function(
     Backbone,
     User
 ){
-    var currUser = new User();
+    var currUser = User;
     var timer;
     
     var RoomModel = Backbone.Model.extend({		
@@ -72,7 +72,6 @@ function(
 		},
 		
 		initTimer: function() {
-			console.log('initTimer for getGameStatus');
 		    timer = setTimeout(this.getGameStatus.bind(this), 2000);
 		},
 		

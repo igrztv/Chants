@@ -25,30 +25,37 @@ define([
         template: login,
 
         events: {
-            "click .b-main-login-form__submit-login-button": "submitLogin"
+            "click .b-main-login-form__submit-login-button": "submitLogin",
         },
 
         headerText: 'Login',
 
         submitLogin: function(event) {
+
+            console.log('submitLogin: id(' + this.model.get("current_user_id") + ')');
+
             event.preventDefault();
             $(formClass).validate(validationInfo);
             if ($(formClass).valid()) {
                 $(errorMessageElement).empty();
-                var newUser = new User(getUserInfo(inputClassPrefix));
+                this.model.set(getUserInfo(inputClassPrefix));
+                console.log('model has changed');
                 var showResponse = new ShowResponse(errorMessageElement);
                 var that = this;
-                newUser.logIn({
+                this.model.logIn({
                     error: function(response) { 
                         showResponse.parseServerResponse(response); 
                     },
                     success: function(response) {
+                    	//перенести в модель
+                    	that.model.set({isSignedIn: true});
                         if (showResponse.parseServerResponse(response)) { 
-                            that.trigger('render', 'main');
+                            console.log('logIn success');
+                            //that.model.trigger('change');
                             Backbone.history.navigate('main', true);
                         }
                         else {
-                            console.log("false");
+                            console.log("logIn false");
                         }
                     } 
                 });
@@ -57,6 +64,7 @@ define([
     });
 
     return new LoginView({
-        mainElement: '.b-login-page'
-        });
+        mainElement: '.b-login-page',
+        model: User
+    });
 });

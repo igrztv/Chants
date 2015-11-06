@@ -1,40 +1,44 @@
 define([
-    'backbone'
+	'backbone'
 ], function(
-    Backbone
+	Backbone
 ){
 
-    return Backbone.View.extend({
+	return Backbone.View.extend({
 
-        initialize: function(views) {
-            this.pages = views.pages;
-            this.header = views.header;
+		initialize: function(views) {
+			this.pages = views.pages;
+			this.header = views.header;
 
-            _.each(this.pages, function (page) {
-                this.listenTo(page, 'show', this.hidePage);
-                this.listenTo(page, 'render', this.render);
-            }.bind(this));
-        },
+			_.each(this.pages, function (page) {
+				//во вьюхах переписать название на initialize с вызовом initialize родителя
+				if(page.init){
+					page.init();
+				}
+				this.listenTo(page, 'show', this.hidePage);
+				this.listenTo(page, 'render', this.render);
+			}.bind(this));
+		},
 
-        render: function (currentPage) {
-            //this.views[viewName].render();
-            _.each(this.pages, function (page) {
-                if (page === currentPage) {
-                    page.render();
-                }
-            });
-        },
+		render: function (currentPage) {
+			// перерендериваем view по ее имени viewName
+			_.each(this.pages, function (page) {
+				if (page.viewName === currentPage) {
+					page.render();
+				}
+			});
+		},
 
-        hidePage: function(currentPage) {
-            /**
-             * Закрываем все view, кроме текущей
-             */
-            _.each(this.pages, function (page) {
-                if (page !== currentPage) {
-                    page.hide();
-                }
-            });
+		hidePage: function(currentPage) {
+			/**
+			 * Закрываем все view, кроме текущей
+			 */
+			_.each(this.pages, function (page) {
+				if (page !== currentPage) {
+					page.hide();
+				}
+			});
 
-        }
-    });
+		}
+	});
 });

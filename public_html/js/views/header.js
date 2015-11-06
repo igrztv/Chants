@@ -15,7 +15,6 @@ define([
         pageTitle: '.title__page-title',
 
         initialize: function () {
-            console.log('initialize HeaderView');
             this.$el.append(this.template());
 
             this.$backBtn = this.$(this.backButton);

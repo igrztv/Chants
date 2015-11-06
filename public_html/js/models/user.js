@@ -7,6 +7,7 @@ function(
 
     var signUser = function(url) {
         var signFunction = function(callbackDict) {
+        	var that = this;
             $.ajax(url, {
 		        type: "POST",
 			    data: this.toJSON(),
@@ -16,9 +17,9 @@ function(
 			    error: function(xhr, status, error) {
 				    return callbackDict.error(xhr); 
 			    }
-	         });                
-         }
-         return signFunction.bind(this);
+	        });                
+        }
+        return signFunction.bind(this);
     };
     
 	var UserModel = Backbone.Model.extend({
@@ -26,9 +27,12 @@ function(
 			name: '',
 			email: '',
 			password: '',
+			current_user_id: 0,
 			isSignedIn: false,
 			score: 0
 		},
+
+		current_user_id: 0,
 
 		url: 'api/v1/auth/curruser',
 		loginUrl: 'api/v1/auth/signin',
@@ -40,6 +44,7 @@ function(
 			$.ajax(that.logoutUrl, {
 				type: "GET",
 				complete: function() {
+					that.set({isSignedIn : false});
 				    callback();
 				}
 			});		    
@@ -51,5 +56,5 @@ function(
 		}
 	});
 
-    return UserModel;
+    return new UserModel();
 });

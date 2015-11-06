@@ -10,7 +10,7 @@ define([
         el: '.b-inner-main-window',
 
         initialize: function(options) {
-            if  (options.mainElement) {
+            if (options.mainElement) {
                 this.mainElement = options.mainElement;
             }
             //For pretty router
@@ -25,7 +25,6 @@ define([
 
         show: function () {
             this.trigger('show', this);
-
             this._updateHeader();
             $(this.mainElement).show();
         },
