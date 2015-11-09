@@ -8,6 +8,7 @@ function(
     var signUser = function(url) {
         var signFunction = function(callbackDict) {
         	var that = this;
+        	console.log('signFunction');
             $.ajax(url, {
 		        type: "POST",
 			    data: this.toJSON(),
@@ -38,6 +39,11 @@ function(
 		loginUrl: 'api/v1/auth/signin',
 		signupUrl: 'api/v1/auth/signup',
         logoutUrl: 'api/v1/auth/logout',
+
+        initialize: function() {
+		    this.logIn = signUser.call(this, this.loginUrl);
+		    this.signUp = signUser.call(this, this.signupUrl);
+		},
         		
 		logOut: function(callback) {
 			var that = this;
@@ -50,10 +56,6 @@ function(
 			});		    
 		},
 		
-		initialize: function() {
-		    this.logIn = signUser.call(this, this.loginUrl);
-		    this.signUp = signUser.call(this, this.signupUrl);
-		}
 	});
 
     return new UserModel();

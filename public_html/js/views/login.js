@@ -47,8 +47,10 @@ define([
                         showResponse.parseServerResponse(response); 
                     },
                     success: function(response) {
-                    	//перенести в модель
+                        
+                    	//этим должна заниматься модель
                     	that.model.set({isSignedIn: true});
+
                         if (showResponse.parseServerResponse(response)) { 
                             console.log('logIn success');
                             Backbone.history.navigate('main', true);

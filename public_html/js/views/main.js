@@ -30,14 +30,15 @@ define([
         render: function () {
             $(this.mainElement).remove();
             var that = this;
-            var jqXHRUser = this.model.fetch({
-                success: function() {
-                    that.$el.append(that.template({user: true}));
-                },
-                error: function(){
-                    that.$el.append(that.template({user: false}));
-                }
-            });
+			var jqXHRUser = this.model.fetch({
+				success: function() {
+					//этим должна заниматься модель
+					that.model.set({isSignedIn: true});
+				},
+				error: function(){
+				}
+			});
+			this.$el.append(this.template({user: this.model.get("isSignedIn")}));
         },
 
         submitLogOUT: function() {
