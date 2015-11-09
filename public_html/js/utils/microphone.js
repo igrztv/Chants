@@ -117,7 +117,7 @@ define(function() {
 				noteStrings: -1,
 				detune: 0
 			};
-			var cycles = [];
+
 			analyser.getFloatTimeDomainData( buf );
 			var pitch = autoCorrelate( buf, audioContext.sampleRate );
 

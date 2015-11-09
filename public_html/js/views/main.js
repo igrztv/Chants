@@ -22,10 +22,10 @@ define([
             "click .b-main-form__link_type_signout": "submitLogOUT",
         },
 
-        //переписать название на initialize с вызовом initialize родителя
-        init: function () {
-        	this.listenTo(this.model, 'change:isSignedIn', this.render);
-        },
+		initialize: function (options) {        	
+            this.listenTo(this.model, 'change:isSignedIn', this.render);
+			BaseView.prototype.initialize.call(this, options); 
+		},
 
         render: function () {
             $(this.mainElement).remove();

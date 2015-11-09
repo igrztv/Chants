@@ -10,12 +10,12 @@ define([
         el: '.b-inner-main-window',
 
         initialize: function(options) {
-            if (options.mainElement) {
-                this.mainElement = options.mainElement;
-            }
-            //For pretty router
-            this.show = this.show.bind(this);
-            this.render();
+			if (options.mainElement) {
+				this.mainElement = options.mainElement;
+			}            
+			//For pretty router
+			this.show = this.show.bind(this);
+			this.render();
         },
 
         render: function () {
@@ -26,6 +26,13 @@ define([
         show: function () {
             this.trigger('show', this);
             this._updateHeader();
+            if(!this.headerText){
+                this.$el.removeClass("b-inner-main-window");
+                this.$el.addClass("b-inner-main-window_fullscreen");
+            }else{
+                this.$el.addClass("b-inner-main-window");
+                this.$el.removeClass("b-inner-main-window_fullscreen");
+            }
             $(this.mainElement).show();
         },
 
@@ -34,7 +41,7 @@ define([
                 state: !!this.headerText,
                 title: this.headerText,
                 back: !this.hideBackBtn
-            })
+            });
         },
 
         hide: function () {

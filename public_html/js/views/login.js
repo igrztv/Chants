@@ -51,7 +51,6 @@ define([
                     	that.model.set({isSignedIn: true});
                         if (showResponse.parseServerResponse(response)) { 
                             console.log('logIn success');
-                            //that.model.trigger('change');
                             Backbone.history.navigate('main', true);
                         }
                         else {

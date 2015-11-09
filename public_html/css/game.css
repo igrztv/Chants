@@ -1,3 +1,8 @@
+.b-game-page {
+	min-height: 100%;
+	background-color: rgba(20, 20, 20, 0.7);
+}
+
 .b-game-page .audio__toggle-recording {
 	color: #000;
 }

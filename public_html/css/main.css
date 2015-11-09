@@ -7,8 +7,8 @@
 body {
     width: 100%;
     margin: 0 0;
-    background-image: url('/img/background.jpg');
-    #background-size: 100%;
+    background-image: url('/img/background_.jpg');
+    background-size: 100%;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -32,6 +32,14 @@ body {
     max-width: 700px;
     padding: 10px 10px;
     background-color: rgba(200, 200, 250, 0.7);
+}
+
+.b-inner-main-window_fullscreen {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    #background-color: rgba(200, 200, 250, 0.7);
 }
 
 .header {
