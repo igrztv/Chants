@@ -1,0 +1,73 @@
+* {
+    font-family: 'Lekton', sans-serif;
+    font-size: 35px;
+    color: #eceff1;
+}
+
+body {
+    width: 100%;
+    margin: 0 0;
+    background-image: url('/img/background_.jpg');
+    background-size: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.b-outer-main-window {
+    display: table;
+    font-family: 'Lekton', sans-serif;
+    font-size: 35px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.b-middle-main-window {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.b-inner-main-window {
+    margin: 0 auto;
+    max-width: 700px;
+    padding: 20px;
+    background-color: rgba(200, 200, 250, 0.7);
+}
+
+.b-inner-main-window_fullscreen {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    #background-color: rgba(200, 200, 250, 0.7);
+}
+
+.header {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    z-index: 1;
+}
+
+.b-default-hidden-page {
+    display: none;
+}
+
+.b-players__inner-list{
+    margin: 0px 0px 10px 0px;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.b-players__inner-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.b-main-signup-form__error-message {
+    display: none;
+    margin: 10px;
+}
+
+.b-main-login-form__error-message {
+    display: none;
+    margin: 10px;
+}
