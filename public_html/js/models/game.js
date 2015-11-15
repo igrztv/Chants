@@ -9,12 +9,7 @@ function(
 		url: 'api/v1/auth/game',
 		
 		pushButton: function() {
-		    var that = this;
-		    $.ajax(that.url, {
-		        type: "GET",
-				data: {push: true,
-				       room_id: this.get("room_id")}
-			});			   
+		    this.fetch({data: {push: true}});		   
 		},
 		
         parseGameStatus: function(result) {
@@ -34,14 +29,9 @@ function(
         },
         		
 		getGameStatus: function() {
-		    console.log("game status");
-		    console.log(this.get("room_id"));
-		    $.ajax(this.url, {
-		        type: "GET",
-				data: {is_game_progress: true,
-				       room_id: this.get("room_id")},
-				success: this.parseGameStatus.bind(this)
-			});			    
+		    this.fetch({data: {is_game_progress: true},
+		                success: this.parseGameStatus.bind(this)
+		    });			    
         },
         
 		initTimer: function() {
@@ -59,8 +49,21 @@ function(
 		        clearTimeout(timer);
 		        timer = undefined;
 		    }
-		}	
+		},	
+		
+		sync: function(method, model, options) {
+			options || (options = {});
 
+			switch (method) {
+			    case 'read': {
+                   options.data.room_id = this.get("room_id");
+			       Backbone.sync.call(this, method, model, options);       
+			    }; break;
+				default:{
+					Backbone.sync.call(this, method, model, options);
+				}
+			}
+		},	
     });
     return GameModel;
 });

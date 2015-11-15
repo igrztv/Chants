@@ -39,12 +39,17 @@ define([
 
 			switch (method) {
 				case 'read':{
-					$.ajax({
-						url: this.url,
-						method: 'GET',
-						success: this.onSuccessfullyGetRivals.bind(this),
-						error: this.setRivalsTimer.bind(this)
-					});
+				    options = {
+				        success: this.onSuccessfullyGetRivals.bind(this),
+				        error: this.setRivalsTimer.bind(this)
+				    };
+				    Backbone.sync.call(this, method, model, options);
+					//$.ajax({
+					//	url: this.url,
+					//	method: 'GET',
+					//	success: this.onSuccessfullyGetRivals.bind(this),
+					//	error: this.setRivalsTimer.bind(this)
+					//});
 				}; break;
 
 				default:{
