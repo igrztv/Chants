@@ -34,8 +34,8 @@ function(
         },
         		
 		getGameStatus: function() {
-		    console.log("game status");
-		    console.log(this.get("room_id"));
+		    // console.log("game status");
+		    // console.log(this.get("room_id"));
 		    $.ajax(this.url, {
 		        type: "GET",
 				data: {is_game_progress: true,

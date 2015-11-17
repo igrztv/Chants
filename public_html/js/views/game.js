@@ -2,6 +2,7 @@ define([
     'backbone',
     'tmpl/game',
     'utils/microphone',
+    'utils/phisics',
     'views/base',
     'models/room',
     'models/game'
@@ -9,6 +10,7 @@ define([
     Backbone,
     game,
     mic,
+    phisics,
     BaseView,
     Room,
     Game
@@ -20,6 +22,7 @@ define([
     var winnerBlock = '.b-game-page__winner';
     var gameplayBlock = '.b-game-page__gameplay';
     var toggleButtonClass = '.audio__toggle-recording';
+    var trackCanvas = '.audio__wave-canvas';
     
     var GameView = BaseView.extend({
         template: game,
@@ -39,10 +42,21 @@ define([
 		},
 
 		update: function() {
+
+			this.trackCanvas.width = window.innerWidth - 5;
+			this.trackCanvas.height = window.innerHeight - 50;
+			
 		    var res = mic.updatePitch();
 		    if(res.noteStrings){
 		        this.herzIndicator.text(res.noteStrings);
+		        var maxLength = phisics.track(res.pitch, res.meanPower);
+		        if(maxLength > window.innerWidth / 2){
+		        	phisics.bullet(res.pitch, res.meanPower);
+		        }
 		    }
+
+			phisics.animate(this.trackCanvas);
+
 		    this.setTimer();
 		},
 
@@ -65,9 +79,9 @@ define([
 		},
 
 		show: function() {
-			console.log('game show()');
 			this.toggleButton = $('.audio__toggle-recording');
 			this.herzIndicator = $('.audio__herz-indicator');
+			this.trackCanvas = document.getElementById('track');
 			var room = new Room();
 			var that = this;
 			room.getCurrRoom({
@@ -89,7 +103,9 @@ define([
 		showWinner: function(winner) {
 		    $(winnerNameEl).text(winner);
 		    $(gameplayBlock).hide();
-		    $(winnerBlock).show(); 
+		    $(winnerBlock).show();
+		    this.headerText = 'Game finished!'
+		    BaseView.prototype._updateHeader.call(this);
 		},        
 
 		hide: function() {

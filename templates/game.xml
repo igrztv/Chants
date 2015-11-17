@@ -1,5 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
 	<div class="b-game-page b-default-hidden-page">
+
 	    <div class="b-game-page__winner">
 	        <span>Winner: </span><span class="b-game-page__winner__winner-name"></span>
 	    </div>
@@ -8,8 +9,8 @@
 	    </div>
 	    <div class="audio">
 			<button class="audio__toggle-recording">Start!</button>
-			<span class="audio__herz-indicator">--</span> 
-			<canvas></canvas>
+			<span class="audio__herz-indicator">--</span>
+			<canvas class="audio__wave-canvas" id="track"></canvas>			
 		</div>
     </div>
 </fest:template>

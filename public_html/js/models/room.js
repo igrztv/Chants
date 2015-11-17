@@ -18,9 +18,9 @@ function(
 			$.ajax(this.gameStatusUrl, {
 				type: "GET",
 				success: function(response) {
-				    console.log(response.room_id)
+				    //console.log(response.room_id)
 				    that.set({room_id: response.room_id});
-				    console.log(that.get("room_id"))
+				    //console.log(that.get("room_id"))
                     return callbackDict.success(response);
 				},
 				error: function(xhr, status, error) {

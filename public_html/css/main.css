@@ -8,10 +8,13 @@
     margin-bottom: -20px;
 }
 
+.b-main-signup-form {
+    #background-color: rgba(200, 200, 00, 0.7);
+    margin-bottom: -20px;
+}
+
 .b-main-login-form-span {
     display: block;
-    #margin: 0px 0px;
-    #margin-bottom: -20px;
     width: 100%;
 }
 
@@ -19,7 +22,7 @@
     border-radius: 0;
     border: 0px solid #1565c0;
     display: block;
-    height: 50px;
+    height: 70px;
     margin-bottom: 20px;
 }
 
@@ -31,7 +34,7 @@ a.b-main-form__control:hover {
     color: #546e7a;
     width: 100%;
     box-sizing: border-box;
-    #padding: 10px;
+    padding-left: 10px;
 }
 
 .b-main-form__button {
@@ -45,5 +48,6 @@ a.b-main-form__control:hover {
     background-color: #1565c0;
     color: #eceff1;
     text-decoration: none;
-    line-height: 1.5;
+    line-height: 2;
+    padding-left: 25px;
 }
