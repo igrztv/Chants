@@ -14,54 +14,41 @@ function(
 		findRivalUrl: 'api/v1/auth/find_rival',
 		
 		getCurrRoom: function(callbackDict) {
-		    var that = this;
-			$.ajax(this.gameStatusUrl, {
-				type: "GET",
-				success: function(response) {
-				    //console.log(response.room_id)
-				    that.set({room_id: response.room_id});
-				    //console.log(that.get("room_id"))
-                    return callbackDict.success(response);
-				},
-				error: function(xhr, status, error) {
-				    console.log(error);
-					return callbackDict.error(xhr); 
-				}
-			});
+		    this.fetch({url: this.gameStatusUrl,
+				        success: function(response) {
+				            this.set({room_id: response.get("room_id")});
+                            return callbackDict.success(response);
+				        }.bind(this),
+				        error: function(xhr, status, error) {
+					        return callbackDict.error(xhr); 
+				        }
+		    });		    
 		},
 				
 		inviteUser: function(name, successFunction, errorFunction) {
-			var that = this;
-			var data = {user: name};
-			$.ajax(that.inviteUrl, {
-				type: "GET",
-				data: data,
-				success: function(response) {
-                    return successFunction(response)
-				},
-				error: function(xhr, status, error) {
-					return errorFunction(xhr); 
-				}
-			});
+		    this.fetch({url: this.inviteUrl,
+		                data: {user: name},
+				        success: function(response) {;
+                            return successFunction(response);
+				        },
+				        error: function(xhr, status, error) {
+					        return errorFunction(xhr); 
+				        }
+		    });		    
 		},
 		
 		registerOnGame: function() {
-		    $.ajax(this.findRivalUrl, 
-		           {type: "POST"});    
+		    this.save({}, {url: this.findRivalUrl});
 		},
 		
 		getGameStatus: function() {
-		    $.ajax(this.findRivalUrl, {
-		        type: "GET",
-				data: {is_game: 1},
-				success: this.parseGameStart.bind(this)
-			});		    
+		    this.fetch({url: this.findRivalUrl,
+		                data: {is_game: 1},
+		                success: this.parseGameStart.bind(this)});	    
 		},
 		
 		parseGameStart: function(response) {                        
-		    var responseObj = JSON.parse(response);
-		    console.log(responseObj);
-            if (responseObj.game_status == 1) {
+            if (response.get("game_status") == 1) {
                 this.trigger('gamestarted');
                 timer = undefined;
             }
@@ -85,7 +72,8 @@ function(
 		        clearTimeout(timer);
 		        timer = undefined;
 		    }
-		} 
+		}
+		 
     });
     return RoomModel;
 });

@@ -39,25 +39,13 @@ define([
             if ($(formClass).valid()) {
                 $(errorMessageElement).empty();
                 this.model.set(getUserInfo(inputClassPrefix));
-                console.log('model has changed');
                 var showResponse = new ShowResponse(errorMessageElement);
-                var that = this;
                 this.model.logIn({
-                    error: function(response) { 
-                        showResponse.parseServerResponse(response); 
+                    error: function(model, response) { 
+                        showResponse.showErrorMessage(response); 
                     },
                     success: function(response) {
-                        
-                    	//этим должна заниматься модель
-                    	that.model.set({isSignedIn: true});
-
-                        if (showResponse.parseServerResponse(response)) { 
-                            console.log('logIn success');
-                            Backbone.history.navigate('main', true);
-                        }
-                        else {
-                            console.log("logIn false");
-                        }
+                        Backbone.history.navigate('main', true);
                     } 
                 });
             }
