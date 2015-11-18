@@ -9,6 +9,8 @@ define(function() {
 	var timeToLive = 100;
 	var g = 0.2;
 	var maxAngle = 70;
+	var minPitch = 180;
+	var maxPitch = 800;
 
 	//HELPERS---------------------------------
 	function vectorsLength(v){
@@ -27,46 +29,49 @@ define(function() {
 		return Math.random() * (to - from) + from;
 	}
 
-	function createTrack(pitch, power){
+	function maxRange (pitch, power) {
+		return maxRange = power*power / g * Math.sin(2*(pitch - minPitch) / maxPitch * maxAngle/180*3.14);
+	}
+
+	function getPhisParams(pitch, power) {
 		power = 100 * power;
-		var sx = 100; //Math.random() * window.innerWidth;
-		var sy = random(window.innerHeight - 100, window.innerHeight); //Math.random() * window.innerHeight;
-		//var vx = power * 0.1 + 15;
-		//var vy = -g/2 * (window.innerWidth - sx + pitch/2) / vx;
-		var angle = pitch / 800 * maxAngle;
+		var sx = 100;
+		var sy = random(window.innerHeight - 100, window.innerHeight);
+		var angle = (pitch - minPitch) / maxPitch * maxAngle;
 		var angRad = angle/180*3.14;
 		var vx = power * Math.cos(angRad);
 		var vy = -power * Math.sin(angRad);
+		var maxRange = power*power / g * Math.sin(2*angRad);
+		return {sx : sx, sy : sy, angDeg : angle, angRad : angRad, vx : vx, vy : vy, maxRange : maxRange};
+	}
+
+	function createTrack(pitch, power){
+		var params = getPhisParams(pitch, power);
 		var traectory = [];
-		for (var x = sx; x <= window.innerWidth; x += 50) {
-			var t = (x - sx) / vx;
-			var y = sy + vy * t + g*t*t/2;
+		for (var x = params.sx; x <= window.innerWidth; x += 50) {
+			var t = (x - params.sx) / params.vx;
+			var y = params.sy + params.vy * t + g*t*t/2;
 			traectory.push({X: x, Y: y});
 			if(y > window.innerHeight){
 				break;
 			}			
 		};
 		tracks.push({state: timeToLive, path: traectory});
+		//return maximum traectory flying range
 		return traectory[traectory.length - 1].X;
 	}
 
 	function createBullet (pitch, power) {
-		power = 100 * power;
-		var sx = 100; //Math.random() * window.innerWidth;
-		var sy = random(window.innerHeight - 100, window.innerHeight); //Math.random() * window.innerHeight;
-		var angle = pitch / 800 * maxAngle;
-		var angRad = angle/180*3.14;
-		var vx = power * Math.cos(angRad);
-		var vy = -power * Math.sin(angRad);
+		var params = getPhisParams(pitch, power);
 		//debugger;
 		bubbles.push(new MathModel({
 			Rad : 50,
 			pos : {
-				X : sx,
-				Y : sy
+				X : params.sx,
+				Y : params.sy
 			},
-			Vx : vx,
-			Vy : vy,
+			Vx : params.vx,
+			Vy : params.vy,
 			Ax : 0,
 			Ay : g
 		}));
@@ -83,8 +88,7 @@ define(function() {
 			cdX : false,
 			cdY : false,
 			stability : 1,
-			iDontWannaLiveAnymore : false,
-			color : 'black',
+			state : timeToLive,
 			Diam : 0,
 			wallX : false,
 			wallY : false,
@@ -263,6 +267,9 @@ define(function() {
 			//debugger;
 			bubbles[i].update(0, dT);
 			bubbles[i].draw(canvas);
+			if(--(bubbles[i].state.state) < 0){
+				bubbles.splice(i, 1);
+			}
 		};
 
 

@@ -103,6 +103,10 @@ define(function() {
 			return recording;
 		};
 
+		function getSample(){
+			return buf;
+		};
+
 		function updatePitch( time ) {
 
 			if(recording === false){
@@ -155,5 +159,6 @@ define(function() {
 		updatePitch: updatePitch,
 		requireMicrophone: requireMicrophone,
 		record: record,
+		getSample: getSample
 	};
 });

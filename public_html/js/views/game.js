@@ -14,6 +14,7 @@ define([
     BaseView,
     Room,
     Game
+    //Socket,
 ){
 
     var timer;
@@ -23,6 +24,7 @@ define([
     var gameplayBlock = '.b-game-page__gameplay';
     var toggleButtonClass = '.audio__toggle-recording';
     var trackCanvas = '.audio__wave-canvas';
+    //var socket = new Socket();
     
     var GameView = BaseView.extend({
         template: game,
@@ -54,6 +56,11 @@ define([
 		        	phisics.bullet(res.pitch, res.meanPower);
 		        }
 		    }
+
+			var sample = mic.getSample();
+			//socket.sendBinary(sample);
+			debugger;
+			//this.model.socket().sendSample();
 
 			phisics.animate(this.trackCanvas);
 
