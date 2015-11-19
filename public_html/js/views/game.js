@@ -59,8 +59,7 @@ define([
 
 			var sample = mic.getSample();
 			//socket.sendBinary(sample);
-			debugger;
-			//this.model.socket().sendSample();
+			//debugger;
 
 			phisics.animate(this.trackCanvas);
 
@@ -76,8 +75,9 @@ define([
 		    if(this.recording){
 		        this.toggleButton.text("Stop");
 		        this.setTimer();
-		    }else{
+		    }else{		    	
 		        this.toggleButton.text("Rec");
+		        this.model.sendSample('longtextlongtextlongtextlongtextlongtext');
 		    }
 		},
 
@@ -100,6 +100,7 @@ define([
 					that.model.set({room_id: room.get('room_id')});
 					that.model.startGameResWaiting();  
 					mic.requireMicrophone();
+					that.model.createSocket();
 			    },
 			    error: function(error) {
 			        Backbone.history.navigate('main', true);
@@ -120,6 +121,7 @@ define([
 		    $(winnerBlock).hide();
 		    this.model.stopGameResWaiting();
 		    BaseView.prototype.hide.call(this);
+		    this.model.closeSocket();
 		},
 		        
 		leaveGame: function() {

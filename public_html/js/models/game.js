@@ -1,22 +1,24 @@
 define(
-['backbone'],
+['backbone',
+'utils/socket'],
 function(
-    Backbone
+    Backbone,
+    Socket
 ){
     var timer;
     
     var GameModel = Backbone.Model.extend({		
 		url: 'api/v1/auth/game',
-		socketURL: 'api/v1/auth/game/socket',
+		socketURL: 'api/v1/auth/gameplay',
 		connection: false,
 
-		socket: function () {
-
-			this.connection = new WebSocket('ws://127.0.0.1:8080/'+this.socketURL);
+		createSocket: function () {
+			window.WebSocket = window.WebSocket || window.MozWebSocket;
+			this.connection = new WebSocket('ws://127.0.0.1:8080/'+socketURL);
 
 			this.connection.onopen = function () {
 				// first we want users to enter their names
-				console.log('opened');
+				console.log('socket opened');
 			};
 
 			this.connection.onerror = function (error) {
@@ -26,14 +28,18 @@ function(
 
 			// most important part - incoming messages
 			this.connection.onmessage = function (message) {
-				console.log(message.data);
+				console.log('socket data '+message.data);
 			};
 		},
 
-		sendSample: function (data) {
+		sendSample: function (data)
+		{
 			//send sample via web socket
-			console.log('send sample');
-			//connection.send(data);
+			connection.send(data);
+		},
+
+		closeSocket: function (){
+			this.connection.close();
 		},
 		
 		pushButton: function() {
