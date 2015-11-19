@@ -107,6 +107,8 @@ define(function() {
 
 		p.Vy += p.Ay * delta_time;
 		p.pos.Y += p.Vy * delta_time;
+
+		
 	};
 
 	MathModel.prototype.draw = function(canvas){

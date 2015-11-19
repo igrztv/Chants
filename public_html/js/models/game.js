@@ -7,7 +7,7 @@ function(
 ){
     var timer;
     
-    var GameModel = Backbone.Model.extend({		
+    var GameModel = Backbone.Model.extend({
 		url: 'api/v1/auth/game',
 		socketURL: 'api/v1/auth/gameplay',
 		connection: false,
@@ -38,8 +38,8 @@ function(
 			connection.send(data);
 		},
 
-		closeSocket: function (){
-			this.connection.close();
+		closeSocket: function () {
+			//this.connection.close();
 		},
 		
 		pushButton: function() {

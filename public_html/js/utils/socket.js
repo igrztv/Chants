@@ -1,6 +1,6 @@
 define(function() {
 
-	// if user is running mozilla then use it's built-in WebSocket
+	// //if user is running mozilla then use it's built-in WebSocket
 	// window.WebSocket = window.WebSocket || window.MozWebSocket;
 
 	// // open connection
