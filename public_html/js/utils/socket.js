@@ -1,38 +1,51 @@
-define(function() {
+define([
+	'backbone'
+], function(
+	Backbone
+){
 
-	// //if user is running mozilla then use it's built-in WebSocket
-	// window.WebSocket = window.WebSocket || window.MozWebSocket;
+	window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-	// // open connection
-	// var connection;
+	var connection = false;
 
-	// function createSocket() {
-	// 	connection = new WebSocket('ws://127.0.0.1:8080/api/v1/auth/game/socket');
-	// };
+	var wsWatcher = Backbone.View.extend({
 
-	// connection.onopen = function () {
-	// 	// first we want users to enter their names
-	// 	console.log('opened');
-	// };
+		initialize: function(options) {
+			if(!connection){
+				connection = new WebSocket('ws://localhost:8080/api/v1/auth/gameplay');
+			}
+			connection.addEventListener('open', this.socketOpened);
+			connection.addEventListener('message', this.socketMessage.bind(this));
+			connection.addEventListener('error', this.socketError);
+		},
 
-	// connection.onerror = function (error) {
-	// 	// just in there were some problems with conenction...
-	// 	console.log('error socket');
-	// };
+		socketOpened: function () {
+			console.log('socketOpened');
+		},
 
-	// // most important part - incoming messages
-	// connection.onmessage = function (message) {
-	// 	console.log(message.data);
-	// };
+		socketMessage: function (message) {
+			//var content = JSON.parse(message.data);
+			var content = $.parseJSON(message.data);
+			// console.log('socketRecieved:');
+			// console.log(content);
+			for (var key in content) {
+				this.model.set(content);
+			}
+			//console.dir(this.model);
+		},
 
-	// function sendSample(data)
-	// {
-	// 	//send sample via web socket
-	// 	connection.send(data);
-	// }
+		socketError: function () {
+			console.log('socketError');
+		},
 
-	// return {
-	// 	createSocket: createSocket,
-	// };
+		sendSample: function (data) {			
+			// console.log('sendSample:');
+			// console.log(toSend);
+			connection.send(JSON.stringify(data));
+		},
 
+
+	});
+
+	return wsWatcher;
 });

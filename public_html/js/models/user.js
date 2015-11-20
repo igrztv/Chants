@@ -87,7 +87,7 @@ function(
 			        this.sync.call(this, 'create', model, options);  
 			    }; break;
 			    case 'delete': {
-			       console.log('destroy');
+			       //console.log('destroy');
 			       options.type = 'GET';
 			       Backbone.sync.call(this, method, model, options);       
 			    }; break;
