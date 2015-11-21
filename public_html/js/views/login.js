@@ -32,7 +32,7 @@ define([
 
         submitLogin: function(event) {
 
-            console.log('submitLogin: id(' + this.model.get("current_user_id") + ')');
+            //console.log('submitLogin: id(' + this.model.get("current_user_id") + ')');
 
             event.preventDefault();
             $(formClass).validate(validationInfo);

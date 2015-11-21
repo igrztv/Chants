@@ -41,7 +41,7 @@ define([
 		render: function () {
 			$(this.mainElement).remove();
 			var rivalList  = this.collection.toJSON();
-			console.log(this.collection.length);
+			//console.log(this.collection.length);
 			this.$el.append(this.template(rivalList));
 		},
 
@@ -75,7 +75,7 @@ define([
 
 		enterGame: function() {
 			//this.model.stopRoomWaiting();
-			console.log('navigate to game');
+			//console.log('navigate to game');
 			Backbone.history.navigate('game', true);
 		} 
 
