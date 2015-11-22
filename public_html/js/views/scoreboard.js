@@ -14,14 +14,23 @@ define([
         template: scoreboard,
 
         headerText: 'Champions',
-
+        
+        initialize : function(options) {
+            this.collection.bind('reset', this.render, this);
+            BaseView.prototype.initialize.call(this, options);
+        },
+        
         render: function () {
-            this.collection.add({
-                name: 'Новый игрок',
-                score : Math.floor(Math.random() * (5000))
-            });
+            //this.collection.add({
+            //    name: 'Новый игрок',
+            //    score : Math.floor(Math.random() * (5000))
+            //});
             var players  = this.collection.toJSON();
+            var isVisible = $(this.mainElement).is(':visible');        
             this.$el.append(this.template(players));
+            if (isVisible) {
+                $(this.mainElement).show();
+            }
         }
 
     });
