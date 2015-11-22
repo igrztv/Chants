@@ -1,0 +1,55 @@
+body {
+    width: 100%;
+    margin: 0 0;
+    background-image: url('/img/background_.jpg');
+    background-size: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #eceff1;
+    font-family: 'Lekton', sans-serif;
+    font-size: 35px;
+    .b-outer-main-window {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    .b-middle-main-window {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .b-inner-main-window {
+        margin: 0 auto;
+        max-width: 700px;
+        padding: 20px;
+        background-color: rgba(200, 200, 250, 0.7);
+        &_fullscreen {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .b-default-hidden-page {
+        display: none;
+    }
+
+    .b-players__inner-list{
+        margin: 0px 0px 10px 0px;
+        overflow-y: scroll;
+        max-height: 400px;
+        &::-webkit-scrollbar {
+        width: 0;
+        }
+    }
+    
+    .b-main-signup-form__error-message, .b-main-login-form__error-message{
+        display: none;
+        margin: 10px;
+    }
+}
+
+@import '_main';
+@import '_header';
+@import '_game';
+@import '_button';

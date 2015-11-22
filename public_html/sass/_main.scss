@@ -1,0 +1,42 @@
+.b-main-signup-form{
+    margin-bottom: -20px;
+}
+
+$form_background_color: #1565c0;
+$form_font_color: #eceff1;
+
+.b-main-form {
+    margin-bottom: -20px;
+    &__control {
+        border-radius: 0;
+        border: 0px solid #1565c0;
+        display: block;
+        height: 70px;
+        margin-bottom: 20px;
+        &:hover {
+            background-color: #2575d0;
+        }
+    }
+    &__input {
+        color: #546e7a;
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 10px;
+        font-size: 35px;
+    }
+    &__button {
+        background-color: $form_background_color;
+        color: $form_font_color;
+        width: 100%;
+        line-height: 0.9;
+        font-size: 35px;
+    }
+    &__link {
+        background-color: $form_background_color;
+        color: $form_font_color;
+        text-decoration: none;
+        line-height: 2;
+        padding-left: 25px;
+    }
+}
+
