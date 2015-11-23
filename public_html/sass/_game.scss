@@ -1,0 +1,27 @@
+$game_background: rgb(50, 20, 50);
+
+.b-game-page {
+	min-height: 100%;
+	background-color: rgba($game_background, 0.7);
+	&__winner, &__gameplay {
+	    display: none;
+	}
+	.audio {
+	    background-color: rgba($game_background, 0.2);
+	    &__toggle-recording {
+	        color: #000;
+	        z-index: 1000;
+        }
+        &__herz-indicator {
+            color: #000;
+        }
+        &__wave-canvas {
+	        display: block;
+	        position: absolute;
+	        z-index: 2;
+        }
+	}
+}
+
+
+
