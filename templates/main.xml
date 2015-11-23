@@ -1,20 +1,16 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="user_data">
     <fest:script>var json = {title: 'Main menu' };</fest:script>
     <div class="b-main-page">
-        <fest:include src="./base.xml" context="json"/>
         <div class="b-main-form">
     	    <fest:if test="user_data.user">
     		    <a href="#gameRoom" class="b-main-form__control b-main-form__link b-main-form__link_type_start-game">Start Game</a>
-    		    <a href="#" class="b-main-form__control b-main-form__link b-main-form__link_type_signout">Sign Out</a>
+    		    <a href="#main" class="b-main-form__control b-main-form__link b-main-form__link_type_signout">Sign Out</a>
     	    </fest:if>
     	    <fest:if test="user_data.user == false">
     		    <a href="#login" class="b-main-form__control b-main-form__link b-main-form__link_type_login">Sign In</a>
         	    <a href="#auth" class="b-main-form__control b-main-form__link b-main-form__link_type_auth">Sign Up</a>
     	    </fest:if>
             <a href="#scoreboard" class="b-main-form__control b-main-form__link b-main-form__link_type_scoreboard">ScoreBoard</a>
-
         </div>
-    </div>
-    
+    </div>    
 </fest:template>
-

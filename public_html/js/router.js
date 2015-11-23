@@ -1,69 +1,32 @@
-define([
-    'backbone',
-    'views/game',
-    'views/login',
-    'views/main',
-    'views/scoreboard',
-    'views/auth',
-    'views/selectroom',
-    'views/viewmanager'
-], function(
-    Backbone,
-    gameView,
-    loginView,
-    mainView,
-    scoreboardView,
-    authView,
-    selectroomView,
-    ViewManager
-){
-    var views = {'main': mainView, 
-                 'scoreboard': scoreboardView, 
-                 'game': gameView, 
-                 'login': loginView, 
-                 'auth': authView, 
-                 'selectroom': selectroomView};
-                 
-    var viewManager = new ViewManager(views);
-    
+define(function (require) {
+
+    var Backbone = require('backbone'),
+        gameView = require('views/game'),
+        loginView = require('views/login'),
+        mainView = require('views/main'),
+        scoreboardView = require('views/scoreboard'),
+        authView = require('views/auth'),
+        selectroomView = require('views/selectroom'),
+        headerView = require('views/header'),
+        ViewManager =require('views/viewmanager');
+
     var Router = Backbone.Router.extend({
 
         routes: {
-            'scoreboard': 'scoreboardAction',
-            'game': 'gameAction',
-            'login': 'loginAction',
-            'auth' : 'authAction',
-            'signout' : 'signoutAction',
-            'gameRoom' : 'gameRoomAction',
-            '*default': 'defaultActions'
+            'scoreboard': scoreboardView.show,
+            'game': gameView.show,
+            'login': loginView.show,
+            'auth' : authView.show,
+            'signout' : authView.show,
+            'gameRoom' : selectroomView.show,
+            '*default': mainView.show
         },
 
-        defaultActions: function () {
-            mainView.show();
-        },
-
-        scoreboardAction: function () {
-            scoreboardView.show();
-        },
-
-        gameAction: function () {
-            gameView.show();
-        },
-        
-        gameRoomAction: function () {
-            selectroomView.show();
-        },  
-                  
-        loginAction: function () {
-            loginView.show();
-        },
-        
-        authAction: function() {
-            authView.show();
-        },
-
-        signoutAction: function() {
-            authView.show();
+        initialize: function () {
+            new ViewManager({
+                pages: [gameView, loginView, mainView, scoreboardView, authView, selectroomView],
+                header: headerView
+            });
         }
     });
 

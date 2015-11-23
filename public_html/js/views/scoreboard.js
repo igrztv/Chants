@@ -13,6 +13,8 @@ define([
     var ScoreBoardView = BaseView.extend({
         template: scoreboard,
 
+        headerText: 'Champions',
+
         render: function () {
             this.collection.add({
                 name: 'Новый игрок',

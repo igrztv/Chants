@@ -85,13 +85,13 @@ define(function() {
 					}
 				} else if (foundGoodCorrelation) {
 					var shift = (correlations[best_offset+1] - correlations[best_offset-1])/correlations[best_offset];  
-					return sampleRate/(best_offset+(8*shift));
+					return {pitch: sampleRate/(best_offset+(8*shift)), meanPower: rms};
 				}
 				lastCorrelation = correlation;
 			}
 			if (best_correlation > 0.01) {
 				// console.log('f = ' + sampleRate/best_offset + 'Hz (rms: ' + rms + ' confidence: ' + best_correlation + ')')
-				return sampleRate/best_offset;
+				return {pitch: sampleRate/best_offset, meanPower: rms};
 			}
 			return -1;
 			//	var best_frequency = sampleRate/best_offset;
@@ -101,6 +101,10 @@ define(function() {
 			recording = state;
 			console.log('recording = ' + recording);
 			return recording;
+		};
+
+		function getSample(){
+			return buf;
 		};
 
 		function updatePitch( time ) {
@@ -117,18 +121,20 @@ define(function() {
 				noteStrings: -1,
 				detune: 0
 			};
-			var cycles = [];
-			analyser.getFloatTimeDomainData( buf );
-			var pitch = autoCorrelate( buf, audioContext.sampleRate );
 
-			if (pitch === -1) {
+			analyser.getFloatTimeDomainData( buf );
+			var ac = autoCorrelate( buf, audioContext.sampleRate );
+
+			if (ac === -1) {
 				return -2;
 			}
 
-		 	if (pitch === -1) {
+		 	if (ac === -1) {
 		 		//default drawings
 		 	} else {
-			 	result.pitch = Math.round( pitch ) ;
+		 		var pitch = ac.pitch;
+			 	result.pitch = Math.round( pitch );
+			 	result.meanPower = ac.meanPower;
 				var noteNum = 12 * (Math.log( pitch / 440 )/Math.log(2) );
 				var note = Math.round( noteNum ) + 69;
 				result.noteStrings = noteStrings[note%12];
@@ -153,5 +159,6 @@ define(function() {
 		updatePitch: updatePitch,
 		requireMicrophone: requireMicrophone,
 		record: record,
+		getSample: getSample
 	};
 });

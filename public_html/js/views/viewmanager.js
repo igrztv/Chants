@@ -1,34 +1,37 @@
 define([
-    'backbone',
+	'backbone'
 ], function(
-    Backbone
+	Backbone
 ){
 
-    var ViewManager = Backbone.View.extend({
-        hideViews: function(obj) {
-            this.viewsArr.forEach(function(val, index, arr) {
-                if (obj.cid != val.cid) {
-                    val.hide();
-                }
-            });
-        },
-        
-        render: function(viewName) {
-            this.views[viewName].render();  
-        },
-        
-        initialize: function(views) {
-            this.viewsArr = Object.keys(views).map(function (key) {
-                return views[key];
-            });
-            this.views = views;
-            var that = this;
-            this.viewsArr.forEach(function(val, index, arr) {
-                 that.listenTo(val, 'show', that.hideViews);
-                 that.listenTo(val, 'render', that.render);
-            });
-        }
-    });
+	return Backbone.View.extend({
 
-    return ViewManager;
+		initialize: function(views) {
+			this.pages = views.pages;
+			this.header = views.header;
+
+			_.each(this.pages, function (page) {
+				this.listenTo(page, 'show', this.hidePage);
+				this.listenTo(page, 'render', this.render);
+			}.bind(this));
+		},
+
+		render: function (currentPage) {
+			_.each(this.pages, function (page) {
+				page.render();
+			});
+		},
+
+		hidePage: function(currentPage) {
+			/**
+			 * Закрываем все view, кроме текущей
+			 */
+			_.each(this.pages, function (page) {
+				if (page !== currentPage) {
+					page.hide();
+				}
+			});
+
+		}
+	});
 });

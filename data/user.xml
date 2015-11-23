@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <class type = "main.UserProfile">
+        <login>User</login>
+        <email>admin@mail.ru</email>
+        <password>12345</password>
+        <id>13</id>
+    </class>

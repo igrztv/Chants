@@ -27,6 +27,8 @@ define([
         events: {
             "click .b-main-signup-form__submit-login-button": "submitAuth"
         },
+
+        headerText: 'Sign Up',
      
         submitAuth: function(event) {
             event.preventDefault();
@@ -34,16 +36,14 @@ define([
             $(formClass).validate(validationInfo);
             if ($(formClass).valid()) {               
                 $(errorMessageElement).empty();
-                var newUser = new User(getUserInfo(inputClassPrefix));
+                this.model.set(getUserInfo(inputClassPrefix));
                 var showResponse = new ShowResponse(errorMessageElement);
-                newUser.signUp({
-                    error: function(response) {
-                        showResponse.parseServerResponse(response); 
+                this.model.signUp({
+                    error: function(model, response) {
+                        showResponse.showErrorMessage(response); 
                     },
                     success: function(response) {
-                        if (showResponse.parseServerResponse(response)) {
-                            Backbone.history.navigate('main', true);
-                        }
+                       Backbone.history.navigate('main', true);
                     } 
                 });
             }
@@ -51,6 +51,7 @@ define([
     });
 
     return new AuthView({
-        mainElement: '.b-signup-page'
+        mainElement: '.b-signup-page',
+        model: User
     });
 });
