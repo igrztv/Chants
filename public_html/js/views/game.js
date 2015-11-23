@@ -25,12 +25,6 @@ define([
 	var gameplayBlock = '.b-game-page__gameplay';
 	var toggleButtonClass = '.audio__toggle-recording';
 	var trackCanvas = '.audio__wave-canvas';
-	
-	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-	var channels = 1;
-	var frameCount = 1024;//audioCtx.sampleRate * 2.0;
-	var myArrayBuffer = audioCtx.createBuffer(channels, frameCount, audioCtx.sampleRate);
-	//var source = audioCtx.createBufferSource(); // creates a sound source
 
 	var GameView = BaseView.extend({
 		template: game,
@@ -53,18 +47,7 @@ define([
 
 		sampleUpdate: function () {
 			var buffer = this.get("sample");
-			//console.log(buffer);
-			//console.log(myArrayBuffer.getChannelData(0));
-			var nowBuffering = myArrayBuffer.getChannelData(0);
-			for (var i = 0; i < frameCount; i++) {
-				nowBuffering[i] = buffer[i];
-			}
-			//myArrayBuffer.getChannelData(0).set(buffer);
-			var source = audioCtx.createBufferSource();
-			source.buffer = myArrayBuffer;
-			source.connect(audioCtx.destination);
-			source.start();
-
+			mic.playSample(buffer);
 		},
 
 		update: function() {
@@ -81,8 +64,11 @@ define([
 				}
 			}
 
-			var data = mic.getSample();
-			this.socket.sendSample({status: 'audio', sample: data});
+			if(res < 0){
+			}else{
+				var data = mic.getSample();
+				this.socket.sendSample({status: 'audio', sample: data});
+			}
 
 			phisics.animate(this.trackCanvas);
 

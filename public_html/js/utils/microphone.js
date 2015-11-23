@@ -14,6 +14,11 @@ define(function() {
 		var MIN_SAMPLES = 0;
 		var recording = false;
 
+		//var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		var channels = 1;
+		var frameCount = 1024;//audioContext.sampleRate * 2.0;
+		var myArrayBuffer = audioContext.createBuffer(channels, frameCount, audioContext.sampleRate);
+
 		function requireMicrophone(){
 		    navigator.getUserMedia = 
 		    	navigator.getUserMedia ||
@@ -23,10 +28,10 @@ define(function() {
 				{
 					'audio': {
 						'mandatory': {
-							'googEchoCancellation': 'false',
-							'googAutoGainControl': 'false',
-							'googNoiseSuppression': 'false',
-							'googHighpassFilter': 'false'
+							'googEchoCancellation': 'true',
+							'googAutoGainControl': 'true',
+							'googNoiseSuppression': 'true',
+							'googHighpassFilter': 'true'
 						},
 						'optional': []
 					},
@@ -155,10 +160,25 @@ define(function() {
 			return result;
 		};
 
+		function playSample(buffer) {
+			//console.log(buffer);
+			//console.log(myArrayBuffer.getChannelData(0));
+			var nowBuffering = myArrayBuffer.getChannelData(0);
+			for (var i = 0; i < frameCount; i++) {
+				nowBuffering[i] = buffer[i];
+			}
+			//myArrayBuffer.getChannelData(0).set(buffer);
+			var source = audioContext.createBufferSource();
+			source.buffer = myArrayBuffer;
+			source.connect(audioContext.destination);
+			source.start();
+		};
+
 	return {
 		updatePitch: updatePitch,
 		requireMicrophone: requireMicrophone,
 		record: record,
-		getSample: getSample
+		getSample: getSample,
+		playSample: playSample
 	};
 });

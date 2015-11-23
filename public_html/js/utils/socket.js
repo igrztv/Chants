@@ -12,7 +12,7 @@ define([
 
 		initialize: function(options) {
 			if(!connection){
-				connection = new WebSocket('ws://localhost:8080/api/v1/auth/gameplay');
+				connection = new WebSocket('ws://'+location.hostname+':'+location.port+'/api/v1/auth/gameplay');
 			}
 			connection.addEventListener('open', this.socketOpened);
 			connection.addEventListener('message', this.socketMessage.bind(this));
@@ -26,10 +26,11 @@ define([
 		socketMessage: function (message) {
 			//var content = JSON.parse(message.data);
 			var content = $.parseJSON(message.data);
-			// console.log('socketRecieved:');
-			// console.log(content);
+
+			//проверять принадлежат ли данные данной модели. 
 			for (var key in content) {
 				this.model.set(content);
+				console.log(this.model.attributes);
 			}
 			//console.dir(this.model);
 		},
@@ -38,9 +39,7 @@ define([
 			console.log('socketError');
 		},
 
-		sendSample: function (data) {			
-			// console.log('sendSample:');
-			// console.log(toSend);
+		sendSample: function (data) {
 			connection.send(JSON.stringify(data));
 		},
 

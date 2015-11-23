@@ -3,8 +3,8 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		shell: {
 			options: {
-				stdout: false,
-				stderr: false
+				stdout: true,
+				stderr: true
 			},
 			server: {
 				command: 'java -cp uMove-1.0-jar-with-dependencies.jar main.Main 8081'
