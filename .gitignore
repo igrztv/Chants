@@ -5,3 +5,4 @@ pom.xml
 target
 src
 **/*.*~
+/cfg/server.properties
