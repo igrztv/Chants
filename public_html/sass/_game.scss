@@ -2,24 +2,33 @@ $game_background: rgb(50, 20, 50);
 
 .b-game-page {
 	min-height: 100%;
-	background-color: rgba($game_background, 0.7);
+	//background-color: rgba($game_background, 0.7);
 	&__winner, &__gameplay {
-	    display: none;
+		display: none;
 	}
 	.audio {
-	    background-color: rgba($game_background, 0.2);
-	    &__toggle-recording {
-	        color: #000;
-	        z-index: 1000;
-        }
-        &__herz-indicator {
-            color: #000;
-        }
-        &__wave-canvas {
-	        display: block;
-	        position: absolute;
-	        z-index: 2;
-        }
+		position: absolute;
+		width: 100%;
+		height: 50px;
+		//background-color: rgba($game_background, 0.2);
+		&__toggle-recording {
+			color: #000;
+		}
+		&__herz-indicator {
+			color: #CC0;
+		}
+	}
+	.drawings {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		&__wave-canvas {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 

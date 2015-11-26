@@ -7,10 +7,15 @@
 	    <div class="b-game-page__gameplay">
 	    	<button class="b-game-page__start-button">start</button>
 	    </div>
+
+	    <div class="drawings">
+	    	<canvas class="drawings__wave-canvas" id="track"></canvas>
+	    </div>
+
 	    <div class="audio">
 			<button class="audio__toggle-recording">Start!</button>
 			<span class="audio__herz-indicator">--</span>
-			<canvas class="audio__wave-canvas" id="track"></canvas>			
 		</div>
+
     </div>
 </fest:template>

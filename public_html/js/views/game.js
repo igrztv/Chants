@@ -87,8 +87,6 @@ define([
 			}else{				
 				this.toggleButton.text("Rec");
 				var data = mic.getSample();
-				//console.log(data);
-				//this.socket.sendSample({status: 'audio', sample: data});	
 			}
 		},
 
@@ -104,10 +102,7 @@ define([
 			var that = this;
 			room.getCurrRoom({
 				success: function(success) {
-					//console.log('this.room.getCurrRoom success');
 					BaseView.prototype.show.call(that);
-					//console.log(room.get('id'));
-					//console.log("room_id");
 					that.model.set({room_id: room.get('room_id')});
 					that.model.startGameResWaiting();  
 					mic.requireMicrophone();

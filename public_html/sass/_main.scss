@@ -23,6 +23,9 @@ $form_font_color: #eceff1;
         box-sizing: border-box;
         padding-left: 10px;
         font-size: 35px;
+        &:hover {
+            background-color: white;
+        }
     }
     &__button {
         background-color: $form_background_color;

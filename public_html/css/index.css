@@ -55,6 +55,8 @@ body {
     box-sizing: border-box;
     padding-left: 10px;
     font-size: 35px; }
+    .b-main-form__input:hover {
+      background-color: white; }
   .b-main-form__button {
     background-color: #1565c0;
     color: #eceff1;
@@ -100,23 +102,24 @@ body {
     text-decoration: none; }
 
 .b-game-page {
-  min-height: 100%;
-  background-color: rgba(50, 20, 50, 0.7); }
+  min-height: 100%; }
   .b-game-page__winner, .b-game-page__gameplay {
     display: none; }
   .b-game-page .audio {
-    background-color: rgba(50, 20, 50, 0.2); }
+    position: absolute;
+    width: 100%;
+    height: 50px; }
     .b-game-page .audio__toggle-recording {
-      color: #000;
-      z-index: 1000; }
-    .b-game-page .audio__herz-indicator {
       color: #000; }
-    .b-game-page .audio__wave-canvas {
-      display: block;
+    .b-game-page .audio__herz-indicator {
+      color: #CC0; }
+  .b-game-page .drawings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0; }
+    .b-game-page .drawings__wave-canvas {
       position: absolute;
-      z-index: 2; }
-
-.button {
-  background-color: blue; }
-  .button__icon {
-    color: red; }
+      width: 100%;
+      height: 100%; }
