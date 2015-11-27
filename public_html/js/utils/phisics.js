@@ -12,6 +12,26 @@ define(function() {
 	var minPitch = 180;
 	var maxPitch = 800;
 
+	var images = [];
+	var numImages = 0;
+	var loadedImages = 0;
+	var TO_RADIANS = Math.PI/180;
+
+	function loadImages(sources) {
+		numImages = sources.length;
+		for(var item in sources) {
+			images[item] = new Image();
+			images[item].onload = function() {
+				if(++loadedImages >= numImages) {
+					console.log('all images loaded');
+					console.log(images);
+				}
+			};
+			images[item].src = sources[item].src;
+		}
+		return images;
+	}
+
 	//HELPERS---------------------------------
 	function vectorsLength(v){
 		return Math.sqrt(v.x*v.x + v.y*v.y);
@@ -19,23 +39,23 @@ define(function() {
 
 	function vectorsAngle(v1, v2){
 		return Math.acos((v1.x * v2.x + v1.y * v2.y)/(vectorLength(v1) * vectorLength(v2)));
-	}
+	};
 
 	function orthogonalTo(v){
 		return {x : -v.y, y : v.x};
-	}
+	};
 
 	function random(from, to) {
 		return Math.random() * (to - from) + from;
-	}
+	};
 
 	function maxRange (pitch, power) {
 		return maxRange = power*power / g * Math.sin(2*(pitch - minPitch) / maxPitch * maxAngle/180*3.14);
-	}
+	};
 
 	function getPhisParams(pitch, power) {
 		power = 100 * power;
-		var sx = 100;
+		var sx = 0;
 		var sy = random(window.innerHeight - 100, window.innerHeight);
 		var angle = (pitch - minPitch) / maxPitch * maxAngle;
 		var angRad = angle/180*3.14;
@@ -43,7 +63,7 @@ define(function() {
 		var vy = -power * Math.sin(angRad);
 		var maxRange = power*power / g * Math.sin(2*angRad);
 		return {sx : sx, sy : sy, angDeg : angle, angRad : angRad, vx : vx, vy : vy, maxRange : maxRange};
-	}
+	};
 
 	function createTrack(pitch, power){
 		var params = getPhisParams(pitch, power);
@@ -59,11 +79,11 @@ define(function() {
 		tracks.push({state: timeToLive, path: traectory});
 		//return maximum traectory flying range
 		return traectory[traectory.length - 1].X;
-	}
+	};
 
 	function createBullet (pitch, power) {
 		var params = getPhisParams(pitch, power);
-		//debugger;
+		var rand = Math.round(Math.random() * 3);
 		bubbles.push(new MathModel({
 			Rad : 50,
 			pos : {
@@ -73,9 +93,10 @@ define(function() {
 			Vx : params.vx,
 			Vy : params.vy,
 			Ax : 0,
-			Ay : g
+			Ay : g,
+			image : images[rand]
 		}));
-	}
+	};
 
 	function MathModel(params){
 		this.state = {
@@ -89,6 +110,8 @@ define(function() {
 			cdY : false,
 			stability : 1,
 			state : timeToLive,
+			image: false,
+			angle: 0,
 			Diam : 0,
 			wallX : false,
 			wallY : false,
@@ -102,13 +125,11 @@ define(function() {
 	MathModel.prototype.update = function(forces, delta_time){
 
 		var p = this.state;
-		p.Vx += p.Ax * delta_time;
+		//p.Vx += p.Ax * delta_time;
 		p.pos.X += p.Vx * delta_time;
 
 		p.Vy += p.Ay * delta_time;
-		p.pos.Y += p.Vy * delta_time;
-
-		
+		p.pos.Y += p.Vy * delta_time;		
 	};
 
 	MathModel.prototype.draw = function(canvas){
@@ -130,6 +151,18 @@ define(function() {
 			context.fillStyle = grd;
 			context.fill();
 		}
+	};
+
+	MathModel.prototype.drawImg = function(canvas){
+		var p = this.state;
+		var context = canvas.getContext('2d');
+		var image = p.image;
+
+		context.save();
+		context.translate(p.pos.X, p.pos.Y);
+		context.rotate(p.angle * TO_RADIANS);
+		context.drawImage(image, -(image.width/2), -(image.height/2));
+		context.restore(); 
 	};
 
 	MathModel.prototype.collision = function(collision_with, delta_time){
@@ -244,7 +277,7 @@ define(function() {
 		var currentTime = (new Date).getTime();
 		var dT = currentTime - lastTime;
 		lastTime = currentTime;
-		dT /= 10;
+		dT /= 15;
 
 		// clear
 		context.clearRect(0, 0, canvas.width, canvas.height);
@@ -268,20 +301,21 @@ define(function() {
 		for (var i = bubbles.length - 1; i >= 0; i--) {
 			//debugger;
 			bubbles[i].update(0, dT);
-			bubbles[i].draw(canvas);
+			bubbles[i].state.angle -= 5;
+			bubbles[i].drawImg(canvas);
+			//bubbles[i].draw(canvas);
 			if(--(bubbles[i].state.state) < 0){
 				bubbles.splice(i, 1);
 			}
 		};
 
-
-
-	}
+	};
 
 	return {
 		animate: animate,
-		track: createTrack,
-		bullet: createBullet,
+		createTrack: createTrack,
+		createBullet: createBullet,
+		initialize: loadImages,
 		touch: MathModel.prototype.wallCollision
 	};
 

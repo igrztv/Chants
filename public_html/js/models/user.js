@@ -61,6 +61,7 @@ function(
 
 			switch (method) {
 			    case 'create': {
+			    	//можно
 			       $.ajax({
 			           type: 'POST',
 			           url: options.url || this.url,

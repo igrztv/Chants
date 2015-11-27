@@ -9,14 +9,16 @@ define(function() {
 		var rafID = null;
 		var tracks = null;
 		var buflen = 1024;
+		var sampleLen = 1024; //buflen;
 		var buf = new Float32Array( buflen );
+		var sample = new Float32Array( sampleLen );
 		var noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 		var MIN_SAMPLES = 0;
 		var recording = false;
 
-		//var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		//playback
 		var channels = 1;
-		var frameCount = 1024;//audioContext.sampleRate * 2.0;
+		var frameCount = sampleLen;
 		var myArrayBuffer = audioContext.createBuffer(channels, frameCount, audioContext.sampleRate);
 
 		function requireMicrophone(){
@@ -28,10 +30,10 @@ define(function() {
 				{
 					'audio': {
 						'mandatory': {
-							'googEchoCancellation': 'true',
-							'googAutoGainControl': 'true',
-							'googNoiseSuppression': 'true',
-							'googHighpassFilter': 'true'
+							'googEchoCancellation': 'false',
+							'googAutoGainControl': 'false',
+							'googNoiseSuppression': 'false',
+							'googHighpassFilter': 'false'
 						},
 						'optional': []
 					},
@@ -109,7 +111,7 @@ define(function() {
 		};
 
 		function getSample(){
-			return buf;
+			return sample;
 		};
 
 		function updatePitch( time ) {
@@ -127,7 +129,9 @@ define(function() {
 				detune: 0
 			};
 
-			analyser.getFloatTimeDomainData( buf );
+			analyser.getFloatTimeDomainData( sample ); buf = sample.slice(0, 1024);
+			//analyser.getFloatTimeDomainData( buf ); sample = buf;
+
 			var ac = autoCorrelate( buf, audioContext.sampleRate );
 
 			if (ac === -1) {

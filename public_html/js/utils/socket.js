@@ -30,7 +30,7 @@ define([
 			//проверять принадлежат ли данные данной модели. 
 			for (var key in content) {
 				this.model.set(content);
-				console.log(this.model.attributes);
+				//console.log(this.model.attributes);
 			}
 			//console.dir(this.model);
 		},
@@ -48,3 +48,9 @@ define([
 
 	return wsWatcher;
 });
+
+//function
+//send 
+//on
+
+//транспо

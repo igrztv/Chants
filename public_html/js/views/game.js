@@ -20,21 +20,30 @@ define([
 
 	var timer;
 
-	var winnerNameEl = '.b-game-page__winner__winner-name';
+	var winnerNameEl = '.b-game-page__winner_winner-name';
 	var winnerBlock = '.b-game-page__winner';
 	var gameplayBlock = '.b-game-page__gameplay';
 	var toggleButtonClass = '.audio__toggle-recording';
 	var trackCanvas = '.audio__wave-canvas';
 
+	var sources = [
+		{name: 'boot', src: 'img/boot.png'},
+		{name: 'ball', src: 'img/ball.png'},
+		{name: 'cup', src: 'img/cup.png'},
+		{name: 'horn', src: 'img/horn.png'}
+	];
+
 	var GameView = BaseView.extend({
 		template: game,
 		recording : false,
+		playback : true,
 		toggleButton : false,
 		herzIndicator : false,
 		socket: false,
 
 		events: {
-			"click .audio__toggle-recording": "toggleRecording",
+			'click .audio__toggle-recording': 'toggleRecording',
+			'click .audio__toggle-playback': 'togglePlayback',
 			'click .b-game-page__start-button': 'pushButton'
 		},
 
@@ -42,12 +51,14 @@ define([
 			BaseView.prototype.initialize.call(this, options);
 			this.model.on('gamefinished', this.showWinner);
 			this.model.on('gamesuspended', this.leaveGame);
-			this.model.on('change:sample', this.sampleUpdate);
+			this.model.on('change:sample', this.sampleUpdate.bind(this));
 		},
 
 		sampleUpdate: function () {
-			var buffer = this.get("sample");
-			mic.playSample(buffer);
+			if(this.playback === true){
+				var buffer = this.model.get("sample");
+				mic.playSample(buffer);
+			}
 		},
 
 		update: function() {
@@ -58,9 +69,9 @@ define([
 			var res = mic.updatePitch();
 			if(res.noteStrings){
 				this.herzIndicator.text(res.noteStrings);
-				var maxLength = phisics.track(res.pitch, res.meanPower);
+				var maxLength = phisics.createTrack(res.pitch, res.meanPower);
 				if(maxLength > window.innerWidth / 2){
-					phisics.bullet(res.pitch, res.meanPower);
+					phisics.createBullet(res.pitch, res.meanPower);
 				}
 			}
 
@@ -90,8 +101,12 @@ define([
 			}
 		},
 
+		togglePlayback: function () {
+			this.playback = !this.playback;
+		},
+
 		setTimer: function() {
-			setTimeout(this.update.bind(this), 1000 / 60);		  
+			setTimeout(this.update.bind(this), 1000 / 43);		  
 		},
 
 		show: function() {
@@ -109,6 +124,7 @@ define([
 					that.socket = new Socket({
 						model: that.model
 					});
+					phisics.initialize(sources);
 				},
 				error: function(error) {
 					Backbone.history.navigate('main', true);

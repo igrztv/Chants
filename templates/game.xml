@@ -2,11 +2,11 @@
 	<div class="b-game-page b-default-hidden-page">
 
 	    <div class="b-game-page__winner">
-	        <span>Winner: </span><span class="b-game-page__winner__winner-name"></span>
+	        <span>Winner: </span><span class="b-game-page__winner_winner-name"></span>
 	    </div>
-	    <div class="b-game-page__gameplay">
+	    <!--<div class="b-game-page__gameplay">
 	    	<button class="b-game-page__start-button">start</button>
-	    </div>
+	    </div>-->
 
 	    <div class="drawings">
 	    	<canvas class="drawings__wave-canvas" id="track"></canvas>
@@ -14,7 +14,10 @@
 
 	    <div class="audio">
 			<button class="audio__toggle-recording">Start!</button>
-			<span class="audio__herz-indicator">--</span>
+			<div class="audio__herz-indicator">--</div>
+			<div class="audio__toggle-playback">
+				<input type="checkbox" class="audio__toggle-playback-checkbox" checked="true" />Playback rival
+			</div>
 		</div>
 
     </div>
