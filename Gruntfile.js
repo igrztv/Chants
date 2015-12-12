@@ -1,6 +1,35 @@
 module.exports = function (grunt) {
 
 	grunt.initConfig({
+		requirejs: { /* grunt-contrib-requirejs */
+			build: { /* Подзадача */
+				options: {
+					almond: true,
+					baseUrl: 'public_html/js',
+					mainConfigFile: 'public_html/js/main.js',
+					name: 'main',
+					optimize: 'none',
+					out: 'public_html/js/build/main.js'
+				}
+			}
+		},
+		concat: { /* grunt-contrib-concat */
+			build: { /* Подзадача */
+				separator: ';\n',
+				src: [
+					'public_html/js/lib/almond.js',
+					'public_html/js/build/main.js'
+				],
+				dest: 'public_html/js/build.js'
+			}
+		},
+		uglify: { /* grunt-contrib-uglify */
+			build: { /* Подзадача */
+				files: {
+					'public_html/js/build.min.js': ['public_html/js/build.js']
+				}
+			}
+		},
 		shell: {
 			options: {
 				stdout: true,
@@ -29,14 +58,20 @@ module.exports = function (grunt) {
 			}
 		},
 		sass: {
+			//style: 'compressed',
 			css: { /* Цель */
+				// options: {
+				// 	style: "compressed"
+				// },
+				//style: 'compressed',
 				files: [{
 					expand: true,
 					cwd: 'public_html/sass', /* исходная директория */
 					src: '*.scss', /* имена шаблонов */
 					dest: 'public_html/css', /* результирующая директория */
 					ext: '.css'
-				}]
+				}],
+				outputStyle: 'compressed'
 			}
 		},
 		watch: {///следим за изменением файлов и выполняем конкретный таск
@@ -78,8 +113,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-fest');
 	grunt.loadNpmTasks('grunt-sass');
+	//grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	grunt.registerTask('default', ['concurrent']);
-	grunt.registerTask('prodution', ['shell']);
+	grunt.registerTask('build', ['fest', 'requirejs:build', 'concat:build', 'uglify:build']);
+	grunt.registerTask('prod', ['shell']);
 
 };
