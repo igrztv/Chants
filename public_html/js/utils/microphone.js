@@ -15,6 +15,7 @@ define(function() {
 		var noteStrings = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 		var MIN_SAMPLES = 0;
 		var recording = false;
+		var playing = false;
 
 		//playback
 		var channels = 1;
@@ -165,17 +166,21 @@ define(function() {
 		};
 
 		function playSample(buffer) {
-			//console.log(buffer);
-			//console.log(myArrayBuffer.getChannelData(0));
+			if(playing == true){
+				return false;
+			}
 			var nowBuffering = myArrayBuffer.getChannelData(0);
 			for (var i = 0; i < frameCount; i++) {
 				nowBuffering[i] = buffer[i];
 			}
-			//myArrayBuffer.getChannelData(0).set(buffer);
 			var source = audioContext.createBufferSource();
 			source.buffer = myArrayBuffer;
 			source.connect(audioContext.destination);
 			source.start();
+			source.onended = function () {
+				playing = false;
+			}
+			//debugger;
 		};
 
 	return {
