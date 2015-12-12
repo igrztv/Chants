@@ -48,6 +48,41 @@ body {
 		display: none;
 		margin: 10px;
 	}
+	
+	.b-preloader {
+	    position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #0555b0;
+	    z-index: 1000;  
+    }
+
+    @-moz-keyframes spin {
+        from { -moz-transform: rotate(0deg); }
+        to { -moz-transform: rotate(360deg); } 
+    } 
+    
+    @-webkit-keyframes spin {
+        from { -webkit-transform: rotate(0deg); }
+        to { -webkit-transform: rotate(360deg); } 
+    } 
+    
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); } 
+    } 
+          
+    .b-preloader_image {
+        position: absolute;
+        left: calc(50% - 50px);
+        top: calc(50% - 100px);
+        -webkit-animation: 0.4s spin infinite linear;
+        -ms-animation: 0.4s spin infinite linear;
+        animation: 0.4s spin infinite linear;
+        z-index: 1010;
+    }
 
 }
 
