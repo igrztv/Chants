@@ -6712,7 +6712,7 @@ define('router',['require','backbone','views/game','views/login','views/main','v
         authView = require('views/auth'),
         selectroomView = require('views/selectroom'),
         headerView = require('views/header'),
-        ViewManager =require('views/viewmanager');
+        ViewManager = require('views/viewmanager');
 
     var Router = Backbone.Router.extend({
 
