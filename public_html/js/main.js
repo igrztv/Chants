@@ -21,7 +21,7 @@ require.config({
 define([
     'backbone',
     'router'
-], function(
+], function( 
     Backbone,
     router
 ){

@@ -70,17 +70,15 @@ module.exports = function (grunt) {
 		},
 		sass: {
 			build: {
-				
-				files: [{
-					style: 'compressed',
+				style: 'compressed',
+				files: [{					
 					expand: true,
 					cwd: 'public_html/css', /* исходная директория */
 					src: '*.css', /* имена шаблонов */
 					dest: 'public_html/css', /* результирующая директория */
 					ext: '.min.css',
 					outputStyle: 'compressed'
-				}]
-				
+				}]				
 			},
 			css: { /* Цель */
 				files: [{
@@ -89,8 +87,7 @@ module.exports = function (grunt) {
 					src: '*.scss', /* имена шаблонов */
 					dest: 'public_html/css', /* результирующая директория */
 					ext: '.css'
-				}],
-				outputStyle: 'compressed'
+				}]
 			}
 		},
 		watch: {///следим за изменением файлов и выполняем конкретный таск
@@ -131,15 +128,15 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-fest');
-	grunt.loadNpmTasks('grunt-sass');
-	//grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	//grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	//grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	grunt.registerTask('default', ['concurrent']);
-	grunt.registerTask('build', ['fest', 'requirejs:build', 'concat:build', 'uglify:build', 'cssmin:build']);
+	grunt.registerTask('build', ['fest', 'requirejs:build', 'concat:build', 'uglify:build', 'sass:build']);
 	grunt.registerTask('prod', ['shell']);
 
 };

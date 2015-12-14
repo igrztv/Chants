@@ -6330,7 +6330,7 @@ require.config({
 define('main',[
     'backbone',
     'router'
-], function(
+], function( 
     Backbone,
     router
 ){
