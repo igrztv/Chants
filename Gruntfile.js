@@ -70,14 +70,15 @@ module.exports = function (grunt) {
 		},
 		sass: {
 			build: {
-				style: 'compressed',
+				options: {                       // Target options
+					style: 'compressed'
+				},
 				files: [{					
 					expand: true,
 					cwd: 'public_html/css', /* исходная директория */
 					src: '*.css', /* имена шаблонов */
 					dest: 'public_html/css', /* результирующая директория */
-					ext: '.min.css',
-					outputStyle: 'compressed'
+					ext: '.min.css'
 				}]				
 			},
 			css: { /* Цель */
