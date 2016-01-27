@@ -18,6 +18,7 @@
 			<div class="audio__toggle-playback">
 				<input type="checkbox" class="audio__toggle-playback-checkbox" checked="true" />Playback rival
 			</div>
+			<button class="audio__random-sound">random</button>
 		</div>
 
     </div>

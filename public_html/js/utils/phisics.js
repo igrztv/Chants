@@ -53,11 +53,15 @@ define(function() {
 		return maxRange = power*power / g * Math.sin(2*(pitch - minPitch) / maxPitch * maxAngle/180*3.14);
 	};
 
-	function getPhisParams(pitch, power) {
+	function getPhisParams(pitch, power, rival) {
 		power = 100 * power;
 		var sx = 0;
 		var sy = random(window.innerHeight - 100, window.innerHeight);
 		var angle = (pitch - minPitch) / maxPitch * maxAngle;
+		if(rival === true){
+			sx = window.innerWidth;
+			angle = 180 - angle;
+		}
 		var angRad = angle/180*3.14;
 		var vx = power * Math.cos(angRad);
 		var vy = -power * Math.sin(angRad);
@@ -65,8 +69,8 @@ define(function() {
 		return {sx : sx, sy : sy, angDeg : angle, angRad : angRad, vx : vx, vy : vy, maxRange : maxRange};
 	};
 
-	function createTrack(pitch, power){
-		var params = getPhisParams(pitch, power);
+	function createTrack(pitch, power, rival){
+		var params = getPhisParams(pitch, power, rival);
 		var traectory = [];
 		for (var x = params.sx; x <= window.innerWidth; x += 50) {
 			var t = (x - params.sx) / params.vx;
@@ -81,8 +85,8 @@ define(function() {
 		return traectory[traectory.length - 1].X;
 	};
 
-	function createBullet (pitch, power) {
-		var params = getPhisParams(pitch, power);
+	function createBullet (pitch, power, rival) {
+		var params = getPhisParams(pitch, power, rival);
 		var rand = Math.round(Math.random() * 3);
 		bubbles.push(new MathModel({
 			Rad : 50,
@@ -96,7 +100,12 @@ define(function() {
 			Ay : g,
 			image : images[rand]
 		}));
-	};
+		return bubbles[bubbles.length - 1];
+	};	
+
+	function getBubbles () {
+		return bubbles;
+	}
 
 	function MathModel(params){
 		this.state = {
@@ -316,7 +325,8 @@ define(function() {
 		createTrack: createTrack,
 		createBullet: createBullet,
 		initialize: loadImages,
-		touch: MathModel.prototype.wallCollision
+		touch: MathModel.prototype.wallCollision,
+		getBubbles: getBubbles
 	};
 
 });

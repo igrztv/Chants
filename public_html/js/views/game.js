@@ -44,6 +44,7 @@ define([
 		events: {
 			'click .audio__toggle-recording': 'toggleRecording',
 			'click .audio__toggle-playback': 'togglePlayback',
+            'click .audio__random-sound': 'generateSound',
 			'click .b-game-page__start-button': 'pushButton'
 		},
 
@@ -55,9 +56,13 @@ define([
 		},
 
 		sampleUpdate: function () {
+			// if(this.playback === true){
+			// 	var buffer = this.model.get("sample");
+			// 	mic.playSample(buffer);
+			// }
 			if(this.playback === true){
 				var buffer = this.model.get("sample");
-				mic.playSample(buffer);
+				phisics.createBullet(buffer.pitch, buffer.power, true);
 			}
 		},
 
@@ -72,14 +77,17 @@ define([
 				var maxLength = phisics.createTrack(res.pitch, res.meanPower);
 				if(maxLength > window.innerWidth / 2){
 					phisics.createBullet(res.pitch, res.meanPower);
+					var data = {pitch: res.pitch, power: res.meanPower};
+					this.socket.sendSample({status: 'audio', sample: data});
 				}
 			}
 
-			if(res < 0){
-			}else{
-				var data = mic.getSample();
-				this.socket.sendSample({status: 'audio', sample: data});
-			}
+			// if(res < 0){
+			// }else{
+			// 	var data = mic.getSample();
+			// 	//var data = phisics.getBubbles();
+			// 	this.socket.sendSample({status: 'audio', sample: data});
+			// }
 
 			phisics.animate(this.trackCanvas);
 
@@ -98,6 +106,17 @@ define([
 			}else{				
 				this.toggleButton.text("Rec");
 				var data = mic.getSample();
+			}
+		},
+
+        generateSound: function () {
+			var pitch = Math.random() * (800 - 180) + 180;
+			var power = Math.random() * 0.5;
+			var maxLength = phisics.createTrack(pitch, power);
+			if(maxLength > window.innerWidth / 2){
+				phisics.createBullet(pitch, power);
+				var data = {pitch: pitch, power: power};
+				this.socket.sendSample({status: 'audio', sample: data});
 			}
 		},
 

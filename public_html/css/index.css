@@ -171,6 +171,15 @@ body {
       float: left;
       line-height: 1.5;
       font-size: 35px; }
+    .b-game-page .audio__random-sound {
+      border: 0px solid;
+      height: 100%;
+      width: 100px;
+      background-color: #1565c0;
+      line-height: 0.9;
+      font-size: 35px;
+      color: #eceff1;
+      float: left; }
   .b-game-page .drawings {
     position: absolute;
     width: 100%;

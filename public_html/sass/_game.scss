@@ -46,6 +46,16 @@ $form_font_color: #eceff1;
 			line-height: 1.5;
 			font-size: 35px;
 		}
+		&__random-sound {
+			border: 0px solid;
+			height: 100%;
+			width: 100px;
+			background-color: $form_background_color;
+			line-height: 0.9;
+			font-size: 35px;
+			color: $form_font_color;
+			float: left;
+		}
 	}
 	.drawings {
 		position: absolute;
